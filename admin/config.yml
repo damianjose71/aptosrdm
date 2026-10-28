@@ -1,0 +1,63 @@
+# ============================================================
+# Decap CMS · Apartamentos Reserva del Mar
+# ------------------------------------------------------------
+# Backend de GitHub para leer y guardar data/apartamentos.json.
+#
+# Si solo quieres validar la interfaz sin autenticación, cambia
+# temporalmente backend.name a "test-repo". Ten en cuenta que
+# test-repo no lee ni guarda el JSON real.
+# ============================================================
+
+backend:
+  name: github
+  repo: damianjose71/apartamentosrdm
+  branch: main
+  base_url: https://api.netlify.com
+  auth_endpoint: auth
+
+media_folder: "assets/images/uploads"
+public_folder: "/assets/images/uploads"
+
+collections:
+  - name: "apartamentos"
+    label: "Apartamentos"
+    files:
+      - file: "data/apartamentos.json"
+        label: "Lista de Apartamentos"
+        name: "apartamentos_list"
+        format: "json"
+        fields:
+          # --------------------------------------------------
+          # Edificios
+          # --------------------------------------------------
+          - name: "edificios"
+            label: "Edificios"
+            widget: "list"
+            summary: "{{fields.nombre}} · {{fields.ubicacion}}"
+            fields:
+              - { label: "ID", name: "id", widget: "string" }
+              - { label: "Nombre", name: "nombre", widget: "string" }
+              - { label: "Ubicación", name: "ubicacion", widget: "string" }
+              - label: "Amenidades"
+                name: "amenidades"
+                widget: "list"
+                field: { label: "Amenidad", name: "amenidad", widget: "string" }
+
+          # --------------------------------------------------
+          # Apartamentos
+          # --------------------------------------------------
+          - name: "apartamentos"
+            label: "Apartamentos"
+            widget: "list"
+            summary: "{{fields.titulo}} · {{fields.edificio}}"
+            fields:
+              - { label: "ID", name: "id", widget: "string" }
+              - { label: "Título del Apartamento", name: "titulo", widget: "string" }
+              # Opciones alineadas con los valores actuales del JSON.
+              - { label: "Edificio / Ubicación", name: "edificio", widget: "select", options: ["Reserva del Mar", "Reserva del Mar II", "Reserva del Mar Bello Horizonte"] }
+              - { label: "Ubicación", name: "ubicacion", widget: "string" }
+              - { label: "Rango de Huéspedes", name: "rango_huespedes", widget: "string" }
+              - { label: "Capacidad Visible", name: "capacidad_texto", widget: "string" }
+              - { label: "Imagen Principal", name: "imagen_principal", widget: "image" }
+              - { label: "Descripción Breve", name: "descripcion", widget: "text" }
+              - { label: "Disponible", name: "disponible", widget: "boolean", default: true }
