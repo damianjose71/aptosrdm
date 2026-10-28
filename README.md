@@ -14,6 +14,10 @@ La base incluye el header flotante y transparente con navegación de escritorio,
 ├── /assets
 │   ├── /css
 │   │   └── styles.css
+│   ├── /fonts
+│   │   ├── roboto-condensed-latin.woff2
+│   │   ├── LICENSE.txt
+│   │   └── README.md
 │   ├── /js
 │   │   ├── main.js
 │   │   └── filter.js
@@ -48,7 +52,7 @@ El esquema editable está definido en `admin/config.yml`. Las imágenes subidas 
 
 ## Desarrollo local
 
-El sitio no requiere compilación. Tailwind CSS se carga mediante su CDN para prototipado; para producción se recomienda generar una hoja de estilos compilada. Para evitar restricciones de `file://`, sirve la carpeta con un servidor local:
+El sitio no requiere compilación. Tailwind CSS se carga mediante su CDN para prototipado; para producción se recomienda generar una hoja de estilos compilada. La tipografía corporativa (Roboto Condensed) se sirve localmente desde `assets/fonts` para no depender de una CDN externa. Para evitar restricciones de `file://`, sirve la carpeta con un servidor local:
 
 ```bash
 python3 -m http.server 8080
