@@ -22,6 +22,10 @@ La base incluye el header flotante y transparente con navegación de escritorio,
 │   │   ├── main.js
 │   │   └── filter.js
 │   └── /images
+│       ├── /amenidades
+│       │   ├── /playa-salguero
+│       │   ├── /rodadero-sur
+│       │   └── /bello-horizonte
 │       ├── /uploads
 │       └── logo-placeholder.svg
 ├── /data
@@ -37,9 +41,11 @@ La base incluye el header flotante y transparente con navegación de escritorio,
 
 - `index.html`: landing page.
 - `apartamentos.html`: catálogo completo.
-- `amenidades.html`: amenidades segmentadas por edificio.
+- `amenidades.html`: amenidades segmentadas por edificio, con navegación por anclas y tarjetas estáticas. Las imágenes se organizan en `assets/images/amenidades/{edificio}/`.
 - `contactanos.html`: canales de contacto.
 - `admin/index.html`: acceso al panel de Decap CMS.
+
+Los llamados a la acción de amenidades enlazan a `apartamentos.html?edificio=playa-salguero`, `?edificio=rodadero-sur` o `?edificio=bello-horizonte`; el catálogo aplica ese filtro automáticamente al cargar.
 
 ## Modelo de contenido
 
@@ -81,7 +87,6 @@ Decap CMS confirma los cambios en el repositorio de GitHub, no directamente en H
 
 ## Pendientes de implementación
 
-- Integración visual de las amenidades por edificio.
 - Formulario o flujo de contacto.
 - Optimización de imágenes y metadatos SEO.
 - Compilación de Tailwind CSS para producción.

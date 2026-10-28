@@ -38,6 +38,18 @@
   const normalizeText = (value = "") =>
     String(value).trim().toLocaleLowerCase("es");
 
+  const locationAliases = {
+    "playa-salguero": "Playa Salguero",
+    "rodadero-sur": "Rodadero Sur",
+    "bello-horizonte": "Bello Horizonte",
+    "reserva-del-mar": "Playa Salguero",
+    "reserva-del-mar-ii": "Rodadero Sur",
+    "reserva-del-mar-bello-horizonte": "Bello Horizonte",
+    "reserva del mar": "Playa Salguero",
+    "reserva del mar ii": "Rodadero Sur",
+    "reserva del mar bello horizonte": "Bello Horizonte",
+  };
+
   const getRangeStart = (value) => {
     const match = String(value).match(/\d+/);
     return match ? Number(match[0]) : Number.POSITIVE_INFINITY;
@@ -224,6 +236,27 @@
     ].join("");
   };
 
+  const applyUrlFilters = () => {
+    const params = new URLSearchParams(window.location.search);
+    const requested = params.get("edificio") || params.get("ubicacion");
+
+    if (!requested) {
+      return;
+    }
+
+    const normalized = normalizeText(requested);
+    const location = locationAliases[normalized] || requested;
+    const matchingOption = [...locationFilter.options].find(
+      (option) =>
+        normalizeText(option.value) === normalizeText(location) ||
+        normalizeText(option.textContent) === normalizeText(location)
+    );
+
+    if (matchingOption) {
+      locationFilter.value = matchingOption.value;
+    }
+  };
+
   const applyFilters = () => {
     const selectedLocation = normalizeText(locationFilter.value);
     const selectedRange = rangeFilter.value;
@@ -274,6 +307,7 @@
       buildings = Array.isArray(data.edificios) ? data.edificios : [];
 
       populateFilter();
+      applyUrlFilters();
       applyFilters();
     } catch (error) {
       console.error(error);
