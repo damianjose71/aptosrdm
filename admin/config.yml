@@ -57,7 +57,19 @@ collections:
               - { label: "Edificio / Ubicación", name: "edificio", widget: "select", options: ["Reserva del Mar", "Reserva del Mar II", "Reserva del Mar Bello Horizonte"] }
               - { label: "Ubicación", name: "ubicacion", widget: "string" }
               - { label: "Rango de Huéspedes", name: "rango_huespedes", widget: "string" }
+              - { label: "Número de Huéspedes", name: "huespedes", widget: "number", value_type: "int", min: 1 }
+              - { label: "Habitaciones", name: "habitaciones", widget: "number", value_type: "int", min: 0 }
+              - { label: "Baños", name: "banos", widget: "number", value_type: "int", min: 0 }
               - { label: "Capacidad Visible", name: "capacidad_texto", widget: "string" }
               - { label: "Imagen Principal", name: "imagen_principal", widget: "image" }
-              - { label: "Descripción Breve", name: "descripcion", widget: "text" }
+              - label: "Galería"
+                name: "galeria"
+                widget: "list"
+                required: false
+                field: { label: "Imagen", name: "imagen", widget: "image" }
+              - { label: "Descripción Detallada", name: "descripcion", widget: "text" }
+              - label: "Características y servicios"
+                name: "caracteristicas"
+                widget: "list"
+                field: { label: "Característica", name: "caracteristica", widget: "string" }
               - { label: "Disponible", name: "disponible", widget: "boolean", default: true }

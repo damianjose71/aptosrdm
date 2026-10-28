@@ -2,7 +2,7 @@
 
 Base de un sitio web estático para el catálogo de apartamentos turísticos de **Apartamentos Reserva del Mar**, en Santa Marta, Colombia. El proyecto contempla tres edificios independientes con amenidades diferenciadas y está preparado para gestionar contenido con Decap CMS.
 
-La base incluye el header flotante y transparente con navegación de escritorio, menú móvil accesible y llamada a la acción hacia WhatsApp. El catálogo de apartamentos se renderiza dinámicamente desde `data/apartamentos.json` e incluye un filtro por rango de huéspedes.
+La base incluye el header flotante y transparente con navegación de escritorio, menú móvil accesible y llamada a la acción hacia WhatsApp. El catálogo de apartamentos se renderiza dinámicamente desde `data/apartamentos.json` e incluye una barra de búsqueda con filtros combinados por ubicación y rango de huéspedes. Las tarjetas muestran métricas resumidas y abren un modal tipo marketplace con galería, descripción completa, servicios y cotización por WhatsApp.
 
 ## Estructura
 
@@ -42,7 +42,7 @@ La base incluye el header flotante y transparente con navegación de escritorio,
 `data/apartamentos.json` contiene dos bloques:
 
 - `edificios`: ID, nombre, ubicación y listado de amenidades.
-- `apartamentos`: ID, título, edificio, ubicación, rango de huéspedes, capacidad visible, imagen principal, descripción breve y disponibilidad.
+- `apartamentos`: ID, título, edificio, ubicación, rango de huéspedes, número de huéspedes, habitaciones, baños, capacidad visible, imagen principal, galería, descripción detallada, características y disponibilidad.
 
 El esquema editable está definido en `admin/config.yml`. Las imágenes subidas desde el CMS se almacenan en `assets/images/uploads`.
 
@@ -77,7 +77,6 @@ Decap CMS confirma los cambios en el repositorio de GitHub, no directamente en H
 
 ## Pendientes de implementación
 
-- Filtros adicionales por edificio o ubicación.
 - Integración visual de las amenidades por edificio.
 - Formulario o flujo de contacto.
 - Optimización de imágenes y metadatos SEO.

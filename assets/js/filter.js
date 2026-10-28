@@ -1,24 +1,26 @@
 /**
  * filter.js
- * Catálogo de apartamentos y filtrado por rango de huéspedes.
+ * Catálogo de apartamentos: filtros combinados y tarjetas resumidas.
  */
 
 (() => {
   "use strict";
 
   const CATALOG_URL = "data/apartamentos.json";
-  const WHATSAPP_NUMBER = "573218839636";
 
   const catalog = document.getElementById("catalogo-apartamentos");
-  const filter = document.getElementById("filtro-huespedes");
+  const filterForm = document.getElementById("filtro-catalogo");
+  const locationFilter = document.getElementById("filtro-ubicacion");
+  const rangeFilter = document.getElementById("filtro-huespedes");
   const count = document.getElementById("catalogo-conteo");
   const emptyState = document.getElementById("catalogo-vacio");
 
-  if (!catalog || !filter) {
+  if (!catalog || !filterForm || !locationFilter || !rangeFilter) {
     return;
   }
 
   let apartments = [];
+  let buildings = [];
 
   const escapeHtml = (value = "") =>
     String(value).replace(
@@ -33,10 +35,37 @@
         })[character]
     );
 
+  const normalizeText = (value = "") =>
+    String(value).trim().toLocaleLowerCase("es");
+
   const getRangeStart = (value) => {
     const match = String(value).match(/\d+/);
     return match ? Number(match[0]) : Number.POSITIVE_INFINITY;
   };
+
+  const getNumber = (value) => {
+    if (value === null || value === undefined || String(value).trim() === "") {
+      return null;
+    }
+
+    const number = Number(value);
+    return Number.isFinite(number) ? number : null;
+  };
+
+  const getGuestCount = (apartment) => {
+    const guests = getNumber(apartment.huespedes);
+    if (guests !== null && guests > 0) {
+      return guests;
+    }
+
+    const matches = String(
+      apartment.rango_huespedes || apartment.capacidad_texto || ""
+    ).match(/\d+/g);
+
+    return matches ? Math.max(...matches.map(Number)) : null;
+  };
+
+  const metricValue = (value) => (value === null ? "—" : String(value));
 
   const getBadge = (apartment) => {
     if (apartment.zona) {
@@ -45,14 +74,6 @@
 
     const location = apartment.ubicacion || "";
     return location.split(",")[0].trim() || apartment.edificio || "Reserva del Mar";
-  };
-
-  const getWhatsAppUrl = (apartment) => {
-    const title = apartment.titulo || "el apartamento";
-    const building = apartment.edificio || "Reserva del Mar";
-    const location = apartment.ubicacion || "Santa Marta";
-    const message = `Hola, me interesa ${title} en ${building} (${location}). ¿Podrían enviarme información y cotización?`;
-    return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
   };
 
   const updateCount = (total) => {
@@ -66,20 +87,54 @@
         : `${total} apartamentos disponibles`;
   };
 
+  const iconGuests = `
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 text-[#C5A059]" aria-hidden="true">
+      <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+      <circle cx="9" cy="7" r="4" />
+      <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+      <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+    </svg>
+  `;
+
+  const iconRooms = `
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 text-[#C5A059]" aria-hidden="true">
+      <path d="M2 4v16" />
+      <path d="M2 8h18a2 2 0 0 1 2 2v10" />
+      <path d="M2 17h20" />
+      <path d="M6 8v9" />
+    </svg>
+  `;
+
+  const iconBaths = `
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 text-[#C5A059]" aria-hidden="true">
+      <path d="M10 4 8 6" />
+      <path d="M17 19v2" />
+      <path d="M2 12h20" />
+      <path d="M7 19v2" />
+      <path d="M9 5 7.62 3.62A2.12 2.12 0 0 0 4 6v6" />
+      <path d="M4 12v3a5 5 0 0 0 5 5h6a5 5 0 0 0 5-5v-3" />
+    </svg>
+  `;
+
+  const metricBox = (value, label, icon) => `
+    <div class="flex flex-col items-center justify-center gap-1 rounded-xl bg-slate-50 px-2 py-3 text-center ring-1 ring-slate-900/5">
+      ${icon}
+      <span class="text-sm font-bold text-[#0F172A]">${metricValue(value)}</span>
+      <span class="text-[9px] font-semibold uppercase tracking-[0.04em] text-slate-500 sm:text-[10px]">${label}</span>
+    </div>
+  `;
+
   const cardTemplate = (apartment) => {
+    const id = escapeHtml(apartment.id || "");
     const title = escapeHtml(apartment.titulo || "Apartamento");
     const building = escapeHtml(apartment.edificio || "Reserva del Mar");
-    const range = escapeHtml(
-      apartment.rango_huespedes ||
-        apartment.capacidad_texto ||
-        "Capacidad por confirmar"
-    );
-    const description = escapeHtml(apartment.descripcion || "");
     const image = escapeHtml(
       apartment.imagen_principal || "assets/images/logo-placeholder.svg"
     );
     const badge = escapeHtml(getBadge(apartment));
-    const whatsappUrl = escapeHtml(getWhatsAppUrl(apartment));
+    const guests = getGuestCount(apartment);
+    const rooms = getNumber(apartment.habitaciones);
+    const baths = getNumber(apartment.banos);
 
     return `
       <article class="group flex h-full flex-col overflow-hidden rounded-3xl bg-white shadow-[0_18px_45px_-22px_rgba(15,23,42,0.35)] ring-1 ring-slate-900/5 transition duration-300 hover:-translate-y-1.5 hover:shadow-[0_28px_60px_-22px_rgba(15,23,42,0.45)]">
@@ -103,29 +158,27 @@
 
         <div class="flex flex-1 flex-col p-6">
           <h3 class="min-h-[3.5rem] text-xl font-bold leading-snug text-[#0F172A]">${title}</h3>
-          <p class="mt-2 flex items-center gap-1.5 text-sm font-semibold text-[#C5A059]">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 shrink-0" aria-hidden="true">
-              <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-              <circle cx="9" cy="7" r="4" />
-              <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
-              <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-            </svg>
-            ${range}
-          </p>
-          <p class="mt-3 text-sm leading-relaxed text-slate-600">${description}</p>
+          <p class="mt-1 truncate text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-400">${building}</p>
+
+          <div class="mt-4 grid grid-cols-3 gap-2">
+            ${metricBox(guests, "Huéspedes", iconGuests)}
+            ${metricBox(rooms, "Habitaciones", iconRooms)}
+            ${metricBox(baths, "Baños", iconBaths)}
+          </div>
+
           <div class="mt-auto pt-6">
-            <a
-              href="${whatsappUrl}"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Reservar o cotizar ${title} en ${building}"
-              class="inline-flex w-full items-center justify-center gap-2 whitespace-nowrap rounded-full bg-[#C5A059] px-5 py-3 text-sm font-bold text-[#0F172A] transition-colors duration-300 hover:bg-[#D4B26D]"
+            <button
+              type="button"
+              data-detalle-id="${id}"
+              aria-label="Ver detalles de ${title} en ${building}"
+              class="inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#0F172A] px-5 py-3 text-sm font-bold text-white transition duration-300 hover:bg-[#1E293B] focus:outline-none focus:ring-2 focus:ring-[#C5A059] focus:ring-offset-2"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4" aria-hidden="true">
-                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92Z" />
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 text-[#C5A059]" aria-hidden="true">
+                <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z" />
+                <circle cx="12" cy="12" r="3" />
               </svg>
-              Reservar / Cotizar
-            </a>
+              Ver Detalles
+            </button>
           </div>
         </div>
       </article>
@@ -141,7 +194,7 @@
 
       if (emptyState) {
         emptyState.textContent =
-          "No hay apartamentos disponibles para este rango de huéspedes.";
+          "No hay apartamentos disponibles para la ubicación y el rango de huéspedes seleccionados.";
         emptyState.classList.remove("hidden");
       }
       return;
@@ -156,16 +209,39 @@
   };
 
   const populateFilter = () => {
-    const ranges = [...new Set(apartments.map((item) => item.rango_huespedes).filter(Boolean))]
-      .sort((first, second) => getRangeStart(first) - getRangeStart(second));
+    const ranges = [
+      ...new Set(
+        apartments.map((item) => item.rango_huespedes).filter(Boolean)
+      ),
+    ].sort((first, second) => getRangeStart(first) - getRangeStart(second));
 
-    filter.innerHTML = [
+    rangeFilter.innerHTML = [
       '<option value="">Todos los rangos</option>',
       ...ranges.map(
         (range) =>
           `<option value="${escapeHtml(range)}">${escapeHtml(range)}</option>`
       ),
     ].join("");
+  };
+
+  const applyFilters = () => {
+    const selectedLocation = normalizeText(locationFilter.value);
+    const selectedRange = rangeFilter.value;
+
+    const filtered = apartments.filter((apartment) => {
+      const locationMatches =
+        !selectedLocation ||
+        [apartment.ubicacion, apartment.edificio, apartment.zona]
+          .filter(Boolean)
+          .some((value) => normalizeText(value).includes(selectedLocation));
+
+      const rangeMatches =
+        !selectedRange || apartment.rango_huespedes === selectedRange;
+
+      return locationMatches && rangeMatches;
+    });
+
+    renderCards(filtered);
   };
 
   const showError = () => {
@@ -195,24 +271,51 @@
 
       const data = await response.json();
       apartments = Array.isArray(data.apartamentos) ? data.apartamentos : [];
+      buildings = Array.isArray(data.edificios) ? data.edificios : [];
 
       populateFilter();
-      renderCards(apartments);
+      applyFilters();
     } catch (error) {
       console.error(error);
       showError();
     }
   };
 
-  filter.addEventListener("change", () => {
-    const selectedRange = filter.value;
-    const filtered = selectedRange
-      ? apartments.filter(
-          (apartment) => apartment.rango_huespedes === selectedRange
-        )
-      : apartments;
+  catalog.addEventListener("click", (event) => {
+    const trigger = event.target.closest("[data-detalle-id]");
+    if (!trigger) {
+      return;
+    }
 
-    renderCards(filtered);
+    const apartment = apartments.find(
+      (item) => String(item.id) === trigger.dataset.detalleId
+    );
+
+    if (!apartment) {
+      return;
+    }
+
+    const building = buildings.find(
+      (item) => String(item.nombre) === String(apartment.edificio)
+    );
+
+    document.dispatchEvent(
+      new CustomEvent("apartamento:detalle", {
+        detail: {
+          apartment: {
+            ...apartment,
+            amenidades_edificio: Array.isArray(building?.amenidades)
+              ? building.amenidades
+              : [],
+          },
+        },
+      })
+    );
+  });
+
+  filterForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    applyFilters();
   });
 
   loadCatalog();
