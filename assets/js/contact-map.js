@@ -5,6 +5,7 @@
     return;
   }
 
+  // Coordenadas exactas sobre el terreno. Se usan para los marcadores y para map.flyTo.
   const buildings = [
     {
       id: "playa-salguero",
@@ -15,13 +16,13 @@
     {
       id: "rodadero-sur",
       name: "Rodadero Sur",
-      coords: [11.2038, -74.2272],
+      coords: [11.2008, -74.2286],
       mapsUrl: "https://maps.app.goo.gl/YDTNcSqBquLtaxyN6",
     },
     {
       id: "bello-horizonte",
       name: "Bello Horizonte",
-      coords: [11.1481, -74.2304],
+      coords: [11.1448, -74.2308],
       mapsUrl: "https://maps.app.goo.gl/pfgSGLJLkxF6J8ce7",
     },
   ];
