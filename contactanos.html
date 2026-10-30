@@ -9,9 +9,12 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preload" as="image" href="assets/images/contactanos-hero-1920.jpg" type="image/jpeg" fetchpriority="high">
   <link rel="icon" href="assets/images/logo-placeholder.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261028c">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261030b">
   <script src="assets/js/main.js" defer></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
   <script src="assets/js/contact.js?v=20261030a" defer></script>
+  <script src="assets/js/contact-map.js?v=20261030b" defer></script>
 </head>
 <body>
   <!-- Header flotante / transparente -->
@@ -163,7 +166,10 @@
                   </span>
                   <div>
                     <dt class="text-[10px] font-bold uppercase tracking-[0.16em] text-slate-400">Horario de atención</dt>
-                    <dd class="mt-1 text-sm font-bold text-[#0F172A]">Lunes a domingo · 8:00 a. m. – 8:00 p. m.</dd>
+                    <dd class="mt-1 space-y-1 text-sm font-bold text-[#0F172A]">
+                      <span class="block">Lunes a Viernes: 8:00 am - 8:00 pm</span>
+                      <span class="block">Fines de Semana: 8:00 am - 3:00 pm</span>
+                    </dd>
                   </div>
                 </div>
               </dl>
@@ -291,39 +297,41 @@
               </a>
             </div>
             <div class="relative bg-slate-100">
-              <iframe
-                src="https://www.google.com/maps?q=Santa+Marta%2C+Magdalena%2C+Colombia&z=12&output=embed"
-                title="Mapa de Santa Marta, Magdalena, Colombia"
-                width="1200"
-                height="420"
-                loading="lazy"
-                allowfullscreen
-                referrerpolicy="no-referrer-when-downgrade"
-                class="h-[360px] w-full border-0"
-              ></iframe>
+              <div
+                id="mapa-santa-marta"
+                class="h-[360px] w-full"
+                role="region"
+                aria-label="Mapa interactivo de los edificios de Reserva del Mar en Santa Marta"
+              ></div>
+              <noscript>
+                <p class="p-4 text-sm leading-relaxed text-slate-600">Activa JavaScript para usar el mapa interactivo y consultar la ubicación de cada edificio.</p>
+              </noscript>
             </div>
-            <div class="grid gap-2 border-t border-slate-100 p-4 sm:grid-cols-3">
-              <a href="apartamentos.html?edificio=playa-salguero" class="inline-flex items-center gap-2 rounded-xl bg-slate-50 px-3 py-2.5 text-xs font-semibold text-[#0F172A] transition hover:bg-[#C5A059]/10 hover:text-[#C5A059]">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 shrink-0 text-[#C5A059]" aria-hidden="true">
-                  <path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z" />
-                  <circle cx="12" cy="10" r="3" />
-                </svg>
-                Playa Salguero
-              </a>
-              <a href="apartamentos.html?edificio=rodadero-sur" class="inline-flex items-center gap-2 rounded-xl bg-slate-50 px-3 py-2.5 text-xs font-semibold text-[#0F172A] transition hover:bg-[#C5A059]/10 hover:text-[#C5A059]">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 shrink-0 text-[#C5A059]" aria-hidden="true">
-                  <path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z" />
-                  <circle cx="12" cy="10" r="3" />
-                </svg>
-                Rodadero Sur
-              </a>
-              <a href="apartamentos.html?edificio=bello-horizonte" class="inline-flex items-center gap-2 rounded-xl bg-slate-50 px-3 py-2.5 text-xs font-semibold text-[#0F172A] transition hover:bg-[#C5A059]/10 hover:text-[#C5A059]">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 shrink-0 text-[#C5A059]" aria-hidden="true">
-                  <path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z" />
-                  <circle cx="12" cy="10" r="3" />
-                </svg>
-                Bello Horizonte
-              </a>
+            <div class="border-t border-slate-100 p-4">
+              <div class="grid gap-2 sm:grid-cols-3">
+                <button type="button" data-map-target="playa-salguero" aria-pressed="false" aria-controls="mapa-santa-marta" class="rdm-map-button inline-flex items-center gap-2 rounded-xl bg-slate-50 px-3 py-2.5 text-left text-xs font-semibold text-[#0F172A] transition hover:bg-[#C5A059]/10 hover:text-[#C5A059] focus:outline-none focus:ring-2 focus:ring-[#C5A059]/40">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 shrink-0 text-[#C5A059] transition" aria-hidden="true">
+                    <path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z" />
+                    <circle cx="12" cy="10" r="3" />
+                  </svg>
+                  Playa Salguero
+                </button>
+                <button type="button" data-map-target="rodadero-sur" aria-pressed="false" aria-controls="mapa-santa-marta" class="rdm-map-button inline-flex items-center gap-2 rounded-xl bg-slate-50 px-3 py-2.5 text-left text-xs font-semibold text-[#0F172A] transition hover:bg-[#C5A059]/10 hover:text-[#C5A059] focus:outline-none focus:ring-2 focus:ring-[#C5A059]/40">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 shrink-0 text-[#C5A059] transition" aria-hidden="true">
+                    <path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z" />
+                    <circle cx="12" cy="10" r="3" />
+                  </svg>
+                  Rodadero Sur
+                </button>
+                <button type="button" data-map-target="bello-horizonte" aria-pressed="false" aria-controls="mapa-santa-marta" class="rdm-map-button inline-flex items-center gap-2 rounded-xl bg-slate-50 px-3 py-2.5 text-left text-xs font-semibold text-[#0F172A] transition hover:bg-[#C5A059]/10 hover:text-[#C5A059] focus:outline-none focus:ring-2 focus:ring-[#C5A059]/40">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 shrink-0 text-[#C5A059] transition" aria-hidden="true">
+                    <path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z" />
+                    <circle cx="12" cy="10" r="3" />
+                  </svg>
+                  Bello Horizonte
+                </button>
+              </div>
+              <p class="mt-3 text-center text-[11px] text-slate-400">Selecciona una zona para acercar el mapa.</p>
             </div>
           </div>
 

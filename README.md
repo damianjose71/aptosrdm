@@ -21,7 +21,8 @@ La base incluye el header flotante y transparente con navegación de escritorio,
 │   ├── /js
 │   │   ├── main.js
 │   │   ├── filter.js
-│   │   └── contact.js
+│   │   ├── contact.js
+│   │   └── contact-map.js
 │   └── /images
 │       ├── /amenidades
 │       │   ├── /playa-salguero
@@ -43,10 +44,12 @@ La base incluye el header flotante y transparente con navegación de escritorio,
 - `index.html`: landing page.
 - `apartamentos.html`: catálogo completo.
 - `amenidades.html`: amenidades segmentadas por edificio, con navegación por anclas y tarjetas estáticas. Las imágenes se organizan en `assets/images/amenidades/{edificio}/`.
-- `contactanos.html`: canales de contacto, formulario que prepara la consulta en WhatsApp, mapa de Santa Marta y preguntas frecuentes.
+- `contactanos.html`: canales de contacto, formulario que prepara la consulta en WhatsApp, mapa interactivo de Santa Marta con Leaflet y preguntas frecuentes.
 - `admin/index.html`: acceso al panel de Decap CMS.
 
 El formulario de contacto no requiere backend: valida los campos y abre WhatsApp con el nombre, teléfono, edificio de interés y mensaje del usuario ya redactados.
+
+El mapa de contacto usa Leaflet.js desde CDN y tiles de OpenStreetMap. Los botones de Playa Salguero, Rodadero Sur y Bello Horizonte hacen `flyTo` a las coordenadas de cada edificio, sin recargar ni abandonar la página; los popups enlazan a Google Maps.
 
 Los llamados a la acción de amenidades enlazan a `apartamentos.html?edificio=playa-salguero`, `?edificio=rodadero-sur` o `?edificio=bello-horizonte`; el catálogo aplica ese filtro automáticamente al cargar.
 
