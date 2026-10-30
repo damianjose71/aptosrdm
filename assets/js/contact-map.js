@@ -5,24 +5,24 @@
     return;
   }
 
-  // Coordenadas exactas sobre el terreno. Se usan para los marcadores y para map.flyTo.
+  // Coordenadas exactas de los mapas embebidos oficiales. Se usan para los marcadores y para map.flyTo.
   const buildings = [
     {
       id: "playa-salguero",
       name: "Playa Salguero",
-      coords: [11.1965, -74.2289],
+      coords: [11.196500, -74.228900],
       mapsUrl: "https://maps.app.goo.gl/pB4uRWsYJX93Zz1o8",
     },
     {
       id: "rodadero-sur",
       name: "Rodadero Sur",
-      coords: [11.2008, -74.2286],
+      coords: [11.188704, -74.233854],
       mapsUrl: "https://maps.app.goo.gl/YDTNcSqBquLtaxyN6",
     },
     {
       id: "bello-horizonte",
       name: "Bello Horizonte",
-      coords: [11.1448, -74.2308],
+      coords: [11.151003, -74.226868],
       mapsUrl: "https://maps.app.goo.gl/pfgSGLJLkxF6J8ce7",
     },
   ];
