@@ -1,53 +1,29 @@
 (() => {
-  const mapElement = document.querySelector("#mapa-santa-marta");
+  const map = document.querySelector("#mapa-edificio");
+  const mapLink = document.querySelector("#mapa-enlace");
+  const buttons = [...document.querySelectorAll("[data-map-target]")];
 
-  if (!mapElement || typeof L === "undefined" || mapElement._leaflet_id) {
+  if (!map || !buttons.length) {
     return;
   }
 
-  // Coordenadas exactas de los mapas embebidos oficiales. Se usan para los marcadores y para map.flyTo.
-  const buildings = [
-    {
-      id: "playa-salguero",
-      name: "Playa Salguero",
-      coords: [11.196500, -74.228900],
-      mapsUrl: "https://maps.app.goo.gl/pB4uRWsYJX93Zz1o8",
+  const locations = {
+    "playa-salguero": {
+      src: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3914.542!2d-74.2289!3d11.1965!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTHCsDExJzg3LjQiTiA3NMKwMTMnNDQuMCJX!5e0!3m2!1ses!2sco!4v1",
+      title: "Mapa de Playa Salguero - Reserva del Mar",
+      link: "https://maps.app.goo.gl/pB4uRWsYJX93Zz1o8",
     },
-    {
-      id: "rodadero-sur",
-      name: "Rodadero Sur",
-      coords: [11.188704, -74.233854],
-      mapsUrl: "https://maps.app.goo.gl/YDTNcSqBquLtaxyN6",
+    "rodadero-sur": {
+      src: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5884.71135051178!2d-74.23385353970221!3d11.18870414324373!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8ef45f00196d1a0d%3A0x401567a054029f0c!2sReserva%20del%20mar%20II!5e0!3m2!1ses-419!2sco!4v1793371166202!5m2!1ses-419!2sco",
+      title: "Mapa de Rodadero Sur - Reserva del Mar II",
+      link: "https://maps.app.goo.gl/YDTNcSqBquLtaxyN6",
     },
-    {
-      id: "bello-horizonte",
-      name: "Bello Horizonte",
-      coords: [11.151003, -74.226868],
-      mapsUrl: "https://maps.app.goo.gl/pfgSGLJLkxF6J8ce7",
+    "bello-horizonte": {
+      src: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1611.9709680663634!2d-74.22686807520296!3d11.151002981969732!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8ef4592d6012340f%3A0x97a9560135c3bd44!2sReserva%20del%20Mar%20Luxury%20Apartasuites%20Bello%20Horizonte!5e0!3m2!1ses-419!2sco!4v1793371114112!5m2!1ses-419!2sco",
+      title: "Mapa de Bello Horizonte - Reserva del Mar Luxury Apartasuites",
+      link: "https://maps.app.goo.gl/pfgSGLJLkxF6J8ce7",
     },
-  ];
-
-  const map = L.map(mapElement, {
-    scrollWheelZoom: false,
-    zoomControl: true,
-  }).setView([11.18, -74.229], 13);
-
-  L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-    attribution:
-      '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-    maxZoom: 19,
-  }).addTo(map);
-
-  const markerIcon = L.divIcon({
-    className: "rdm-map-marker",
-    html: '<span class="rdm-map-marker__pin" aria-hidden="true"></span>',
-    iconSize: [30, 30],
-    iconAnchor: [15, 15],
-    popupAnchor: [0, -16],
-  });
-
-  const buttons = [...document.querySelectorAll("[data-map-target]")];
-  const markers = {};
+  };
 
   const setActive = (id) => {
     buttons.forEach((button) => {
@@ -55,46 +31,30 @@
     });
   };
 
-  buildings.forEach((building) => {
-    const marker = L.marker(building.coords, {
-      icon: markerIcon,
-      title: building.name,
-      alt: `Ubicación de ${building.name}`,
-      keyboard: true,
-    }).addTo(map);
+  const updateMap = (id) => {
+    const location = locations[id];
 
-    marker.bindPopup(
-      `<div class="rdm-map-popup">
-        <p class="rdm-map-popup__eyebrow">Reserva del Mar</p>
-        <p class="rdm-map-popup__title">${building.name}</p>
-        <a class="rdm-map-popup__link" href="${building.mapsUrl}" target="_blank" rel="noopener noreferrer">Abrir en Google Maps <span aria-hidden="true">↗</span></a>
-      </div>`,
-    );
+    if (!location) {
+      return;
+    }
 
-    marker.on("click", () => setActive(building.id));
-    markers[building.id] = marker;
-  });
+    if (map.getAttribute("src") !== location.src) {
+      map.setAttribute("src", location.src);
+    }
 
-  const bounds = L.latLngBounds(buildings.map((building) => building.coords));
-  map.fitBounds(bounds.pad(0.35), { animate: false, maxZoom: 15 });
+    map.title = location.title;
+
+    if (mapLink) {
+      mapLink.href = location.link;
+    }
+
+    setActive(id);
+  };
 
   buttons.forEach((button) => {
-    button.addEventListener("click", () => {
-      const building = buildings.find((item) => item.id === button.dataset.mapTarget);
-
-      if (!building) {
-        return;
-      }
-
-      setActive(building.id);
-      map.flyTo(building.coords, 17, {
-        duration: 1.2,
-        easeLinearity: 0.25,
-      });
-      map.once("moveend", () => markers[building.id].openPopup());
-    });
+    button.addEventListener("click", () => updateMap(button.dataset.mapTarget));
   });
 
-  // El contenedor puede adquirir su altura definitiva después del primer render.
-  window.setTimeout(() => map.invalidateSize(), 250);
+  // Playa Salguero queda seleccionado y visible al cargar la página.
+  updateMap("playa-salguero");
 })();

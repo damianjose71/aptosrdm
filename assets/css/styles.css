@@ -314,98 +314,13 @@ h6 {
   gap: 1rem;
 }
 
-/* Mapa interactivo de contacto */
-#mapa-santa-marta {
-  min-height: 360px;
-  background: #E2E8F0;
-  z-index: 0;
-}
-
-.leaflet-container {
-  font-family: var(--font-corporate);
-}
-
-#mapa-santa-marta .leaflet-control-attribution {
-  background: rgba(255, 255, 255, 0.88);
-  color: #64748B;
-  font-size: 9px;
-}
-
-#mapa-santa-marta .leaflet-control-attribution a {
-  color: #0F172A;
-}
-
-.rdm-map-marker {
-  border: 0;
-  background: transparent;
-}
-
-.rdm-map-marker__pin {
+/* Mapa embebido de contacto */
+#mapa-edificio {
   display: block;
-  width: 30px;
-  height: 30px;
-  border: 3px solid var(--color-navy);
-  border-radius: 999px;
-  background: var(--color-gold);
-  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.28);
-  position: relative;
-}
-
-.rdm-map-marker__pin::after {
-  content: "";
-  position: absolute;
-  inset: 50% auto auto 50%;
-  width: 8px;
-  height: 8px;
-  border-radius: 999px;
-  background: var(--color-navy);
-  transform: translate(-50%, -50%);
-}
-
-.rdm-map-popup {
-  min-width: 176px;
-  font-family: var(--font-corporate);
-}
-
-.rdm-map-popup__eyebrow {
-  margin: 0;
-  color: var(--color-gold);
-  font-size: 0.62rem;
-  font-weight: 700;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-}
-
-.rdm-map-popup__title {
-  margin: 0.25rem 0 0;
-  color: var(--color-navy);
-  font-size: 1rem;
-  font-weight: 700;
-  line-height: 1.2;
-}
-
-.rdm-map-popup__link {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.25rem;
-  margin-top: 0.65rem;
-  color: var(--color-gold);
-  font-size: 0.75rem;
-  font-weight: 700;
-  text-decoration: none;
-}
-
-.rdm-map-popup__link:hover {
-  color: var(--color-navy);
-}
-
-#mapa-santa-marta .leaflet-popup-content-wrapper {
-  border-radius: 14px;
-  box-shadow: 0 18px 40px -20px rgba(15, 23, 42, 0.55);
-}
-
-#mapa-santa-marta .leaflet-popup-content {
-  margin: 14px 16px;
+  width: 100%;
+  min-height: 360px;
+  border: 0;
+  background: #E2E8F0;
 }
 
 .rdm-map-button[aria-pressed="true"],
