@@ -71,7 +71,7 @@ Luego abre `http://localhost:8080`.
 
 ## Configuración de Decap CMS
 
-La configuración usa el backend de GitHub con el repositorio `damianjose71/apartamentosrdm`. Antes de publicar:
+La configuración usa el backend de GitHub con el repositorio `damianjose71/aptosrdm`. Antes de publicar:
 
 1. Configura un proveedor OAuth para GitHub. La configuración base usa Netlify como proveedor de autenticación mediante `base_url` y `auth_endpoint`.
 2. Accede al panel en `/admin/`.

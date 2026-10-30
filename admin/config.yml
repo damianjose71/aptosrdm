@@ -10,7 +10,7 @@
 
 backend:
   name: github
-  repo: damianjose71/apartamentosrdm
+  repo: damianjose71/aptosrdm
   branch: main
   base_url: https://api.netlify.com
   auth_endpoint: auth
