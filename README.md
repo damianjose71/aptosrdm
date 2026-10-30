@@ -20,7 +20,8 @@ La base incluye el header flotante y transparente con navegación de escritorio,
 │   │   └── README.md
 │   ├── /js
 │   │   ├── main.js
-│   │   └── filter.js
+│   │   ├── filter.js
+│   │   └── contact.js
 │   └── /images
 │       ├── /amenidades
 │       │   ├── /playa-salguero
@@ -42,8 +43,10 @@ La base incluye el header flotante y transparente con navegación de escritorio,
 - `index.html`: landing page.
 - `apartamentos.html`: catálogo completo.
 - `amenidades.html`: amenidades segmentadas por edificio, con navegación por anclas y tarjetas estáticas. Las imágenes se organizan en `assets/images/amenidades/{edificio}/`.
-- `contactanos.html`: canales de contacto.
+- `contactanos.html`: canales de contacto, formulario que prepara la consulta en WhatsApp, mapa de Santa Marta y preguntas frecuentes.
 - `admin/index.html`: acceso al panel de Decap CMS.
+
+El formulario de contacto no requiere backend: valida los campos y abre WhatsApp con el nombre, teléfono, edificio de interés y mensaje del usuario ya redactados.
 
 Los llamados a la acción de amenidades enlazan a `apartamentos.html?edificio=playa-salguero`, `?edificio=rodadero-sur` o `?edificio=bello-horizonte`; el catálogo aplica ese filtro automáticamente al cargar.
 
@@ -87,6 +90,5 @@ Decap CMS confirma los cambios en el repositorio de GitHub, no directamente en H
 
 ## Pendientes de implementación
 
-- Formulario o flujo de contacto.
 - Optimización de imágenes y metadatos SEO.
 - Compilación de Tailwind CSS para producción.

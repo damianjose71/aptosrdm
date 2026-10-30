@@ -4,13 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contáctanos | Apartamentos Reserva del Mar</title>
-  <meta name="description" content="Canales de contacto de Apartamentos Reserva del Mar en Santa Marta.">
+  <meta name="description" content="Contacta a Apartamentos Reserva del Mar por WhatsApp, teléfono o email. Formulario directo, mapa de Santa Marta y preguntas frecuentes sobre reservas.">
   <link rel="preload" href="assets/fonts/roboto-condensed-latin.woff2" as="font" type="font/woff2" crossorigin>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preload" as="image" href="assets/images/contactanos-hero-1920.jpg" type="image/jpeg" fetchpriority="high">
   <link rel="icon" href="assets/images/logo-placeholder.svg" type="image/svg+xml">
   <link rel="stylesheet" href="assets/css/styles.css?v=20261028c">
   <script src="assets/js/main.js" defer></script>
+  <script src="assets/js/contact.js?v=20261030a" defer></script>
 </head>
 <body>
   <!-- Header flotante / transparente -->
@@ -79,7 +80,7 @@
     </div>
   </header>
 
-  <main id="contenido">
+  <main id="contenido" class="font-corporate">
     <section class="page-hero page-hero--image page-hero--contactanos">
       <div class="container">
         <div class="hero__copy">
@@ -90,27 +91,290 @@
       </div>
     </section>
 
-    <section class="section" aria-labelledby="contacto-title">
+    <!-- Información de contacto y formulario -->
+    <section class="bg-white py-14 md:py-20" aria-labelledby="contacto-title">
       <div class="container">
-        <div class="section__heading">
-          <p class="eyebrow">Contacto</p>
-          <h2 id="contacto-title">Canales de atención</h2>
-          <p>Completa esta sección con los datos oficiales del negocio.</p>
+        <div class="grid gap-8 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] lg:items-start">
+
+          <!-- Columna izquierda: canales y datos -->
+          <div>
+            <p class="eyebrow">Contacto directo</p>
+            <h2 id="contacto-title" class="mt-2 max-w-xl text-3xl font-bold leading-tight text-[#0F172A] md:text-4xl">Estamos listos para asistirte</h2>
+            <p class="mt-4 max-w-xl text-base leading-relaxed text-slate-600">Cuéntanos qué necesitas y te ayudaremos a elegir el edificio, validar disponibilidad y preparar tu próxima estadía en Santa Marta.</p>
+
+            <!-- Tarjeta WhatsApp -->
+            <div class="relative mt-8 overflow-hidden rounded-[1.75rem] bg-[#0F172A] p-6 text-white shadow-[0_24px_60px_-30px_rgba(15,23,42,0.8)]">
+              <div class="pointer-events-none absolute -right-12 -top-12 h-44 w-44 rounded-full bg-[#C5A059]/20 blur-2xl"></div>
+              <div class="relative flex items-start gap-4">
+                <span class="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-white/10 text-[#C5A059] ring-1 ring-white/10" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-6 w-6">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z" />
+                  </svg>
+                </span>
+                <div class="min-w-0">
+                  <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-[#C5A059]">La vía más rápida</p>
+                  <h3 class="mt-1 text-xl font-bold leading-snug text-white">Atención por WhatsApp</h3>
+                  <p class="mt-2 text-sm leading-relaxed text-slate-300">Escríbenos y recibe orientación personalizada sobre apartamentos, tarifas y disponibilidad.</p>
+                  <p class="mt-3 text-lg font-bold text-white">+57 321 883 9636</p>
+                </div>
+              </div>
+              <a href="https://wa.me/573218839636?text=Hola%2C%20deseo%20recibir%20asesor%C3%ADa%20sobre%20los%20apartamentos%20de%20Reserva%20del%20Mar" target="_blank" rel="noopener noreferrer" class="relative mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#C5A059] px-6 py-3 text-sm font-bold text-[#0F172A] shadow-[0_16px_35px_-14px_rgba(197,160,89,0.9)] transition duration-300 hover:bg-[#D4B26D] focus:outline-none focus:ring-2 focus:ring-[#C5A059] focus:ring-offset-2 focus:ring-offset-[#0F172A]">
+                Escribir por WhatsApp
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4" aria-hidden="true">
+                  <path d="M5 12h14" />
+                  <path d="m13 6 6 6-6 6" />
+                </svg>
+              </a>
+              <p class="relative mt-3 text-center text-xs text-slate-400">Respuesta habitual en pocos minutos.</p>
+            </div>
+
+            <!-- Datos de contacto -->
+            <div class="mt-5 rounded-3xl border border-slate-200 bg-white p-5 shadow-[0_18px_45px_-30px_rgba(15,23,42,0.35)]">
+              <dl class="space-y-5">
+                <div class="flex items-start gap-3">
+                  <span class="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#C5A059]/10 text-[#C5A059]" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4">
+                      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92Z" />
+                    </svg>
+                  </span>
+                  <div>
+                    <dt class="text-[10px] font-bold uppercase tracking-[0.16em] text-slate-400">Teléfono</dt>
+                    <dd class="mt-1 text-sm font-bold text-[#0F172A]"><a href="tel:+573218839636" class="transition hover:text-[#C5A059]">+57 321 883 9636</a></dd>
+                  </div>
+                </div>
+                <div class="flex items-start gap-3">
+                  <span class="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#C5A059]/10 text-[#C5A059]" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4">
+                      <rect x="3" y="5" width="18" height="14" rx="2" />
+                      <path d="m3 7 9 6 9-6" />
+                    </svg>
+                  </span>
+                  <div>
+                    <dt class="text-[10px] font-bold uppercase tracking-[0.16em] text-slate-400">Email de soporte</dt>
+                    <dd class="mt-1 text-sm font-bold text-[#0F172A]"><a href="mailto:contacto@reservadelmar.com" class="break-all transition hover:text-[#C5A059]">contacto@reservadelmar.com</a></dd>
+                  </div>
+                </div>
+                <div class="flex items-start gap-3">
+                  <span class="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#C5A059]/10 text-[#C5A059]" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4">
+                      <circle cx="12" cy="12" r="9" />
+                      <path d="M12 7v5l3 2" />
+                    </svg>
+                  </span>
+                  <div>
+                    <dt class="text-[10px] font-bold uppercase tracking-[0.16em] text-slate-400">Horario de atención</dt>
+                    <dd class="mt-1 text-sm font-bold text-[#0F172A]">Lunes a domingo · 8:00 a. m. – 8:00 p. m.</dd>
+                  </div>
+                </div>
+              </dl>
+            </div>
+
+            <!-- Ubicaciones cubiertas -->
+            <div class="mt-6">
+              <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-400">Zonas que cubrimos</p>
+              <div class="mt-3 flex flex-wrap gap-2">
+                <a href="apartamentos.html?edificio=playa-salguero" class="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3.5 py-2 text-xs font-semibold text-[#0F172A] transition hover:border-[#C5A059] hover:text-[#C5A059]">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="h-3.5 w-3.5 text-[#C5A059]" aria-hidden="true">
+                    <path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z" />
+                    <circle cx="12" cy="10" r="3" />
+                  </svg>
+                  Playa Salguero
+                </a>
+                <a href="apartamentos.html?edificio=rodadero-sur" class="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3.5 py-2 text-xs font-semibold text-[#0F172A] transition hover:border-[#C5A059] hover:text-[#C5A059]">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="h-3.5 w-3.5 text-[#C5A059]" aria-hidden="true">
+                    <path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z" />
+                    <circle cx="12" cy="10" r="3" />
+                  </svg>
+                  Rodadero Sur
+                </a>
+                <a href="apartamentos.html?edificio=bello-horizonte" class="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3.5 py-2 text-xs font-semibold text-[#0F172A] transition hover:border-[#C5A059] hover:text-[#C5A059]">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="h-3.5 w-3.5 text-[#C5A059]" aria-hidden="true">
+                    <path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z" />
+                    <circle cx="12" cy="10" r="3" />
+                  </svg>
+                  Bello Horizonte
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Columna derecha: formulario -->
+          <div class="rounded-[1.75rem] border border-slate-200 bg-white p-6 shadow-[0_24px_60px_-34px_rgba(15,23,42,0.45)] md:p-8">
+            <div class="flex items-start justify-between gap-4">
+              <div>
+                <p class="eyebrow">Escríbenos</p>
+                <h2 class="mt-2 text-2xl font-bold leading-tight text-[#0F172A] md:text-3xl">Cuéntanos qué necesitas</h2>
+              </div>
+              <span class="hidden h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[#0F172A] text-[#C5A059] sm:inline-flex" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5">
+                  <path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4Z" />
+                  <path d="M8 9h8M8 13h5" />
+                </svg>
+              </span>
+            </div>
+            <p class="mt-3 text-sm leading-relaxed text-slate-600">Déjanos tus datos y el motivo de tu consulta. Al enviar, abriremos WhatsApp con el mensaje listo para que lo revises y envíes.</p>
+
+            <form class="mt-7 space-y-5" action="https://wa.me/573218839636" method="get" target="_blank" data-contact-form>
+              <div class="grid gap-4 sm:grid-cols-2">
+                <div>
+                  <label for="contacto-nombre" class="mb-2 block text-xs font-bold uppercase tracking-[0.12em] text-[#0F172A]">Nombre completo</label>
+                  <input id="contacto-nombre" name="nombre" type="text" autocomplete="name" required placeholder="Tu nombre y apellido" class="w-full rounded-xl border border-slate-200 bg-slate-50/70 px-4 py-3 text-sm text-[#0F172A] outline-none transition placeholder:text-slate-400 focus:border-[#C5A059] focus:bg-white focus:ring-2 focus:ring-[#C5A059]/20">
+                </div>
+                <div>
+                  <label for="contacto-telefono" class="mb-2 block text-xs font-bold uppercase tracking-[0.12em] text-[#0F172A]">Teléfono / WhatsApp</label>
+                  <input id="contacto-telefono" name="telefono" type="tel" inputmode="tel" autocomplete="tel" required placeholder="+57 300 000 0000" class="w-full rounded-xl border border-slate-200 bg-slate-50/70 px-4 py-3 text-sm text-[#0F172A] outline-none transition placeholder:text-slate-400 focus:border-[#C5A059] focus:bg-white focus:ring-2 focus:ring-[#C5A059]/20">
+                </div>
+              </div>
+
+              <div>
+                <label for="contacto-edificio" class="mb-2 block text-xs font-bold uppercase tracking-[0.12em] text-[#0F172A]">Edificio de interés</label>
+                <select id="contacto-edificio" name="edificio" required class="w-full rounded-xl border border-slate-200 bg-slate-50/70 px-4 py-3 text-sm text-[#0F172A] outline-none transition focus:border-[#C5A059] focus:bg-white focus:ring-2 focus:ring-[#C5A059]/20">
+                  <option value="" disabled selected>Selecciona un edificio</option>
+                  <option value="Playa Salguero">Playa Salguero</option>
+                  <option value="Rodadero Sur">Rodadero Sur</option>
+                  <option value="Bello Horizonte">Bello Horizonte</option>
+                  <option value="General">General</option>
+                </select>
+              </div>
+
+              <div>
+                <label for="contacto-mensaje" class="mb-2 block text-xs font-bold uppercase tracking-[0.12em] text-[#0F172A]">Mensaje</label>
+                <textarea id="contacto-mensaje" name="mensaje" rows="4" required placeholder="Cuéntanos fechas aproximadas, número de huéspedes o cualquier duda que tengas." class="w-full resize-y rounded-xl border border-slate-200 bg-slate-50/70 px-4 py-3 text-sm leading-relaxed text-[#0F172A] outline-none transition placeholder:text-slate-400 focus:border-[#C5A059] focus:bg-white focus:ring-2 focus:ring-[#C5A059]/20"></textarea>
+              </div>
+
+              <button type="submit" class="inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#C5A059] px-6 py-3.5 text-sm font-bold text-[#0F172A] shadow-[0_16px_35px_-14px_rgba(197,160,89,0.9)] transition duration-300 hover:bg-[#D4B26D] focus:outline-none focus:ring-2 focus:ring-[#C5A059] focus:ring-offset-2 focus:ring-offset-white">
+                Enviar por WhatsApp
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4" aria-hidden="true">
+                  <path d="M5 12h14" />
+                  <path d="m13 6 6 6-6 6" />
+                </svg>
+              </button>
+              <p class="text-center text-xs leading-relaxed text-slate-400">Sin costos ni compromiso. Tus datos solo se usan para responder tu consulta.</p>
+              <p data-form-status class="hidden rounded-xl bg-[#C5A059]/10 px-4 py-3 text-center text-xs font-semibold text-[#0F172A]" role="status" aria-live="polite"></p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Mapa y preguntas frecuentes -->
+    <section class="border-y border-slate-200/70 bg-[#F8FAFC] py-14 md:py-20" aria-labelledby="mapa-faq-title">
+      <div class="container">
+        <div class="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+          <div>
+            <p class="eyebrow">Cobertura y respuestas</p>
+            <h2 id="mapa-faq-title" class="mt-2 text-3xl font-bold leading-tight text-[#0F172A] md:text-4xl">Todo lo que necesitas saber</h2>
+            <p class="mt-3 max-w-2xl text-sm leading-relaxed text-slate-600 md:text-base">Ubica nuestras zonas en Santa Marta y resuelve las dudas más comunes antes de reservar.</p>
+          </div>
+          <a href="https://wa.me/573218839636?text=Hola%2C%20tengo%20una%20pregunta%20sobre%20una%20reserva" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-sm font-bold text-[#0F172A] transition hover:text-[#C5A059]">
+            ¿Tienes otra pregunta? Escríbenos
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4" aria-hidden="true">
+              <path d="M5 12h14" />
+              <path d="m13 6 6 6-6 6" />
+            </svg>
+          </a>
         </div>
 
-        <div class="card-grid">
-          <article class="card">
-            <h3>WhatsApp</h3>
-            <p><a href="https://wa.me/573218839636" target="_blank" rel="noopener noreferrer">+57 321 883 9636</a></p>
-          </article>
-          <article class="card">
-            <h3>Correo electrónico</h3>
-            <p><a href="mailto:contacto@reservadelmar.com">contacto@reservadelmar.com</a></p>
-          </article>
-          <article class="card">
-            <h3>Ubicación</h3>
-            <p>Santa Marta, Magdalena, Colombia.</p>
-          </article>
+        <div class="mt-8 grid gap-6 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)]">
+          <!-- Mapa -->
+          <div class="overflow-hidden rounded-[1.5rem] border border-slate-200 bg-white shadow-[0_18px_45px_-30px_rgba(15,23,42,0.35)]">
+            <div class="flex flex-col gap-3 border-b border-slate-100 px-5 py-5 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-[#C5A059]">Mapa de Santa Marta</p>
+                <h3 class="mt-1 text-lg font-bold text-[#0F172A]">Nuestras zonas</h3>
+              </div>
+              <a href="https://www.google.com/maps/search/?api=1&query=Santa+Marta%2C+Magdalena%2C+Colombia" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-xs font-bold text-[#0F172A] transition hover:text-[#C5A059]">
+                Abrir en Google Maps
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-3.5 w-3.5" aria-hidden="true">
+                  <path d="M7 17 17 7M8 7h9v9" />
+                </svg>
+              </a>
+            </div>
+            <div class="relative bg-slate-100">
+              <iframe
+                src="https://www.google.com/maps?q=Santa+Marta%2C+Magdalena%2C+Colombia&z=12&output=embed"
+                title="Mapa de Santa Marta, Magdalena, Colombia"
+                width="1200"
+                height="420"
+                loading="lazy"
+                allowfullscreen
+                referrerpolicy="no-referrer-when-downgrade"
+                class="h-[360px] w-full border-0"
+              ></iframe>
+            </div>
+            <div class="grid gap-2 border-t border-slate-100 p-4 sm:grid-cols-3">
+              <a href="apartamentos.html?edificio=playa-salguero" class="inline-flex items-center gap-2 rounded-xl bg-slate-50 px-3 py-2.5 text-xs font-semibold text-[#0F172A] transition hover:bg-[#C5A059]/10 hover:text-[#C5A059]">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 shrink-0 text-[#C5A059]" aria-hidden="true">
+                  <path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z" />
+                  <circle cx="12" cy="10" r="3" />
+                </svg>
+                Playa Salguero
+              </a>
+              <a href="apartamentos.html?edificio=rodadero-sur" class="inline-flex items-center gap-2 rounded-xl bg-slate-50 px-3 py-2.5 text-xs font-semibold text-[#0F172A] transition hover:bg-[#C5A059]/10 hover:text-[#C5A059]">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 shrink-0 text-[#C5A059]" aria-hidden="true">
+                  <path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z" />
+                  <circle cx="12" cy="10" r="3" />
+                </svg>
+                Rodadero Sur
+              </a>
+              <a href="apartamentos.html?edificio=bello-horizonte" class="inline-flex items-center gap-2 rounded-xl bg-slate-50 px-3 py-2.5 text-xs font-semibold text-[#0F172A] transition hover:bg-[#C5A059]/10 hover:text-[#C5A059]">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 shrink-0 text-[#C5A059]" aria-hidden="true">
+                  <path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z" />
+                  <circle cx="12" cy="10" r="3" />
+                </svg>
+                Bello Horizonte
+              </a>
+            </div>
+          </div>
+
+          <!-- FAQ -->
+          <div class="rounded-[1.5rem] border border-slate-200 bg-white p-5 shadow-[0_18px_45px_-30px_rgba(15,23,42,0.35)] md:p-6">
+            <p class="eyebrow">Antes de reservar</p>
+            <h3 class="mt-1 text-xl font-bold text-[#0F172A] md:text-2xl">Preguntas frecuentes</h3>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">Respuestas rápidas sobre horarios y políticas de reserva.</p>
+
+            <div class="mt-5 divide-y divide-slate-200/80">
+              <details class="group py-4" open>
+                <summary class="flex cursor-pointer list-none items-center justify-between gap-4 text-left text-sm font-bold text-[#0F172A] [&::-webkit-details-marker]:hidden">
+                  <span>¿Cuál es el horario de check-in y check-out?</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 shrink-0 text-[#C5A059] transition-transform duration-300 group-open:rotate-180" aria-hidden="true">
+                    <path d="m6 9 6 6 6-6" />
+                  </svg>
+                </summary>
+                <p class="mt-3 pr-6 text-sm leading-relaxed text-slate-600">El check-in comienza a las 3:00 p. m. y el check-out es hasta las 12:00 m. Si necesitas un horario diferente, escríbenos y revisamos la disponibilidad.</p>
+              </details>
+
+              <details class="group py-4">
+                <summary class="flex cursor-pointer list-none items-center justify-between gap-4 text-left text-sm font-bold text-[#0F172A] [&::-webkit-details-marker]:hidden">
+                  <span>¿Cómo se confirma una reserva?</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 shrink-0 text-[#C5A059] transition-transform duration-300 group-open:rotate-180" aria-hidden="true">
+                    <path d="m6 9 6 6 6-6" />
+                  </svg>
+                </summary>
+                <p class="mt-3 pr-6 text-sm leading-relaxed text-slate-600">Validamos la disponibilidad y las condiciones de la tarifa. La reserva se confirma con el abono acordado y la documentación del huésped principal.</p>
+              </details>
+
+              <details class="group py-4">
+                <summary class="flex cursor-pointer list-none items-center justify-between gap-4 text-left text-sm font-bold text-[#0F172A] [&::-webkit-details-marker]:hidden">
+                  <span>¿Qué políticas aplican durante la estadía?</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 shrink-0 text-[#C5A059] transition-transform duration-300 group-open:rotate-180" aria-hidden="true">
+                    <path d="m6 9 6 6 6-6" />
+                  </svg>
+                </summary>
+                <p class="mt-3 pr-6 text-sm leading-relaxed text-slate-600">El número de huéspedes debe coincidir con la reserva. No se permiten fiestas ni eventos sin autorización, y se deben respetar las normas de convivencia del edificio.</p>
+              </details>
+
+              <details class="group py-4">
+                <summary class="flex cursor-pointer list-none items-center justify-between gap-4 text-left text-sm font-bold text-[#0F172A] [&::-webkit-details-marker]:hidden">
+                  <span>¿Puedo cancelar o modificar mi reserva?</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 shrink-0 text-[#C5A059] transition-transform duration-300 group-open:rotate-180" aria-hidden="true">
+                    <path d="m6 9 6 6 6-6" />
+                  </svg>
+                </summary>
+                <p class="mt-3 pr-6 text-sm leading-relaxed text-slate-600">Las condiciones dependen de la tarifa y de la antelación con la que nos contactes. Escríbenos antes de reservar para conocer las opciones aplicables a tus fechas.</p>
+              </details>
+            </div>
+          </div>
         </div>
       </div>
     </section>
