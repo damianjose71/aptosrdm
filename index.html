@@ -344,13 +344,88 @@
     </section>
   </main>
 
-  <footer class="site-footer">
-    <div class="container site-footer__inner">
-      <p>© 2026 Apartamentos Reserva del Mar By Nestor Echeverry · Santa Marta, Colombia.</p>
-      <nav aria-label="Navegación del pie de página">
-        <a href="admin/index.html">Administración</a>
-      </nav>
+  <footer class="site-footer bg-[#0F172A] border-t border-[#C5A059]/30">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-8">
+        <!-- Columna 1: Logo y trayectoria -->
+        <div>
+          <img src="./assets/images/logo-placeholder.svg" alt="Apartamentos Reserva del Mar" class="h-12 w-auto mb-4">
+          <p class="text-sm text-slate-400">+6 años acompañando vacaciones en Santa Marta</p>
+        </div>
+        <!-- Columna 2: Navegación rápida -->
+        <nav>
+          <ul class="space-y-2 text-sm text-slate-400">
+            <li><a href="index.html" class="hover:text-[#C5A059] transition">Inicio</a></li>
+            <li><a href="apartamentos.html" class="hover:text-[#C5A059] transition">Apartamentos</a></li>
+            <li><a href="amenidades.html" class="hover:text-[#C5A059] transition">Amenidades</a></li>
+            <li><a href="contactanos.html" class="hover:text-[#C5A059] transition">Contáctanos</a></li>
+          </ul>
+        </nav>
+        <!-- Columna 3: Torres -->
+        <nav>
+          <ul class="space-y-2 text-sm text-slate-400">
+            <li><a href="#" class="hover:text-[#C5A059] transition">Playa Salguero</a></li>
+            <li><a href="#" class="hover:text-[#C5A059] transition">Rodadero Sur</a></li>
+            <li><a href="#" class="hover:text-[#C5A059] transition">Bello Horizonte</a></li>
+          </ul>
+        </nav>
+        <!-- Columna 4: Horarios y administración -->
+        <div>
+          <p class="text-sm font-medium text-[#C5A059] mb-2">Horario de atención</p>
+          <p class="text-sm text-slate-400">Lunes a Viernes: 8:00 am – 8:00 pm</p>
+          <p class="text-sm text-slate-400">Fines de semana: 8:00 am – 3:00 pm</p>
+          <a href="admin/index.html" class="mt-3 inline-flex items-center gap-1 text-xs font-bold text-[#C5A059] underline underline-offset-2 hover:text-[#D4B26D]">Administración</a>
+        </div>
+      </div>
+      <!-- Barra legal inferior -->
+      <div class="mt-12 pt-8 text-center text-xs text-slate-500">
+        <p>© 2026 Apartamentos Reserva del Mar By Nestor Echeverry. Todos los derechos reservados.</p>
+        <p class="mt-1">RNT (Registro Nacional de Turismo) · Santa Marta, Colombia</p>
+        <div class="mt-2 flex justify-center gap-4">
+          <a href="politica-privacidad.html" class="hover:text-slate-300 transition">Política de privacidad</a>
+          <a href="politica-cookies.html" class="hover:text-slate-300 transition">Política de cookies</a>
+          <a href="terminos-condiciones.html" class="hover:text-slate-300 transition">Términos y condiciones</a>
+        </div>
+      </div>
     </div>
   </footer>
+<!-- Cookie Consent Banner -->
+<div id="cookie-banner" class="fixed bottom-4 right-4 z-50 bg-[#0F172A] border-t border-[#C5A059] rounded-lg p-5 flex items-center gap-3 max-w-sm shadow-lg translate-y-2 opacity-0 transition-transform transition-opacity duration-300">
+  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-300" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12s-4 9-8 9-8-9-8-9 4-9 8-9 8 9 8 9Z"/><circle cx="12" cy="12" r="3" /></svg>
+  <div>
+    <h3 class="font-medium text-slate-100">Uso de Cookies</h3>
+    <p class="text-slate-400 text-sm">Usamos cookies para mejorar tu experiencia en nuestro sitio. Al hacer clic en “Aceptar todas”, acepta nuestro uso de cookies según nuestra <a href="politica-cookies.html" class="underline text-slate-400">Política de Cookies</a>.</p>
+  </div>
+  <button id="cookie-accept" class="mt-4 w-full rounded-md bg-[#C5A059] px-6 py-2 text-sm font-bold text-[#0F172A] hover:bg-[#D4B26D] transition">Aceptar todas</button>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const banner = document.getElementById('cookie-banner');
+  const acceptBtn = document.getElementById('cookie-accept');
+
+  if (localStorage.getItem('cookiesAccepted') === 'true') {
+    banner.style.display = 'none';
+    return;
+  }
+
+  banner.style.display = 'block';
+  requestAnimationFrame(() => {
+    banner.style.transform = 'translateY(0)';
+    banner.style.opacity = '1';
+  });
+
+  acceptBtn.addEventListener('click', () => {
+    localStorage.setItem('cookiesAccepted', 'true');
+    banner.style.transition = 'transform 300ms ease, opacity 300ms ease';
+    banner.style.transform = 'translateY(2rem)';
+    banner.style.opacity = '0';
+    setTimeout(() => {
+      banner.style.display = 'none';
+    }, 350);
+  });
+});
+</script>
+
 </body>
 </html>
