@@ -119,6 +119,17 @@
         })[character]
     );
 
+  const formatDescription = (value) => {
+    const text = escapeHtml(value || 'Descripción no disponible.');
+
+    return text
+      .replace(/^###?\s+(.+)$/gm, '<strong>$1</strong>')
+      .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+      .replace(/`([^`]+)`/g, '<code>$1</code>')
+      .replace(/(^|[^*])\*(?!\s)([^*]+?)\*(?!\*)/g, '$1<em>$2</em>')
+      .replace(/^\s*[-*]\s+/gm, '• ');
+  };
+
   const getNumber = (value) => {
     if (value === null || value === undefined || String(value).trim() === "") {
       return null;
@@ -129,7 +140,9 @@
   };
 
   const getGuestCount = (apartment) => {
-    const guests = getNumber(apartment.huespedes);
+    const guests = getNumber(
+      apartment.capacidad_huespedes ?? apartment.huespedes
+    );
     if (guests !== null && guests > 0) {
       return guests;
     }
@@ -145,7 +158,9 @@
 
   const getGallery = (apartment) => {
     const gallery = Array.isArray(apartment.galeria)
-      ? apartment.galeria.filter(Boolean)
+      ? apartment.galeria
+          .map((item) => (typeof item === 'string' ? item : item?.url))
+          .filter(Boolean)
       : [];
 
     if (gallery.length) {
@@ -220,10 +235,10 @@
   const modalTemplate = (apartment) => {
     const title = escapeHtml(apartment.titulo || 'Apartamento');
     const building = escapeHtml(apartment.edificio || 'Reserva del Mar');
-    const location = escapeHtml(apartment.ubicacion || 'Santa Marta');
-    const description = escapeHtml(
-      apartment.descripcion || 'Descripción no disponible.'
+    const location = escapeHtml(
+      apartment.ubicacion || 'Santa Marta, Colombia'
     );
+    const description = formatDescription(apartment.descripcion);
     const gallery = getGallery(apartment);
     const mainImage = escapeHtml(gallery[0]);
     const features = getFeatures(apartment);

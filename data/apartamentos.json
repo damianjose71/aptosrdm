@@ -38,17 +38,14 @@
     {
       "id": "playa-salguero-101",
       "titulo": "Apartamento 101 · Playa Salguero",
-      "edificio": "Reserva del Mar",
-      "ubicacion": "Playa Salguero, Santa Marta",
-      "rango_huespedes": "3 a 4 huéspedes",
-      "huespedes": 4,
+      "edificio": "Playa Salguero",
+      "capacidad_huespedes": 4,
       "habitaciones": 2,
       "banos": 2,
-      "capacidad_texto": "Hasta 4 personas",
       "imagen_principal": "assets/images/rdm-playasalguero.jpeg",
       "galeria": [
-        "assets/images/rdm-playasalguero.jpeg",
-        "assets/images/1.jpeg"
+        { "url": "assets/images/rdm-playasalguero.jpeg" },
+        { "url": "assets/images/1.jpeg" }
       ],
       "descripcion": "Apartamento luminoso de dos habitaciones con balcón privado y acceso privilegiado a playas tranquilas. Su distribución abierta integra sala, comedor y cocina equipada, ideal para familias o viajeros que buscan descanso frente al Caribe. Incluye aire acondicionado, Wi-Fi de alta velocidad y acceso a las zonas comunes del edificio.",
       "caracteristicas": [
@@ -65,17 +62,14 @@
     {
       "id": "rodadero-sur-201",
       "titulo": "Apartamento 201 · Rodadero Sur",
-      "edificio": "Reserva del Mar II",
-      "ubicacion": "Rodadero Sur, Santa Marta",
-      "rango_huespedes": "5 a 6 huéspedes",
-      "huespedes": 6,
+      "edificio": "Rodadero Sur",
+      "capacidad_huespedes": 6,
       "habitaciones": 3,
       "banos": 2,
-      "capacidad_texto": "Hasta 6 personas",
       "imagen_principal": "assets/images/rdm-rodaderosur.jpeg",
       "galeria": [
-        "assets/images/rdm-rodaderosur.jpeg",
-        "assets/images/1.jpeg"
+        { "url": "assets/images/rdm-rodaderosur.jpeg" },
+        { "url": "assets/images/1.jpeg" }
       ],
       "descripcion": "Espacio familiar de tres habitaciones con vistas panorámicas al mar y amplias zonas comunes para compartir. Disfruta de una sala luminosa, cocina equipada y balcón con brisa caribeña, a pocos minutos de restaurantes y comercios de Rodadero Sur. Incluye aire acondicionado, Wi-Fi de alta velocidad y acceso a piscina y zona BBQ.",
       "caracteristicas": [
@@ -93,17 +87,14 @@
     {
       "id": "bello-horizonte-301",
       "titulo": "Apartamento 301 · Bello Horizonte",
-      "edificio": "Reserva del Mar Bello Horizonte",
-      "ubicacion": "Bello Horizonte, Santa Marta",
-      "rango_huespedes": "1 a 2 huéspedes",
-      "huespedes": 2,
+      "edificio": "Bello Horizonte",
+      "capacidad_huespedes": 2,
       "habitaciones": 1,
       "banos": 1,
-      "capacidad_texto": "Hasta 2 personas",
       "imagen_principal": "assets/images/rdm-bellohorizonte.avif",
       "galeria": [
-        "assets/images/rdm-bellohorizonte.avif",
-        "assets/images/1.jpeg"
+        { "url": "assets/images/rdm-bellohorizonte.avif" },
+        { "url": "assets/images/1.jpeg" }
       ],
       "descripcion": "Estudio moderno con acabados de primera línea, ideal para parejas o viajeros de negocios. Su diseño optimiza cada espacio e incluye cocina equipada, zona de trabajo y acceso a gimnasio y terraza. Ubicado cerca de gastronomía, comercios y del aeropuerto, con aire acondicionado y Wi-Fi de alta velocidad.",
       "caracteristicas": [

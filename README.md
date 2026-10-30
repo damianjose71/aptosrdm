@@ -57,10 +57,12 @@ Los llamados a la acción de amenidades enlazan a `apartamentos.html?edificio=pl
 
 `data/apartamentos.json` contiene dos bloques:
 
-- `edificios`: ID, nombre, ubicación y listado de amenidades.
-- `apartamentos`: ID, título, edificio, ubicación, rango de huéspedes, número de huéspedes, habitaciones, baños, capacidad visible, imagen principal, galería, descripción detallada, características y disponibilidad.
+- `edificios`: ID, nombre, ubicación y listado de amenidades del edificio.
+- `apartamentos`: ID, título, edificio/zona, capacidad de huéspedes, habitaciones, baños, imagen principal, galería, descripción, características y disponibilidad.
 
-El esquema editable está definido en `admin/config.yml`. Las imágenes subidas desde el CMS se almacenan en `assets/images/uploads`.
+Las tarjetas usan `edificio`, `capacidad_huespedes`, `habitaciones`, `banos` e `imagen_principal`. El modal normaliza la galería con formato `{ "url": "..." }` y muestra la descripción, las características y las amenidades del edificio.
+
+El esquema editable está definido en `admin/config.yml`. Incluye los campos solicitados para el modal y dos campos adicionales (`edificios` y `caracteristicas`) necesarios para no perder contenido al guardar desde el CMS. Las imágenes subidas desde el CMS se almacenan en `assets/images/uploads`.
 
 ## Desarrollo local
 
@@ -74,13 +76,13 @@ Luego abre `http://localhost:8080`.
 
 ## Configuración de Decap CMS
 
-La configuración usa el backend de GitHub con el repositorio `damianjose71/aptosrdm`. Antes de publicar:
+El panel está configurado con `test-repo` para abrir la interfaz sin autenticación. Este modo **no lee ni guarda** `data/apartamentos.json`; solo permite validar la interfaz y los campos.
 
-1. Configura un proveedor OAuth para GitHub. La configuración base usa Netlify como proveedor de autenticación mediante `base_url` y `auth_endpoint`.
-2. Accede al panel en `/admin/`.
-3. Realiza los cambios y publícalos desde el CMS.
+Para publicar cambios reales en el repositorio `damianjose71/aptosrdm`:
 
-Si solo necesitas validar la interfaz localmente, puedes cambiar temporalmente `backend.name` a `test-repo`. Ten en cuenta que `test-repo` no lee ni guarda el archivo `data/apartamentos.json`.
+1. Cambia `backend.name` a `github` y descomenta `repo`, `branch`, `base_url` y `auth_endpoint` (bloque incluido en `admin/config.yml`).
+2. Configura un proveedor OAuth para GitHub. La configuración base usa Netlify como proveedor de autenticación.
+3. Accede al panel en `/admin/`, realiza los cambios y publícalos desde el CMS.
 
 Decap CMS confirma los cambios en el repositorio de GitHub, no directamente en Hostinger. Para que el sitio publicado se actualice, configura un despliegue automático desde el repositorio (Git o FTP) o vuelve a cargar los archivos después de cada publicación.
 

@@ -65,7 +65,9 @@
   };
 
   const getGuestCount = (apartment) => {
-    const guests = getNumber(apartment.huespedes);
+    const guests = getNumber(
+      apartment.capacidad_huespedes ?? apartment.huespedes
+    );
     if (guests !== null && guests > 0) {
       return guests;
     }
@@ -77,16 +79,32 @@
     return matches ? Math.max(...matches.map(Number)) : null;
   };
 
-  const metricValue = (value) => (value === null ? "—" : String(value));
+  const getGuestRange = (apartment) => {
+    const guests = getGuestCount(apartment);
 
-  const getBadge = (apartment) => {
-    if (apartment.zona) {
-      return apartment.zona;
+    if (guests === null) {
+      return null;
     }
 
-    const location = apartment.ubicacion || "";
-    return location.split(",")[0].trim() || apartment.edificio || "Reserva del Mar";
+    if (guests <= 2) {
+      return "1 a 2 huéspedes";
+    }
+
+    if (guests <= 4) {
+      return "3 a 4 huéspedes";
+    }
+
+    if (guests <= 6) {
+      return "5 a 6 huéspedes";
+    }
+
+    return "7 o más huéspedes";
   };
+
+  const metricValue = (value) => (value === null ? "—" : String(value));
+
+  const getBadge = (apartment) =>
+    apartment.edificio || apartment.zona || "Reserva del Mar";
 
   const updateCount = (total) => {
     if (!count) {
@@ -222,9 +240,7 @@
 
   const populateFilter = () => {
     const ranges = [
-      ...new Set(
-        apartments.map((item) => item.rango_huespedes).filter(Boolean)
-      ),
+      ...new Set(apartments.map(getGuestRange).filter(Boolean)),
     ].sort((first, second) => getRangeStart(first) - getRangeStart(second));
 
     rangeFilter.innerHTML = [
@@ -264,12 +280,12 @@
     const filtered = apartments.filter((apartment) => {
       const locationMatches =
         !selectedLocation ||
-        [apartment.ubicacion, apartment.edificio, apartment.zona]
+        [apartment.edificio, apartment.zona]
           .filter(Boolean)
           .some((value) => normalizeText(value).includes(selectedLocation));
 
       const rangeMatches =
-        !selectedRange || apartment.rango_huespedes === selectedRange;
+        !selectedRange || getGuestRange(apartment) === selectedRange;
 
       return locationMatches && rangeMatches;
     });
@@ -295,6 +311,7 @@
   const loadCatalog = async () => {
     try {
       const response = await fetch(CATALOG_URL, {
+        cache: "no-store",
         headers: { Accept: "application/json" },
       });
 
@@ -303,7 +320,9 @@
       }
 
       const data = await response.json();
-      apartments = Array.isArray(data.apartamentos) ? data.apartamentos : [];
+      apartments = Array.isArray(data.apartamentos)
+        ? data.apartamentos.filter((apartment) => apartment.disponible !== false)
+        : [];
       buildings = Array.isArray(data.edificios) ? data.edificios : [];
 
       populateFilter();
@@ -329,9 +348,17 @@
       return;
     }
 
-    const building = buildings.find(
-      (item) => String(item.nombre) === String(apartment.edificio)
-    );
+    const zone = normalizeText(apartment.edificio);
+    const building = buildings.find((item) => {
+      const name = normalizeText(item.nombre);
+      const location = normalizeText(item.ubicacion);
+
+      return (
+        name === zone ||
+        location.includes(zone) ||
+        (zone && zone.includes(name))
+      );
+    });
 
     document.dispatchEvent(
       new CustomEvent("apartamento:detalle", {
