@@ -1,5 +1,6 @@
+<?php require_once __DIR__ . '/lang/i18n.php'; ?>
 <!DOCTYPE html>
-<html lang="es">
+<html lang="<?= $lang ?? 'es' ?>">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -68,10 +69,16 @@
 
       <!-- Navegación principal -->
       <nav class="hidden items-center space-x-8 text-sm font-medium text-white md:flex lg:text-base" aria-label="Navegación principal">
-        <a href="index.html" class="transition-colors hover:text-amber-400">Inicio</a>
-        <a href="apartamentos.html" class="transition-colors hover:text-amber-400">Apartamentos</a>
-        <a href="amenidades.html" class="transition-colors hover:text-amber-400">Amenidades</a>
-        <a href="contactanos.html" class="text-amber-400 transition-colors hover:text-amber-300" aria-current="page">Contáctanos</a>
+        <a href="index.html" class="transition-colors hover:text-amber-400"><?= __('nav_home') ?></a>
+        <a href="apartamentos.html" class="transition-colors hover:text-amber-400"><?= __('nav_suites') ?></a>
+        <a href="amenidades.html" class="transition-colors hover:text-amber-400"><?= __('nav_amenities') ?></a>
+        <a href="contactanos.html" class="text-amber-400 transition-colors hover:text-amber-300" aria-current="page"><?= __('nav_contact') ?></a>
+
+        <!-- Selector de idioma -->
+        <div class="flex items-center gap-2">
+          <a href="?lang=es" class="rounded-full border border-[#C5A059]/60 px-3 py-1 text-xs font-semibold <?= $lang === 'es' ? 'bg-[#C5A059] text-[#0F172A]' : 'text-white' ?>">ES</a>
+          <a href="?lang=en" class="rounded-full border border-[#C5A059]/60 px-3 py-1 text-xs font-semibold <?= $lang === 'en' ? 'bg-[#C5A059] text-[#0F172A]' : 'text-white' ?>">EN</a>
+        </div>
       </nav>
 
       <!-- Botón de reserva -->
@@ -107,10 +114,17 @@
          class="absolute left-0 top-full hidden w-full border-t border-gray-800 bg-[#0F172A]/95 px-6 py-6 shadow-lg md:hidden"
          aria-hidden="true">
       <nav class="flex flex-col space-y-4 font-medium text-white" aria-label="Navegación móvil">
-        <a href="index.html" class="transition-colors hover:text-amber-400">Inicio</a>
-        <a href="apartamentos.html" class="transition-colors hover:text-amber-400">Apartamentos</a>
-        <a href="amenidades.html" class="transition-colors hover:text-amber-400">Amenidades</a>
-        <a href="contactanos.html" class="text-amber-400 transition-colors hover:text-amber-300" aria-current="page">Contáctanos</a>
+        <a href="index.html" class="transition-colors hover:text-amber-400"><?= __('nav_home') ?></a>
+        <a href="apartamentos.html" class="transition-colors hover:text-amber-400"><?= __('nav_suites') ?></a>
+        <a href="amenidades.html" class="transition-colors hover:text-amber-400"><?= __('nav_amenities') ?></a>
+        <a href="contactanos.html" class="text-amber-400 transition-colors hover:text-amber-300" aria-current="page"><?= __('nav_contact') ?></a>
+
+        <!-- Selector de idioma -->
+        <div class="flex items-center gap-2">
+          <a href="?lang=es" class="rounded-full border border-[#C5A059]/60 px-3 py-1 text-xs font-semibold <?= $lang === 'es' ? 'bg-[#C5A059] text-[#0F172A]' : 'text-white' ?>">ES</a>
+          <a href="?lang=en" class="rounded-full border border-[#C5A059]/60 px-3 py-1 text-xs font-semibold <?= $lang === 'en' ? 'bg-[#C5A059] text-[#0F172A]' : 'text-white' ?>">EN</a>
+        </div>
+
         <a href="https://wa.me/573218839636?text=Hola%2C%20me%20gustar%C3%ADa%20obtener%20m%C3%A1s%20informaci%C3%B3n%20sobre%20las%20reservas"
            target="_blank"
            rel="noopener noreferrer"
@@ -442,10 +456,10 @@
         <!-- Columna 2: Navegación rápida -->
         <nav>
           <ul class="space-y-2 text-sm text-slate-400">
-            <li><a href="index.html" class="hover:text-[#C5A059] transition">Inicio</a></li>
-            <li><a href="apartamentos.html" class="hover:text-[#C5A059] transition">Apartamentos</a></li>
-            <li><a href="amenidades.html" class="hover:text-[#C5A059] transition">Amenidades</a></li>
-            <li><a href="contactanos.html" class="hover:text-[#C5A059] transition">Contáctanos</a></li>
+            <li><a href="index.html" class="hover:text-[#C5A059] transition"><?= __('nav_home') ?></a></li>
+            <li><a href="apartamentos.html" class="hover:text-[#C5A059] transition"><?= __('nav_suites') ?></a></li>
+            <li><a href="amenidades.html" class="hover:text-[#C5A059] transition"><?= __('nav_amenities') ?></a></li>
+            <li><a href="contactanos.html" class="hover:text-[#C5A059] transition"><?= __('nav_contact') ?></a></li>
           </ul>
         </nav>
 
