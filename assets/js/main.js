@@ -161,8 +161,13 @@
         })[character]
     );
 
+  const t = (key, fallback = '') =>
+    typeof window.rdmT === 'function' ? window.rdmT(key, fallback) : fallback;
+
   const formatDescription = (value) => {
-    const text = escapeHtml(value || 'Descripción no disponible.');
+    const text = escapeHtml(
+      value || t('modal_no_description', 'Descripción no disponible.')
+    );
 
     return text
       .replace(/^###?\s+(.+)$/gm, '<strong>$1</strong>')
@@ -266,11 +271,14 @@
     </svg>
   `;
 
-  const metricBox = (icon, value, label) => `
+  const metricBox = (icon, value, labelKey) => `
     <div class="flex flex-col items-center justify-center gap-1 rounded-2xl bg-slate-50 px-2 py-3 text-center ring-1 ring-slate-900/5">
       ${icon}
       <span class="text-lg font-bold text-[#0F172A]">${metricValue(value)}</span>
-      <span class="text-[9px] font-semibold uppercase tracking-[0.04em] text-slate-500 sm:text-[10px]">${label}</span>
+      <span data-i18n="${labelKey}" class="text-[9px] font-semibold uppercase tracking-[0.04em] text-slate-500 sm:text-[10px]">${t(
+        labelKey,
+        labelKey
+      )}</span>
     </div>
   `;
 
@@ -331,12 +339,18 @@
             `
           )
           .join('')
-      : '<li class="text-sm text-slate-500">Consulta con nuestro equipo las características disponibles.</li>';
+      : `<li data-i18n="modal_features_empty" class="text-sm text-slate-500">${t(
+          'modal_features_empty',
+          'Consulta con nuestro equipo las características disponibles.'
+        )}</li>`;
 
     const buildingAmenitiesMarkup = buildingAmenities.length
       ? `
         <div class="mt-4">
-          <p class="text-[10px] font-bold uppercase tracking-[0.14em] text-slate-400">Amenidades del edificio</p>
+          <p data-i18n="modal_building_amenities" class="text-[10px] font-bold uppercase tracking-[0.14em] text-slate-400">${t(
+            'modal_building_amenities',
+            'Amenidades del edificio'
+          )}</p>
           <div class="mt-2 flex flex-wrap gap-2">
             ${buildingAmenities
               .map(
@@ -371,7 +385,10 @@
         </div>
 
         <div class="p-5 sm:p-6 md:p-8">
-          <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-[#C5A059]">Publicación</p>
+          <p data-i18n="modal_published" class="text-[10px] font-bold uppercase tracking-[0.18em] text-[#C5A059]">${t(
+            'modal_published',
+            'Publicación'
+          )}</p>
           <h2 id="modal-apartamento-titulo" class="mt-2 text-2xl font-bold leading-tight text-[#0F172A] md:text-3xl">${title}</h2>
 
           <p class="mt-2 flex items-start gap-2 text-sm leading-relaxed text-slate-600">
@@ -379,22 +396,28 @@
               <path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z" />
               <circle cx="12" cy="10" r="3" />
             </svg>
-            <span><strong class="font-semibold text-[#0F172A]">${building}</strong><span class="text-slate-400"> · </span>${location}</span>
+            <span data-no-translate><strong class="font-semibold text-[#0F172A]">${building}</strong><span class="text-slate-400"> · </span>${location}</span>
           </p>
 
           <div class="mt-5 grid grid-cols-3 gap-1 sm:gap-2">
-            ${metricBox(iconGuests, guests, 'Huéspedes')}
-            ${metricBox(iconRooms, rooms, 'Habitaciones')}
-            ${metricBox(iconBaths, baths, 'Baños')}
+            ${metricBox(iconGuests, guests, 'guests')}
+            ${metricBox(iconRooms, rooms, 'rooms')}
+            ${metricBox(iconBaths, baths, 'baths')}
           </div>
 
           <div class="mt-6 border-t border-slate-100 pt-5">
-            <h3 class="text-[11px] font-bold uppercase tracking-[0.16em] text-[#C5A059]">Descripción</h3>
+            <h3 data-i18n="modal_description" class="text-[11px] font-bold uppercase tracking-[0.16em] text-[#C5A059]">${t(
+              'modal_description',
+              'Descripción'
+            )}</h3>
             <p id="modal-apartamento-descripcion" class="mt-2 whitespace-pre-line text-sm leading-relaxed text-slate-600">${description}</p>
           </div>
 
           <div class="mt-6 border-t border-slate-100 pt-5">
-            <h3 class="text-[11px] font-bold uppercase tracking-[0.16em] text-[#C5A059]">Características y servicios</h3>
+            <h3 data-i18n="modal_features" class="text-[11px] font-bold uppercase tracking-[0.16em] text-[#C5A059]">${t(
+              'modal_features',
+              'Características y servicios'
+            )}</h3>
             <ul class="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-2">${featuresMarkup}</ul>
             ${buildingAmenitiesMarkup}
           </div>
@@ -402,6 +425,7 @@
           <div class="mt-7 border-t border-slate-100 pt-5">
             <a
               href="${whatsappUrl}"
+              data-i18n="quote_whatsapp"
               target="_blank"
               rel="noopener noreferrer"
               class="inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#C5A059] px-6 py-3 text-sm font-bold text-[#0F172A] shadow-[0_16px_35px_-14px_rgba(197,160,89,0.9)] transition duration-300 hover:bg-[#D4B26D] focus:outline-none focus:ring-2 focus:ring-[#C5A059] focus:ring-offset-2"
@@ -409,9 +433,12 @@
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4" aria-hidden="true">
                 <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92Z" />
               </svg>
-              Cotizar por WhatsApp
+              ${t('quote_whatsapp', 'Cotizar por WhatsApp')}
             </a>
-            <p class="mt-3 text-center text-[11px] text-slate-400">Atención directa del equipo Reserva del Mar</p>
+            <p data-i18n="modal_direct" class="mt-3 text-center text-[11px] text-slate-400">${t(
+              'modal_direct',
+              'Atención directa del equipo Reserva del Mar'
+            )}</p>
           </div>
         </div>
       </div>

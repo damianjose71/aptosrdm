@@ -38,6 +38,9 @@
   const normalizeText = (value = "") =>
     String(value).trim().toLocaleLowerCase("es");
 
+  const t = (key, fallback = "") =>
+    typeof window.rdmT === "function" ? window.rdmT(key, fallback) : fallback;
+
   const locationAliases = {
     "playa-salguero": "Playa Salguero",
     "rodadero-sur": "Rodadero Sur",
@@ -87,18 +90,18 @@
     }
 
     if (guests <= 2) {
-      return "1 a 2 huéspedes";
+      return "range_1_2";
     }
 
     if (guests <= 4) {
-      return "3 a 4 huéspedes";
+      return "range_3_4";
     }
 
     if (guests <= 6) {
-      return "5 a 6 huéspedes";
+      return "range_5_6";
     }
 
-    return "7 o más huéspedes";
+    return "range_7";
   };
 
   const metricValue = (value) => (value === null ? "—" : String(value));
@@ -113,8 +116,11 @@
 
     count.textContent =
       total === 1
-        ? "1 apartamento disponible"
-        : `${total} apartamentos disponibles`;
+        ? t("catalog_count_one", "1 apartamento disponible")
+        : t("catalog_count_many", "{n} apartamentos disponibles").replace(
+            "{n}",
+            total
+          );
   };
 
   const iconGuests = `
@@ -146,11 +152,14 @@
     </svg>
   `;
 
-  const metricBox = (value, label, icon) => `
+  const metricBox = (value, labelKey, icon) => `
     <div class="flex flex-col items-center justify-center gap-1 rounded-xl bg-slate-50 px-2 py-3 text-center ring-1 ring-slate-900/5">
       ${icon}
       <span class="text-sm font-bold text-[#0F172A]">${metricValue(value)}</span>
-      <span class="text-[9px] font-semibold uppercase tracking-[0.04em] text-slate-500 sm:text-[10px]">${label}</span>
+      <span data-i18n="${labelKey}" class="text-[9px] font-semibold uppercase tracking-[0.04em] text-slate-500 sm:text-[10px]">${t(
+        labelKey,
+        labelKey
+      )}</span>
     </div>
   `;
 
@@ -177,7 +186,7 @@
             class="h-full w-full object-cover object-[center_30%] transition duration-500 group-hover:scale-[1.04]"
           >
           <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#0F172A]/35 via-transparent to-transparent"></div>
-          <span class="absolute left-4 top-4 inline-flex items-center gap-1.5 rounded-full bg-[#0F172A]/90 px-3 py-1.5 text-xs font-bold text-white shadow-sm backdrop-blur">
+          <span data-no-translate class="absolute left-4 top-4 inline-flex items-center gap-1.5 rounded-full bg-[#0F172A]/90 px-3 py-1.5 text-xs font-bold text-white shadow-sm backdrop-blur">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="h-3.5 w-3.5 text-[#C5A059]" aria-hidden="true">
               <path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z" />
               <circle cx="12" cy="10" r="3" />
@@ -188,12 +197,12 @@
 
         <div class="flex flex-1 flex-col p-6">
           <h3 class="min-h-[3.5rem] text-xl font-bold leading-snug text-[#0F172A]">${title}</h3>
-          <p class="mt-1 truncate text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-400">${building}</p>
+          <p data-no-translate class="mt-1 truncate text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-400">${building}</p>
 
           <div class="mt-4 grid grid-cols-3 gap-2">
-            ${metricBox(guests, "Huéspedes", iconGuests)}
-            ${metricBox(rooms, "Habitaciones", iconRooms)}
-            ${metricBox(baths, "Baños", iconBaths)}
+            ${metricBox(guests, "guests", iconGuests)}
+            ${metricBox(rooms, "rooms", iconRooms)}
+            ${metricBox(baths, "baths", iconBaths)}
           </div>
 
           <div class="mt-auto pt-6">
@@ -207,7 +216,10 @@
                 <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z" />
                 <circle cx="12" cy="12" r="3" />
               </svg>
-              Ver Detalles
+              <span data-i18n="btn_details">${t(
+                "btn_details",
+                "Ver Detalles"
+              )}</span>
             </button>
           </div>
         </div>
@@ -223,8 +235,10 @@
       updateCount(0);
 
       if (emptyState) {
-        emptyState.textContent =
-          "No hay apartamentos disponibles para la ubicación y el rango de huéspedes seleccionados.";
+        emptyState.textContent = t(
+          "catalog_empty",
+          "No hay apartamentos disponibles para la ubicación y el rango de huéspedes seleccionados."
+        );
         emptyState.classList.remove("hidden");
       }
       return;
@@ -239,17 +253,31 @@
   };
 
   const populateFilter = () => {
+    const previousRange = rangeFilter.value;
     const ranges = [
       ...new Set(apartments.map(getGuestRange).filter(Boolean)),
     ].sort((first, second) => getRangeStart(first) - getRangeStart(second));
 
     rangeFilter.innerHTML = [
-      '<option value="">Todos los rangos</option>',
+      `<option value="">${escapeHtml(
+        t("filter_all_ranges", "Todos los rangos")
+      )}</option>`,
       ...ranges.map(
         (range) =>
-          `<option value="${escapeHtml(range)}">${escapeHtml(range)}</option>`
+          `<option value="${escapeHtml(range)}">${escapeHtml(
+            t(range, range)
+          )}</option>`
       ),
     ].join("");
+
+    if (
+      previousRange &&
+      [...rangeFilter.options].some(
+        (option) => option.value === previousRange
+      )
+    ) {
+      rangeFilter.value = previousRange;
+    }
   };
 
   const applyUrlFilters = () => {
@@ -298,12 +326,14 @@
     catalog.setAttribute("aria-busy", "false");
 
     if (count) {
-      count.textContent = "Catálogo no disponible";
+      count.textContent = t("catalog_unavailable", "Catálogo no disponible");
     }
 
     if (emptyState) {
-      emptyState.textContent =
-        "No fue posible cargar los apartamentos. Intenta nuevamente más tarde.";
+      emptyState.textContent = t(
+        "catalog_error",
+        "No fue posible cargar los apartamentos. Intenta nuevamente más tarde."
+      );
       emptyState.classList.remove("hidden");
     }
   };
@@ -376,6 +406,11 @@
 
   filterForm.addEventListener("submit", (event) => {
     event.preventDefault();
+    applyFilters();
+  });
+
+  document.addEventListener("rdm:languagechange", () => {
+    populateFilter();
     applyFilters();
   });
 

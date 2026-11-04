@@ -8,6 +8,9 @@
 
   const WHATSAPP_NUMBER = "573218839636";
 
+  const t = (key, fallback = "") =>
+    typeof window.rdmT === "function" ? window.rdmT(key, fallback) : fallback;
+
   const showStatus = (message) => {
     if (!status) {
       return;
@@ -49,6 +52,11 @@
     link.click();
     link.remove();
 
-    showStatus("Abriendo WhatsApp con tu mensaje listo para enviar.");
+    showStatus(
+      t(
+        "form_status",
+        "Abriendo WhatsApp con tu mensaje listo para enviar."
+      )
+    );
   });
 })();

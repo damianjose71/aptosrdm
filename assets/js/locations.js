@@ -8,6 +8,9 @@
 
   const toggles = document.querySelectorAll("[data-description-toggle]");
 
+  const t = (key, fallback = "") =>
+    typeof window.rdmT === "function" ? window.rdmT(key, fallback) : fallback;
+
   toggles.forEach((button) => {
     const description = document.getElementById(button.getAttribute("aria-controls"));
     const label = button.querySelector("[data-label]");
@@ -38,14 +41,14 @@
         description.style.maxHeight = "";
 
         button.setAttribute("aria-expanded", "false");
-        label.textContent = "Ver más...";
+        label.textContent = t("see_more", "Ver más...");
         chevron.classList.remove("rotate-180");
         return;
       }
 
       description.style.maxHeight = `${description.scrollHeight}px`;
       button.setAttribute("aria-expanded", "true");
-      label.textContent = "Ver menos";
+      label.textContent = t("see_less", "Ver menos");
       chevron.classList.add("rotate-180");
     });
 
@@ -57,6 +60,20 @@
       if (button.getAttribute("aria-expanded") === "true") {
         description.style.maxHeight = "none";
       }
+    });
+  });
+
+  document.addEventListener("rdm:languagechange", () => {
+    toggles.forEach((button) => {
+      const label = button.querySelector("[data-label]");
+      if (!label) {
+        return;
+      }
+
+      label.textContent =
+        button.getAttribute("aria-expanded") === "true"
+          ? t("see_less", "Ver menos")
+          : t("see_more", "Ver más...");
     });
   });
 })();
