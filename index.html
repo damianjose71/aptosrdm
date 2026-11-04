@@ -72,16 +72,24 @@
         <a href="apartamentos.html" class="transition-colors hover:text-amber-400"><?= __('nav_suites') ?></a>
         <a href="amenidades.html" class="transition-colors hover:text-amber-400"><?= __('nav_amenities') ?></a>
         <a href="contactanos.html" class="transition-colors hover:text-amber-400"><?= __('nav_contact') ?></a>
-
-        <!-- Selector de idioma -->
-        <div class="flex items-center gap-2">
-          <a href="?lang=es" class="rounded-full border border-[#C5A059]/60 px-3 py-1 text-xs font-semibold <?= $lang === 'es' ? 'bg-[#C5A059] text-[#0F172A]' : 'text-white' ?>">ES</a>
-          <a href="?lang=en" class="rounded-full border border-[#C5A059]/60 px-3 py-1 text-xs font-semibold <?= $lang === 'en' ? 'bg-[#C5A059] text-[#0F172A]' : 'text-white' ?>">EN</a>
-        </div>
       </nav>
 
-      <!-- Botón de reserva -->
-      <div class="hidden md:block">
+      <!-- Botón de reserva + selector de idioma -->
+      <div class="hidden md:flex items-center gap-4">
+        <!-- Selector de idioma -->
+        <div class="relative" id="lang-dropdown">
+          <button id="lang-dropdown-btn" type="button" class="flex items-center gap-2 rounded-full border border-[#C5A059]/60 px-4 py-2 text-xs font-semibold text-white transition-colors duration-200 hover:border-[#C5A059] hover:text-[#C5A059] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A059]" aria-haspopup="true" aria-expanded="false" aria-controls="lang-menu" aria-label="Seleccionar idioma">
+            <span id="lang-current" class="font-bold tracking-wide"><?= $lang === 'en' ? 'EN' : 'ES' ?></span>
+            <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 9-7 7-7-7"></path>
+            </svg>
+          </button>
+          <div id="lang-menu" class="absolute right-0 top-full z-50 mt-2 hidden w-36 overflow-hidden rounded-lg border border-gray-700 bg-[#0F172A] shadow-xl">
+            <a href="?lang=es" class="block px-4 py-2 text-sm font-medium <?= $lang === 'es' ? 'bg-[#C5A059]/10 text-[#C5A059] font-semibold' : 'text-white' ?> transition-colors duration-200 hover:bg-[#C5A059]/10 hover:text-[#C5A059]">Español</a>
+            <a href="?lang=en" class="block px-4 py-2 text-sm font-medium <?= $lang === 'en' ? 'bg-[#C5A059]/10 text-[#C5A059] font-semibold' : 'text-white' ?> transition-colors duration-200 hover:bg-[#C5A059]/10 hover:text-[#C5A059]">English</a>
+          </div>
+        </div>
+
         <a href="https://wa.me/573218839636?text=Hola%2C%20me%20gustar%C3%ADa%20obtener%20m%C3%A1s%20informaci%C3%B3n%20sobre%20las%20reservas"
            target="_blank"
            rel="noopener noreferrer"

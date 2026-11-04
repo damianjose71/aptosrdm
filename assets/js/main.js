@@ -74,6 +74,39 @@
     }
   }
 
+  const langDropdown = document.getElementById('lang-dropdown');
+  const langDropdownButton = document.getElementById('lang-dropdown-btn');
+  const langMenu = document.getElementById('lang-menu');
+
+  if (langDropdown && langDropdownButton && langMenu) {
+    const setLangMenuOpen = (isOpen) => {
+      langMenu.classList.toggle('hidden', !isOpen);
+      langDropdownButton.setAttribute('aria-expanded', String(isOpen));
+    };
+
+    langDropdownButton.addEventListener('click', (event) => {
+      event.stopPropagation();
+      setLangMenuOpen(langMenu.classList.contains('hidden'));
+    });
+
+    langMenu.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => setLangMenuOpen(false));
+    });
+
+    document.addEventListener('click', (event) => {
+      if (langDropdown.contains(event.target)) {
+        return;
+      }
+      setLangMenuOpen(false);
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        setLangMenuOpen(false);
+      }
+    });
+  }
+
   const modal = document.getElementById('modal-apartamento');
   if (!modal) {
     return;
