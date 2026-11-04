@@ -1,0 +1,76 @@
+# ============================================================
+# Decap CMS · Apartamentos Reserva del Mar
+# ------------------------------------------------------------
+# La configuración de apartamentos usa el esquema del modal
+# Marketplace y de las tarjetas del catálogo.
+#
+# test-repo permite abrir el panel sin autenticación, pero no
+# lee ni guarda data/apartamentos.json. Para publicar cambios
+# reales, usa el backend de GitHub que aparece comentado abajo
+# y configura un proveedor OAuth.
+# ============================================================
+
+backend:
+  name: test-repo
+  # Producción con GitHub:
+  # name: github
+  # repo: damianjose71/aptosrdm
+  # branch: main
+  # base_url: https://api.netlify.com
+  # auth_endpoint: auth
+
+media_folder: "assets/images/uploads"
+public_folder: "/assets/images/uploads"
+
+collections:
+  - name: "apartamentos_collection"
+    label: "Gestión de Apartamentos"
+    files:
+      - file: "data/apartamentos.json"
+        label: "Lista de Apartamentos"
+        name: "apartamentos"
+        format: "json"
+        fields:
+          # Datos de los edificios usados por el modal (amenidades).
+          - name: "edificios"
+            label: "Edificios y amenidades"
+            widget: "list"
+            required: false
+            summary: "{{fields.nombre}} · {{fields.ubicacion}}"
+            fields:
+              - { label: "ID", name: "id", widget: "string" }
+              - { label: "Nombre", name: "nombre", widget: "string" }
+              - { label: "Ubicación", name: "ubicacion", widget: "string" }
+              - label: "Amenidades"
+                name: "amenidades"
+                widget: "list"
+                field: { label: "Amenidad", name: "amenidad", widget: "string" }
+
+          - name: "apartamentos"
+            label: "Apartamentos"
+            widget: "list"
+            summary: "{{fields.titulo}} - {{fields.edificio}}"
+            fields:
+              - { label: "ID Único", name: "id", widget: "string", hint: "Ejemplo: apto-101" }
+              - { label: "Título del Apartamento", name: "titulo", widget: "string" }
+              - label: "Edificio / Ubicación"
+                name: "edificio"
+                widget: "select"
+                options: ["Playa Salguero", "Rodadero Sur", "Bello Horizonte"]
+              - { label: "Capacidad de Huéspedes", name: "capacidad_huespedes", widget: "number", value_type: "int", min: 1 }
+              - { label: "Número de Habitaciones", name: "habitaciones", widget: "number", value_type: "int", min: 1 }
+              - { label: "Número de Baños", name: "banos", widget: "number", value_type: "int", min: 1 }
+              - { label: "Imagen Principal (Portada)", name: "imagen_principal", widget: "image" }
+              - label: "Galería de Fotos (Modal Marketplace)"
+                name: "galeria"
+                widget: "list"
+                required: false
+                field: { label: "Imagen", name: "url", widget: "image" }
+              - { label: "Descripción Completa", name: "descripcion", widget: "markdown" }
+              - { label: "Disponible para Reserva", name: "disponible", widget: "boolean", default: true }
+              # Campo adicional para mantener las características del modal.
+              - label: "Características y servicios"
+                name: "caracteristicas"
+                widget: "list"
+                required: false
+                field: { label: "Característica", name: "caracteristica", widget: "string" }

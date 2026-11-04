@@ -1,0 +1,365 @@
+/* ============================================================
+   Apartamentos Reserva del Mar · Estilos globales
+   ============================================================ */
+
+/* Tipografía corporativa autoalojada. Se declara un único archivo
+   variable para cubrir los pesos utilizados en la interfaz. */
+@font-face {
+  font-family: "Roboto Condensed";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("../fonts/roboto-condensed-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6,
+    U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122,
+    U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+:root {
+  /* Identidad corporativa */
+  --color-navy: #0F172A;
+  --color-gold: #C5A059;
+  --color-background: #F8FAFC;
+  --color-surface: #FFFFFF;
+  --color-text: #0F172A;
+  --color-muted: #526071;
+  --color-border: #E2E8F0;
+
+  /* Tipografía */
+  --font-corporate: "Roboto Condensed", "Arial Narrow", system-ui,
+    -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-sans: var(--font-corporate);
+  --font-display: var(--font-corporate);
+
+  /* Layout */
+  --container-width: 1120px;
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --shadow-soft: 0 20px 50px rgba(15, 23, 42, 0.08);
+}
+
+/* Reset básico */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: var(--font-corporate);
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--color-text);
+  background: var(--color-background);
+  font-family: var(--font-corporate);
+  line-height: 1.6;
+}
+
+/* Los controles de formulario no heredan la fuente en todos los
+   navegadores; se fuerza la tipografía corporativa también aquí. */
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+}
+
+body.modal-open {
+  overflow: hidden;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin-top: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-corporate);
+  line-height: 1.15;
+}
+
+/* Tipografía unificada para el catálogo, la barra de filtros y el
+   modal. Evita que utilidades o estilos previos cambien la familia. */
+.font-corporate,
+.font-corporate :is(h1, h2, h3, h4, h5, h6) {
+  font-family: var(--font-corporate);
+}
+
+/* Layout */
+.container {
+  width: min(calc(100% - 2rem), var(--container-width));
+  margin-inline: auto;
+}
+
+.section {
+  padding-block: 4rem;
+}
+
+.section__heading {
+  max-width: 680px;
+  margin-bottom: 2rem;
+}
+
+.eyebrow {
+  margin-bottom: 0.75rem;
+  color: var(--color-gold);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+/* Header: los estilos del encabezado flotante se gestionan con
+   utilidades de Tailwind directamente en cada página. */
+
+/* Hero */
+.page-hero {
+  padding: 9.5rem 0 6rem;
+  color: #FFFFFF;
+  background:
+    radial-gradient(circle at 85% 20%, rgba(197, 160, 89, 0.22), transparent 35%),
+    var(--color-navy);
+}
+
+/* Heroes con imagen de portada */
+.page-hero--image {
+  --hero-overlay:
+    linear-gradient(90deg, rgba(15, 23, 42, 0.94) 0%, rgba(15, 23, 42, 0.78) 42%, rgba(15, 23, 42, 0.32) 72%, rgba(15, 23, 42, 0.12) 100%),
+    linear-gradient(0deg, rgba(15, 23, 42, 0.45) 0%, rgba(15, 23, 42, 0) 45%);
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  min-height: clamp(600px, 78vh, 760px);
+  align-items: center;
+  background-color: var(--color-navy);
+  background-image: none;
+}
+
+/* La fotografía y su overlay viven en una capa independiente para poder
+   difuminar únicamente el borde inferior de la imagen. */
+.page-hero--image::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image: var(--hero-overlay), var(--hero-image);
+  background-position: var(--hero-position, center);
+  background-size: cover;
+  background-repeat: no-repeat;
+  pointer-events: none;
+}
+
+.page-hero--image > .container {
+  position: relative;
+  z-index: 1;
+}
+
+/* Los heroes interiores son más bajos que el de la portada. */
+.page-hero--image:not(.page-hero--home) {
+  min-height: clamp(480px, 58vh, 540px);
+}
+
+.page-hero--home {
+  --hero-image: url("../images/portada-hero.jpeg");
+  min-height: clamp(640px, 82vh, 780px);
+}
+
+.page-hero--apartamentos {
+  --hero-image: url("../images/apartamentos-hero.jpeg");
+}
+
+.page-hero--amenidades {
+  --hero-image: url("../images/amenidades-hero.jpg");
+}
+
+.page-hero--contactanos {
+  --hero-image: url("../images/contactanos-hero-1920.jpg");
+}
+
+/* Acerca el contenido al hero interior una vez terminado el degradado. */
+.page-hero--image:not(.page-hero--home) + .section {
+  padding-top: 2.5rem;
+}
+
+.hero__copy {
+  max-width: 760px;
+}
+
+.page-hero h1 {
+  max-width: 760px;
+  margin-bottom: 1.75rem;
+  font-family: var(--font-corporate);
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+  font-size: clamp(2.4rem, 6vw, 4.5rem);
+}
+
+.page-hero p {
+  max-width: 620px;
+  margin-bottom: 0;
+  color: #CBD5E1;
+  font-size: 1.05rem;
+}
+
+.page-hero .hero__lead {
+  margin-bottom: 1.75rem;
+}
+
+.hero__copy .button {
+  margin-top: 0;
+}
+
+/* Componentes base */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  padding: 0.75rem 1.25rem;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  color: #FFFFFF;
+  background: var(--color-navy);
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.button:hover {
+  background: #1E293B;
+}
+
+.button--gold {
+  color: var(--color-navy);
+  background: var(--color-gold);
+}
+
+.button--gold:hover {
+  background: #D4B26D;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.25rem;
+}
+
+.card {
+  padding: 1.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-soft);
+}
+
+.card h2,
+.card h3 {
+  margin-bottom: 0.65rem;
+}
+
+.card p {
+  margin-bottom: 0;
+  color: var(--color-muted);
+}
+
+.empty-state {
+  padding: 2rem;
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-md);
+  color: var(--color-muted);
+  text-align: center;
+}
+
+/* Pie de página */
+.site-footer {
+  padding-block: 2rem;
+  border-top: 1px solid var(--color-border);
+  color: var(--color-muted);
+  font-size: 0.875rem;
+}
+
+.site-footer__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.site-footer nav {
+  display: flex;
+  gap: 1rem;
+}
+
+/* Mapa embebido de contacto */
+#mapa-edificio {
+  display: block;
+  width: 100%;
+  min-height: 360px;
+  border: 0;
+  background: #E2E8F0;
+}
+
+.rdm-map-button[aria-pressed="true"],
+.rdm-map-button[aria-pressed="true"]:hover {
+  border-color: var(--color-gold) !important;
+  background: var(--color-gold) !important;
+  color: var(--color-navy) !important;
+}
+
+.rdm-map-button[aria-pressed="true"] svg {
+  color: var(--color-navy);
+}
+
+/* Accesibilidad */
+:focus-visible {
+  outline: 3px solid var(--color-gold);
+  outline-offset: 3px;
+}
+
+@media (max-width: 720px) {
+  .page-hero {
+    padding: 7.5rem 0 4rem;
+  }
+
+  .page-hero--image {
+    --hero-overlay:
+      linear-gradient(90deg, rgba(15, 23, 42, 0.9) 0%, rgba(15, 23, 42, 0.7) 65%, rgba(15, 23, 42, 0.35) 100%),
+      linear-gradient(0deg, rgba(15, 23, 42, 0.5) 0%, rgba(15, 23, 42, 0) 45%);
+    --hero-position: 60% center;
+    min-height: 620px;
+  }
+
+  .page-hero--image:not(.page-hero--home) {
+    min-height: 520px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}

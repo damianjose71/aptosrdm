@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apartamentos Reserva del Mar · Santa Marta</title>
+  <meta name="description" content="Disfruta de la mejor experiencia vacacional en Santa Marta. Apartamentos exclusivos frente al mar en Playa Salguero, Rodadero Sur y Bello Horizonte.">
+  <link rel="preload" href="assets/fonts/roboto-condensed-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preload" as="image" href="assets/images/amenidades-hero.jpg" type="image/jpeg" fetchpriority="high">
+  <link rel="icon" href="assets/images/logo-placeholder.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261028c">
+  <script src="assets/js/main.js?v=20261030a" defer></script>
+<!-- Open Graph y Twitter -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://apartamentosreservadelmar.com.co/">
+    <meta property="og:title" content="Apartamentos Reserva del Mar · Santa Marta">
+    <meta property="og:description" content="El espacio perfecto para tus mejores vacaciones. Apartamentos frente al Caribe con atención 24/7 y amenidades tipo resort.">
+    <meta property="og:image" content="https://apartamentosreservadelmar.com.co/assets/images/portada-hero.jpeg">
+    <meta property="og:locale" content="es_CO">
+    <meta property="og:site_name" content="Apartamentos Reserva del Mar">
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Apartamentos Reserva del Mar · Santa Marta">
+    <meta name="twitter:description" content="Experiencias vacacionales excepcionales en Playa Salguero, Rodadero Sur y Bello Horizonte.">
+    <meta name="twitter:image" content="https://apartamentosreservadelmar.com.co/assets/images/portada-hero.jpeg">
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LodgingBusiness",
+      "name": "Apartamentos Reserva del Mar By Nestor Echeverry",
+      "image": "https://apartamentosreservadelmar.com.co/assets/images/portada-hero.jpeg",
+      "description": "Alquiler de apartamentos vacacionales de lujo en Santa Marta: Playa Salguero, Rodadero Sur y Bello Horizonte.",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Santa Marta",
+        "addressRegion": "Magdalena",
+        "addressCountry": "CO"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "11.1965",
+        "longitude": "-74.2289"
+      },
+      "url": "https://apartamentosreservadelmar.com.co/",
+      "telephone": "+573218839636",
+      "priceRange": "$$$"
+    }
+    </script>
+  </head>
+<body>
+  <!-- Header flotante / transparente -->
+  <header class="absolute top-0 left-0 z-50 w-full bg-transparent px-6 py-4 transition-all duration-300 md:px-12">
+    <div class="mx-auto flex max-w-7xl items-center justify-between">
+
+      <!-- Logo -->
+      <div class="flex items-center">
+        <a href="index.html" aria-label="Apartamentos Reserva del Mar, inicio">
+          <img src="./assets/images/logo-placeholder.svg" alt="Apartamentos Reserva del Mar" width="240" height="64" class="h-10 w-auto md:h-12">
+        </a>
+      </div>
+
+      <!-- Navegación principal -->
+      <nav class="hidden items-center space-x-8 text-sm font-medium text-white md:flex lg:text-base" aria-label="Navegación principal">
+        <a href="index.html" class="transition-colors hover:text-amber-400">Inicio</a>
+        <a href="apartamentos.html" class="transition-colors hover:text-amber-400">Apartamentos</a>
+        <a href="amenidades.html" class="text-amber-400 transition-colors hover:text-amber-300" aria-current="page">Amenidades</a>
+        <a href="contactanos.html" class="transition-colors hover:text-amber-400">Contáctanos</a>
+      </nav>
+
+      <!-- Botón de reserva -->
+      <div class="hidden md:block">
+        <a href="https://wa.me/573218839636?text=Hola%2C%20me%20gustar%C3%ADa%20obtener%20m%C3%A1s%20informaci%C3%B3n%20sobre%20las%20reservas"
+           target="_blank"
+           rel="noopener noreferrer"
+           class="rounded-lg bg-[#C5A059] px-5 py-2.5 text-sm font-semibold text-white shadow-md transition-all duration-300 hover:bg-[#b08d4b] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white">
+          Reserva Aquí
+        </a>
+      </div>
+
+      <!-- Botón de menú móvil -->
+      <div class="flex items-center md:hidden">
+        <button id="menu-btn"
+                type="button"
+                class="rounded-md p-1 text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A059]"
+                aria-label="Abrir menú de navegación"
+                aria-expanded="false"
+                aria-controls="mobile-menu">
+          <svg data-menu-icon="open" class="h-7 w-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+          <svg data-menu-icon="close" class="hidden h-7 w-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Menú desplegable móvil -->
+    <div id="mobile-menu"
+         class="absolute left-0 top-full hidden w-full border-t border-gray-800 bg-[#0F172A]/95 px-6 py-6 shadow-lg md:hidden"
+         aria-hidden="true">
+      <nav class="flex flex-col space-y-4 font-medium text-white" aria-label="Navegación móvil">
+        <a href="index.html" class="transition-colors hover:text-amber-400">Inicio</a>
+        <a href="apartamentos.html" class="transition-colors hover:text-amber-400">Apartamentos</a>
+        <a href="amenidades.html" class="text-amber-400 transition-colors hover:text-amber-300" aria-current="page">Amenidades</a>
+        <a href="contactanos.html" class="transition-colors hover:text-amber-400">Contáctanos</a>
+        <a href="https://wa.me/573218839636?text=Hola%2C%20me%20gustar%C3%ADa%20obtener%20m%C3%A1s%20informaci%C3%B3n%20sobre%20las%20reservas"
+           target="_blank"
+           rel="noopener noreferrer"
+           class="mt-2 rounded-lg bg-[#C5A059] py-3 text-center font-semibold text-white shadow-md transition-colors hover:bg-[#b08d4b]">
+          Reserva Aquí
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenido" class="font-corporate">
+    <section class="page-hero page-hero--image page-hero--amenidades">
+      <div class="container">
+        <div class="hero__copy">
+          <p class="eyebrow">Tres experiencias</p>
+          <h1>AMENIDADES PARA CADA EDIFICIO.</h1>
+          <p>Consulta los servicios y espacios que diferencian a cada una de nuestras ubicaciones.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Accesos rápidos a los edificios -->
+    <section class="border-b border-slate-200/80 bg-white py-7" aria-label="Explora por edificio">
+      <div class="container flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
+        <div class="flex items-center gap-3">
+          <span class="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#C5A059]/15 text-[#C5A059]" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5">
+              <path d="M4 21V9l8-6 8 6v12" />
+              <path d="M9 21v-6h6v6" />
+              <path d="M9 9h.01M15 9h.01" />
+            </svg>
+          </span>
+          <div>
+            <p class="text-sm font-bold text-[#0F172A]">Explora por edificio</p>
+            <p class="text-xs text-slate-500">Cada espacio tiene su propio carácter frente al Caribe.</p>
+          </div>
+        </div>
+
+        <nav class="flex flex-wrap gap-2" aria-label="Ir a las amenidades de cada edificio">
+          <a href="#playa-salguero" class="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-xs font-semibold text-[#0F172A] transition hover:border-[#C5A059] hover:text-[#C5A059]">
+            <span class="text-[#C5A059]">01</span> Playa Salguero
+          </a>
+          <a href="#rodadero-sur" class="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-xs font-semibold text-[#0F172A] transition hover:border-[#C5A059] hover:text-[#C5A059]">
+            <span class="text-[#C5A059]">02</span> Rodadero Sur
+          </a>
+          <a href="#bello-horizonte" class="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-xs font-semibold text-[#0F172A] transition hover:border-[#C5A059] hover:text-[#C5A059]">
+            <span class="text-[#C5A059]">03</span> Bello Horizonte
+          </a>
+        </nav>
+      </div>
+    </section>
+
+    <!-- 01 · Playa Salguero -->
+    <section id="playa-salguero" class="scroll-mt-24 bg-white py-14 md:py-20" aria-labelledby="playa-salguero-title">
+      <div class="container">
+        <div class="grid gap-6 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:items-end">
+          <div>
+            <p class="eyebrow">Edificio 01 · Playa Salguero</p>
+            <h2 id="playa-salguero-title" class="mt-2 max-w-xl text-3xl font-bold leading-tight text-[#0F172A] md:text-4xl">Reserva del Mar</h2>
+            <span class="mt-4 inline-flex items-center gap-2 rounded-full border border-[#C5A059]/30 bg-[#C5A059]/10 px-4 py-2 text-xs font-semibold text-[#0F172A]">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 text-[#C5A059]" aria-hidden="true">
+                <path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z" />
+                <circle cx="12" cy="10" r="3" />
+              </svg>
+              Playa Salguero, Santa Marta
+            </span>
+          </div>
+          <p class="max-w-2xl text-base leading-relaxed text-slate-600">Un refugio luminoso frente al mar, pensado para quienes buscan combinar descanso, playa y la comodidad de un edificio con servicios completos. Descubre los espacios que harán de tu estadía una experiencia sin preocupaciones.</p>
+        </div>
+
+        <div class="mt-9 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          <article class="group flex h-full flex-col overflow-hidden rounded-3xl border border-slate-200/80 bg-white shadow-[0_18px_45px_-28px_rgba(15,23,42,0.45)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_28px_60px_-28px_rgba(15,23,42,0.55)]">
+            <div class="relative aspect-[4/3] overflow-hidden bg-slate-100">
+              <img src="assets/images/amenidades/playa-salguero/piscina-infinity.jpg" alt="Piscina infinity de Reserva del Mar en Playa Salguero" width="900" height="675" loading="lazy" decoding="async" class="h-full w-full object-cover transition duration-500 group-hover:scale-[1.04]">
+              <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#0F172A]/40 via-transparent to-transparent"></div>
+              <span class="absolute bottom-4 left-4 inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#C5A059] text-[#0F172A] shadow-lg ring-4 ring-[#0F172A]/10" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5">
+                  <path d="M2 16c2.5-2 5-2 7.5 0s5 2 7.5 0 2.5-2 5 0" />
+                  <path d="M2 20c2.5-2 5-2 7.5 0s5 2 7.5 0 2.5-2 5 0" />
+                  <path d="M12 4v3" />
+                  <path d="m6 7 1.5 1.5" />
+                  <path d="m18 7-1.5 1.5" />
+                  <path d="M4 12h16" />
+                </svg>
+              </span>
+            </div>
+            <div class="flex flex-1 flex-col p-5">
+              <h3 class="text-lg font-bold leading-snug text-[#0F172A]">Piscina Infinity</h3>
+              <p class="mt-2 text-sm leading-relaxed text-slate-600">Piscina de borde infinito con solárium y vista abierta al Caribe, ideal para desconectar desde temprano.</p>
+            </div>
+          </article>
+
+          <article class="group flex h-full flex-col overflow-hidden rounded-3xl border border-slate-200/80 bg-white shadow-[0_18px_45px_-28px_rgba(15,23,42,0.45)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_28px_60px_-28px_rgba(15,23,42,0.55)]">
+            <div class="relative aspect-[4/3] overflow-hidden bg-slate-100">
+              <img src="assets/images/amenidades/playa-salguero/acceso-a-la-playa.jpg" alt="Edificio y zonas exteriores de Reserva del Mar en Playa Salguero" width="900" height="675" loading="lazy" decoding="async" class="h-full w-full object-cover transition duration-500 group-hover:scale-[1.04]">
+              <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#0F172A]/40 via-transparent to-transparent"></div>
+              <span class="absolute bottom-4 left-4 inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#C5A059] text-[#0F172A] shadow-lg ring-4 ring-[#0F172A]/10" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5">
+                  <path d="M12 3a9 9 0 0 1 9 9H3a9 9 0 0 1 9-9Z" />
+                  <path d="M12 12v8" />
+                  <path d="M8 21h8" />
+                </svg>
+              </span>
+            </div>
+            <div class="flex flex-1 flex-col p-5">
+              <h3 class="text-lg font-bold leading-snug text-[#0F172A]">Acceso a la Playa</h3>
+              <p class="mt-2 text-sm leading-relaxed text-slate-600">Salida directa a la arena y zonas de descanso para disfrutar del mar sin salir del complejo.</p>
+            </div>
+          </article>
+
+          <article class="group flex h-full flex-col overflow-hidden rounded-3xl border border-slate-200/80 bg-white shadow-[0_18px_45px_-28px_rgba(15,23,42,0.45)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_28px_60px_-28px_rgba(15,23,42,0.55)]">
+            <div class="relative aspect-[4/3] overflow-hidden bg-slate-100">
+              <img src="assets/images/amenidades/playa-salguero/parqueadero-privado.jpg" alt="Lobby de acceso de Reserva del Mar en Playa Salguero" width="900" height="675" loading="lazy" decoding="async" class="h-full w-full object-cover transition duration-500 group-hover:scale-[1.04]">
+              <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#0F172A]/40 via-transparent to-transparent"></div>
+              <span class="absolute bottom-4 left-4 inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#C5A059] text-[#0F172A] shadow-lg ring-4 ring-[#0F172A]/10" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5">
+                  <rect x="3" y="3" width="18" height="18" rx="3" />
+                  <path d="M9 17V7h4a3 3 0 0 1 0 6H9" />
+                </svg>
+              </span>
+            </div>
+            <div class="flex flex-1 flex-col p-5">
+              <h3 class="text-lg font-bold leading-snug text-[#0F172A]">Parqueadero Privado</h3>
+              <p class="mt-2 text-sm leading-relaxed text-slate-600">Estacionamiento seguro y vigilado para huéspedes, con acceso cómodo al lobby y a los apartamentos.</p>
+            </div>
+          </article>
+
+          <article class="group flex h-full flex-col overflow-hidden rounded-3xl border border-slate-200/80 bg-white shadow-[0_18px_45px_-28px_rgba(15,23,42,0.45)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_28px_60px_-28px_rgba(15,23,42,0.55)]">
+            <div class="relative aspect-[4/3] overflow-hidden bg-slate-100">
+              <img src="assets/images/amenidades/playa-salguero/wifi-alta-velocidad.jpg" alt="Zona lounge de Reserva del Mar en Playa Salguero" width="900" height="675" loading="lazy" decoding="async" class="h-full w-full object-cover transition duration-500 group-hover:scale-[1.04]">
+              <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#0F172A]/40 via-transparent to-transparent"></div>
+              <span class="absolute bottom-4 left-4 inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#C5A059] text-[#0F172A] shadow-lg ring-4 ring-[#0F172A]/10" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5">
+                  <path d="M5 12.55a11 11 0 0 1 14.08 0" />
+                  <path d="M8.53 16.11a6 6 0 0 1 6.95 0" />
+                  <path d="M12 20h.01" />
+                </svg>
+              </span>
+            </div>
+            <div class="flex flex-1 flex-col p-5">
+              <h3 class="text-lg font-bold leading-snug text-[#0F172A]">Wi-Fi de Alta Velocidad</h3>
+              <p class="mt-2 text-sm leading-relaxed text-slate-600">Conectividad estable en áreas comunes y apartamentos para trabajar, compartir o planear tu próximo paseo.</p>
+            </div>
+          </article>
+        </div>
+
+        <div class="mt-9 overflow-hidden rounded-[1.75rem] bg-[#0F172A] shadow-[0_24px_60px_-30px_rgba(15,23,42,0.8)]">
+          <div class="flex flex-col gap-6 p-6 md:flex-row md:items-center md:justify-between md:p-8">
+            <div class="max-w-2xl">
+              <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-[#C5A059]">Tu próxima estadía</p>
+              <p class="mt-2 text-xl font-bold leading-snug text-white md:text-2xl">Encuentra tu apartamento en Playa Salguero</p>
+              <p class="mt-1 text-sm leading-relaxed text-slate-300">Consulta disponibilidad, capacidades y tarifas directamente con nuestro equipo.</p>
+            </div>
+            <div class="flex shrink-0 flex-col gap-3 sm:flex-row">
+              <a href="apartamentos.html?edificio=playa-salguero" class="inline-flex items-center justify-center gap-2 rounded-full bg-[#C5A059] px-6 py-3 text-sm font-bold text-[#0F172A] shadow-[0_16px_35px_-14px_rgba(197,160,89,0.9)] transition duration-300 hover:bg-[#D4B26D] focus:outline-none focus:ring-2 focus:ring-[#C5A059] focus:ring-offset-2 focus:ring-offset-[#0F172A]">
+                Ver apartamentos
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4" aria-hidden="true">
+                  <path d="M5 12h14" />
+                  <path d="m13 6 6 6-6 6" />
+                </svg>
+              </a>
+              <a href="https://wa.me/573218839636?text=Hola,%20deseo%20informaci%C3%B3n%20sobre%20los%20apartamentos%20en%20Playa%20Salguero" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center rounded-full border border-white/20 px-6 py-3 text-sm font-semibold text-white transition duration-300 hover:border-white/40 hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-[#0F172A]">
+                Cotizar por WhatsApp
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02 · Rodadero Sur -->
+    <section id="rodadero-sur" class="scroll-mt-24 border-y border-slate-200/70 bg-[#F8FAFC] py-14 md:py-20" aria-labelledby="rodadero-sur-title">
+      <div class="container">
+        <div class="grid gap-6 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:items-end">
+          <div>
+            <p class="eyebrow">Edificio 02 · Rodadero Sur</p>
+            <h2 id="rodadero-sur-title" class="mt-2 max-w-xl text-3xl font-bold leading-tight text-[#0F172A] md:text-4xl">Reserva del Mar II</h2>
+            <span class="mt-4 inline-flex items-center gap-2 rounded-full border border-[#C5A059]/30 bg-[#C5A059]/10 px-4 py-2 text-xs font-semibold text-[#0F172A]">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 text-[#C5A059]" aria-hidden="true">
+                <path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z" />
+                <circle cx="12" cy="10" r="3" />
+              </svg>
+              Rodadero Sur, Santa Marta
+            </span>
+          </div>
+          <p class="max-w-2xl text-base leading-relaxed text-slate-600">Vive el Caribe desde una ubicación privilegiada, cerca del mar y de la energía de Rodadero. Sus espacios comunes invitan a compartir en familia, contemplar el atardecer y disfrutar de cada momento.</p>
+        </div>
+
+        <div class="mt-9 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          <article class="group flex h-full flex-col overflow-hidden rounded-3xl border border-slate-200/80 bg-white shadow-[0_18px_45px_-28px_rgba(15,23,42,0.45)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_28px_60px_-28px_rgba(15,23,42,0.55)]">
+            <div class="relative aspect-[4/3] overflow-hidden bg-slate-100">
+              <img src="assets/images/amenidades/rodadero-sur/piscina-vista-al-mar.jpg" alt="Piscina con vista al mar en Reserva del Mar II, Rodadero Sur" width="900" height="675" loading="lazy" decoding="async" class="h-full w-full object-cover transition duration-500 group-hover:scale-[1.04]">
+              <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#0F172A]/40 via-transparent to-transparent"></div>
+              <span class="absolute bottom-4 left-4 inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#C5A059] text-[#0F172A] shadow-lg ring-4 ring-[#0F172A]/10" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5">
+                  <path d="M2 16c2.5-2 5-2 7.5 0s5 2 7.5 0 2.5-2 5 0" />
+                  <path d="M2 20c2.5-2 5-2 7.5 0s5 2 7.5 0 2.5-2 5 0" />
+                  <path d="M12 4v3" />
+                  <path d="m6 7 1.5 1.5" />
+                  <path d="m18 7-1.5 1.5" />
+                  <path d="M4 12h16" />
+                </svg>
+              </span>
+            </div>
+            <div class="flex flex-1 flex-col p-5">
+              <h3 class="text-lg font-bold leading-snug text-[#0F172A]">Piscina con Vista al Mar</h3>
+              <p class="mt-2 text-sm leading-relaxed text-slate-600">Piscina exterior rodeada de palmeras, con vista al Caribe y amplias zonas de descanso.</p>
+            </div>
+          </article>
+
+          <article class="group flex h-full flex-col overflow-hidden rounded-3xl border border-slate-200/80 bg-white shadow-[0_18px_45px_-28px_rgba(15,23,42,0.45)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_28px_60px_-28px_rgba(15,23,42,0.55)]">
+            <div class="relative aspect-[4/3] overflow-hidden bg-slate-100">
+              <img src="assets/images/amenidades/rodadero-sur/mirador-al-caribe.jpg" alt="Mirador y zona lounge con vista al Caribe en Reserva del Mar II" width="900" height="675" loading="lazy" decoding="async" class="h-full w-full object-cover transition duration-500 group-hover:scale-[1.04]">
+              <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#0F172A]/40 via-transparent to-transparent"></div>
+              <span class="absolute bottom-4 left-4 inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#C5A059] text-[#0F172A] shadow-lg ring-4 ring-[#0F172A]/10" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5">
+                  <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z" />
+                  <circle cx="12" cy="12" r="3" />
+                </svg>
+              </span>
+            </div>
+            <div class="flex flex-1 flex-col p-5">
+              <h3 class="text-lg font-bold leading-snug text-[#0F172A]">Mirador al Caribe</h3>
+              <p class="mt-2 text-sm leading-relaxed text-slate-600">Terraza panorámica para contemplar el atardecer, sentir la brisa y compartir una copa al final del día.</p>
+            </div>
+          </article>
+
+          <article class="group flex h-full flex-col overflow-hidden rounded-3xl border border-slate-200/80 bg-white shadow-[0_18px_45px_-28px_rgba(15,23,42,0.45)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_28px_60px_-28px_rgba(15,23,42,0.55)]">
+            <div class="relative aspect-[4/3] overflow-hidden bg-slate-100">
+              <img src="assets/images/amenidades/rodadero-sur/zona-bbq.jpg" alt="Zona lounge y social de Reserva del Mar II en Rodadero Sur" width="900" height="675" loading="lazy" decoding="async" class="h-full w-full object-cover transition duration-500 group-hover:scale-[1.04]">
+              <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#0F172A]/40 via-transparent to-transparent"></div>
+              <span class="absolute bottom-4 left-4 inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#C5A059] text-[#0F172A] shadow-lg ring-4 ring-[#0F172A]/10" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5">
+                  <path d="M12 22c4 0 7-3 7-7 0-3-2-5-3-7-1 2-2 3-3 4 0-2-1-4-2-6-1 2-5 5-5 9 0 4 3 7 6 7Z" />
+                </svg>
+              </span>
+            </div>
+            <div class="flex flex-1 flex-col p-5">
+              <h3 class="text-lg font-bold leading-snug text-[#0F172A]">Zona BBQ</h3>
+              <p class="mt-2 text-sm leading-relaxed text-slate-600">Área equipada para parrilladas y encuentros familiares, perfecta para compartir junto a la piscina.</p>
+            </div>
+          </article>
+
+          <article class="group flex h-full flex-col overflow-hidden rounded-3xl border border-slate-200/80 bg-white shadow-[0_18px_45px_-28px_rgba(15,23,42,0.45)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_28px_60px_-28px_rgba(15,23,42,0.55)]">
+            <div class="relative aspect-[4/3] overflow-hidden bg-slate-100">
+              <img src="assets/images/amenidades/rodadero-sur/wifi-alta-velocidad.jpg" alt="Lobby de Reserva del Mar II en Rodadero Sur" width="900" height="675" loading="lazy" decoding="async" class="h-full w-full object-cover transition duration-500 group-hover:scale-[1.04]">
+              <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#0F172A]/40 via-transparent to-transparent"></div>
+              <span class="absolute bottom-4 left-4 inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#C5A059] text-[#0F172A] shadow-lg ring-4 ring-[#0F172A]/10" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5">
+                  <path d="M5 12.55a11 11 0 0 1 14.08 0" />
+                  <path d="M8.53 16.11a6 6 0 0 1 6.95 0" />
+                  <path d="M12 20h.01" />
+                </svg>
+              </span>
+            </div>
+            <div class="flex flex-1 flex-col p-5">
+              <h3 class="text-lg font-bold leading-snug text-[#0F172A]">Wi-Fi de Alta Velocidad</h3>
+              <p class="mt-2 text-sm leading-relaxed text-slate-600">Conexión estable en todo el edificio para disfrutar tus vacaciones o trabajar con total comodidad.</p>
+            </div>
+          </article>
+        </div>
+
+        <div class="mt-9 overflow-hidden rounded-[1.75rem] bg-[#0F172A] shadow-[0_24px_60px_-30px_rgba(15,23,42,0.8)]">
+          <div class="flex flex-col gap-6 p-6 md:flex-row md:items-center md:justify-between md:p-8">
+            <div class="max-w-2xl">
+              <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-[#C5A059]">Tu próxima estadía</p>
+              <p class="mt-2 text-xl font-bold leading-snug text-white md:text-2xl">Encuentra tu apartamento en Rodadero Sur</p>
+              <p class="mt-1 text-sm leading-relaxed text-slate-300">Consulta disponibilidad, capacidades y tarifas directamente con nuestro equipo.</p>
+            </div>
+            <div class="flex shrink-0 flex-col gap-3 sm:flex-row">
+              <a href="apartamentos.html?edificio=rodadero-sur" class="inline-flex items-center justify-center gap-2 rounded-full bg-[#C5A059] px-6 py-3 text-sm font-bold text-[#0F172A] shadow-[0_16px_35px_-14px_rgba(197,160,89,0.9)] transition duration-300 hover:bg-[#D4B26D] focus:outline-none focus:ring-2 focus:ring-[#C5A059] focus:ring-offset-2 focus:ring-offset-[#0F172A]">
+                Ver apartamentos
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4" aria-hidden="true">
+                  <path d="M5 12h14" />
+                  <path d="m13 6 6 6-6 6" />
+                </svg>
+              </a>
+              <a href="https://wa.me/573218839636?text=Hola,%20deseo%20informaci%C3%B3n%20sobre%20los%20apartamentos%20en%20Rodadero%20Sur" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center rounded-full border border-white/20 px-6 py-3 text-sm font-semibold text-white transition duration-300 hover:border-white/40 hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-[#0F172A]">
+                Cotizar por WhatsApp
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03 · Bello Horizonte -->
+    <section id="bello-horizonte" class="scroll-mt-24 bg-white py-14 md:py-20" aria-labelledby="bello-horizonte-title">
+      <div class="container">
+        <div class="grid gap-6 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:items-end">
+          <div>
+            <p class="eyebrow">Edificio 03 · Bello Horizonte</p>
+            <h2 id="bello-horizonte-title" class="mt-2 max-w-xl text-3xl font-bold leading-tight text-[#0F172A] md:text-4xl">Reserva del Mar Bello Horizonte</h2>
+            <span class="mt-4 inline-flex items-center gap-2 rounded-full border border-[#C5A059]/30 bg-[#C5A059]/10 px-4 py-2 text-xs font-semibold text-[#0F172A]">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 text-[#C5A059]" aria-hidden="true">
+                <path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z" />
+                <circle cx="12" cy="10" r="3" />
+              </svg>
+              Bello Horizonte, Santa Marta
+            </span>
+          </div>
+          <p class="max-w-2xl text-base leading-relaxed text-slate-600">Un entorno moderno y tranquilo para quienes buscan practicidad sin renunciar al estilo. Sus amenidades combinan bienestar, vistas abiertas y espacios pensados para descansar o trabajar.</p>
+        </div>
+
+        <div class="mt-9 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          <article class="group flex h-full flex-col overflow-hidden rounded-3xl border border-slate-200/80 bg-white shadow-[0_18px_45px_-28px_rgba(15,23,42,0.45)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_28px_60px_-28px_rgba(15,23,42,0.55)]">
+            <div class="relative aspect-[4/3] overflow-hidden bg-slate-100">
+              <img src="assets/images/amenidades/bello-horizonte/piscina.jpg" alt="Piscina familiar de Reserva del Mar Bello Horizonte" width="900" height="675" loading="lazy" decoding="async" class="h-full w-full object-cover transition duration-500 group-hover:scale-[1.04]">
+              <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#0F172A]/40 via-transparent to-transparent"></div>
+              <span class="absolute bottom-4 left-4 inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#C5A059] text-[#0F172A] shadow-lg ring-4 ring-[#0F172A]/10" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5">
+                  <path d="M2 16c2.5-2 5-2 7.5 0s5 2 7.5 0 2.5-2 5 0" />
+                  <path d="M2 20c2.5-2 5-2 7.5 0s5 2 7.5 0 2.5-2 5 0" />
+                  <path d="M12 4v3" />
+                  <path d="m6 7 1.5 1.5" />
+                  <path d="m18 7-1.5 1.5" />
+                  <path d="M4 12h16" />
+                </svg>
+              </span>
+            </div>
+            <div class="flex flex-1 flex-col p-5">
+              <h3 class="text-lg font-bold leading-snug text-[#0F172A]">Piscina</h3>
+              <p class="mt-2 text-sm leading-relaxed text-slate-600">Piscina familiar con solárium y espacios verdes, ideal para disfrutar de un día de descanso.</p>
+            </div>
+          </article>
+
+          <article class="group flex h-full flex-col overflow-hidden rounded-3xl border border-slate-200/80 bg-white shadow-[0_18px_45px_-28px_rgba(15,23,42,0.45)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_28px_60px_-28px_rgba(15,23,42,0.55)]">
+            <div class="relative aspect-[4/3] overflow-hidden bg-slate-100">
+              <img src="assets/images/amenidades/bello-horizonte/terraza-panoramica.jpg" alt="Fachada y terraza de Reserva del Mar Bello Horizonte" width="900" height="675" loading="lazy" decoding="async" class="h-full w-full object-cover transition duration-500 group-hover:scale-[1.04]">
+              <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#0F172A]/40 via-transparent to-transparent"></div>
+              <span class="absolute bottom-4 left-4 inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#C5A059] text-[#0F172A] shadow-lg ring-4 ring-[#0F172A]/10" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5">
+                  <circle cx="12" cy="12" r="4" />
+                  <path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.42" />
+                </svg>
+              </span>
+            </div>
+            <div class="flex flex-1 flex-col p-5">
+              <h3 class="text-lg font-bold leading-snug text-[#0F172A]">Terraza Panorámica</h3>
+              <p class="mt-2 text-sm leading-relaxed text-slate-600">Terraza con vistas abiertas a la ciudad y al mar, perfecta para el atardecer y las reuniones informales.</p>
+            </div>
+          </article>
+
+          <article class="group flex h-full flex-col overflow-hidden rounded-3xl border border-slate-200/80 bg-white shadow-[0_18px_45px_-28px_rgba(15,23,42,0.45)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_28px_60px_-28px_rgba(15,23,42,0.55)]">
+            <div class="relative aspect-[4/3] overflow-hidden bg-slate-100">
+              <img src="assets/images/amenidades/bello-horizonte/gimnasio-equipado.jpg" alt="Zona lounge y de bienestar de Reserva del Mar Bello Horizonte" width="900" height="675" loading="lazy" decoding="async" class="h-full w-full object-cover transition duration-500 group-hover:scale-[1.04]">
+              <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#0F172A]/40 via-transparent to-transparent"></div>
+              <span class="absolute bottom-4 left-4 inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#C5A059] text-[#0F172A] shadow-lg ring-4 ring-[#0F172A]/10" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5">
+                  <path d="M6 7v10M18 7v10M3 9v6M21 9v6M6 12h12" />
+                </svg>
+              </span>
+            </div>
+            <div class="flex flex-1 flex-col p-5">
+              <h3 class="text-lg font-bold leading-snug text-[#0F172A]">Gimnasio Equipado</h3>
+              <p class="mt-2 text-sm leading-relaxed text-slate-600">Equipos de cardio y fuerza en un espacio luminoso para mantener tu rutina durante la estadía.</p>
+            </div>
+          </article>
+
+          <article class="group flex h-full flex-col overflow-hidden rounded-3xl border border-slate-200/80 bg-white shadow-[0_18px_45px_-28px_rgba(15,23,42,0.45)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_28px_60px_-28px_rgba(15,23,42,0.55)]">
+            <div class="relative aspect-[4/3] overflow-hidden bg-slate-100">
+              <img src="assets/images/amenidades/bello-horizonte/wifi-alta-velocidad.jpg" alt="Lobby de Reserva del Mar Bello Horizonte" width="900" height="675" loading="lazy" decoding="async" class="h-full w-full object-cover transition duration-500 group-hover:scale-[1.04]">
+              <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#0F172A]/40 via-transparent to-transparent"></div>
+              <span class="absolute bottom-4 left-4 inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#C5A059] text-[#0F172A] shadow-lg ring-4 ring-[#0F172A]/10" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5">
+                  <path d="M5 12.55a11 11 0 0 1 14.08 0" />
+                  <path d="M8.53 16.11a6 6 0 0 1 6.95 0" />
+                  <path d="M12 20h.01" />
+                </svg>
+              </span>
+            </div>
+            <div class="flex flex-1 flex-col p-5">
+              <h3 class="text-lg font-bold leading-snug text-[#0F172A]">Wi-Fi de Alta Velocidad</h3>
+              <p class="mt-2 text-sm leading-relaxed text-slate-600">Conectividad de alta velocidad en áreas comunes y apartamentos, ideal para viajes de trabajo o estudio.</p>
+            </div>
+          </article>
+        </div>
+
+        <div class="mt-9 overflow-hidden rounded-[1.75rem] bg-[#0F172A] shadow-[0_24px_60px_-30px_rgba(15,23,42,0.8)]">
+          <div class="flex flex-col gap-6 p-6 md:flex-row md:items-center md:justify-between md:p-8">
+            <div class="max-w-2xl">
+              <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-[#C5A059]">Tu próxima estadía</p>
+              <p class="mt-2 text-xl font-bold leading-snug text-white md:text-2xl">Encuentra tu apartamento en Bello Horizonte</p>
+              <p class="mt-1 text-sm leading-relaxed text-slate-300">Consulta disponibilidad, capacidades y tarifas directamente con nuestro equipo.</p>
+            </div>
+            <div class="flex shrink-0 flex-col gap-3 sm:flex-row">
+              <a href="apartamentos.html?edificio=bello-horizonte" class="inline-flex items-center justify-center gap-2 rounded-full bg-[#C5A059] px-6 py-3 text-sm font-bold text-[#0F172A] shadow-[0_16px_35px_-14px_rgba(197,160,89,0.9)] transition duration-300 hover:bg-[#D4B26D] focus:outline-none focus:ring-2 focus:ring-[#C5A059] focus:ring-offset-2 focus:ring-offset-[#0F172A]">
+                Ver apartamentos
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4" aria-hidden="true">
+                  <path d="M5 12h14" />
+                  <path d="m13 6 6 6-6 6" />
+                </svg>
+              </a>
+              <a href="https://wa.me/573218839636?text=Hola,%20deseo%20informaci%C3%B3n%20sobre%20los%20apartamentos%20en%20Bello%20Horizonte" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center rounded-full border border-white/20 px-6 py-3 text-sm font-semibold text-white transition duration-300 hover:border-white/40 hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-[#0F172A]">
+                Cotizar por WhatsApp
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer bg-[#0F172A] border-t border-[#C5A059]/30">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8">
+        <!-- Columna 1: Logo y descripción -->
+        <div>
+          <img src="./assets/images/logo-placeholder.svg" alt="Apartamentos Reserva del Mar" class="w-28 h-28 mx-auto mb-4">
+          <p class="mt-3 text-center text-sm text-slate-400">Más de 6 años de experiencia en Santa Marta</p>
+        </div>
+
+        <!-- Columna 2: Navegación rápida -->
+        <nav>
+          <ul class="space-y-2 text-sm text-slate-400">
+            <li><a href="index.html" class="hover:text-[#C5A059] transition">Inicio</a></li>
+            <li><a href="apartamentos.html" class="hover:text-[#C5A059] transition">Apartamentos</a></li>
+            <li><a href="amenidades.html" class="hover:text-[#C5A059] transition">Amenidades</a></li>
+            <li><a href="contactanos.html" class="hover:text-[#C5A059] transition">Contáctanos</a></li>
+          </ul>
+        </nav>
+
+        <!-- Columna 3: Atención y horarios -->
+        <div>
+          <p class="text-sm font-medium text-[#C5A059] mb-2">Horario de atención</p>
+          <p class="text-sm text-slate-400">Lunes a Viernes: 8:00 am - 8:00 pm</p>
+          <p class="text-sm text-slate-400">Fines de Semana: 8:00 am - 3:00 pm</p>
+          <p class="text-sm text-slate-400">Santa Marta, Colombia</p>
+          <a href="admin/index.html" class="mt-3 inline-flex items-center gap-1 text-xs font-bold text-[#C5A059] underline underline-offset-2 hover:text-[#D4B26D]">Administración</a>
+        </div>
+      </div>
+
+      <!-- Barra legal inferior -->
+      <div class="mt-12 pt-8 text-center text-xs text-slate-500">
+        <p>© 2026 Apartamentos Reserva del Mar By Nestor Echeverry. Todos los derechos reservados.</p>
+        <p class="mt-1">RNT (Registro Nacional de Turismo) · Santa Marta, Colombia</p>
+        <div class="mt-2 flex justify-center gap-4">
+          <a href="politica-privacidad.html" class="hover:text-slate-300 transition">Política de privacidad</a>
+          <a href="politica-cookies.html" class="hover:text-slate-300 transition">Política de cookies</a>
+          <a href="terminos-condiciones.html" class="hover:text-slate-300 transition">Términos y condiciones</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+<!-- Cookie Consent Banner -->
+<div id="cookie-banner" class="fixed bottom-4 right-4 z-50 bg-[#0F172A] border-t border-[#C5A059] rounded-lg p-5 flex items-center gap-3 max-w-sm shadow-lg translate-y-2 opacity-0 transition-transform transition-opacity duration-300">
+  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-300" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12s-4 9-8 9-8-9-8-9 4-9 8-9 8 9 8 9Z"/><circle cx="12" cy="12" r="3" /></svg>
+  <div>
+    <h3 class="font-medium text-slate-100">Uso de Cookies</h3>
+    <p class="text-slate-400 text-sm">Usamos cookies para mejorar tu experiencia en nuestro sitio. Al hacer clic en “Aceptar todas”, acepta nuestro uso de cookies según nuestra <a href="politica-cookies.html" class="underline text-slate-400">Política de Cookies</a>.</p>
+  </div>
+  <button id="cookie-accept" class="mt-4 w-full rounded-md bg-[#C5A059] px-6 py-2 text-sm font-bold text-[#0F172A] hover:bg-[#D4B26D] transition">Aceptar todas</button>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const banner = document.getElementById('cookie-banner');
+  const acceptBtn = document.getElementById('cookie-accept');
+
+  if (localStorage.getItem('cookiesAccepted') === 'true') {
+    banner.style.display = 'none';
+    return;
+  }
+
+  banner.style.display = 'block';
+  requestAnimationFrame(() => {
+    banner.style.transform = 'translateY(0)';
+    banner.style.opacity = '1';
+  });
+
+  acceptBtn.addEventListener('click', () => {
+    localStorage.setItem('cookiesAccepted', 'true');
+    banner.style.transition = 'transform 300ms ease, opacity 300ms ease';
+    banner.style.transform = 'translateY(2rem)';
+    banner.style.opacity = '0';
+    setTimeout(() => {
+      banner.style.display = 'none';
+    }, 350);
+  });
+});
+</script>
+
+</body>
+</html>
