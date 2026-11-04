@@ -363,3 +363,237 @@ h6 {
     scroll-behavior: auto;
   }
 }
+
+/* ============================================================
+   Header y footer unificados (páginas principales)
+   ============================================================ */
+
+.site-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 50;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem 1.5rem;
+  width: 100%;
+  padding: 1.1rem clamp(1rem, 4vw, 2.5rem);
+  color: #FFFFFF;
+  background: transparent;
+}
+
+.logo-container img {
+  height: 44px;
+  width: auto;
+}
+
+.main-nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.main-nav a {
+  color: #E2E8F0;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.main-nav a:hover,
+.main-nav a:focus-visible {
+  color: var(--color-gold);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.lang-dropdown {
+  position: relative;
+}
+
+.lang-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.5rem 0.7rem;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: var(--radius-sm);
+  color: #FFFFFF;
+  background: rgba(255, 255, 255, 0.06);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+}
+
+.lang-btn:hover,
+.lang-btn:focus-visible {
+  border-color: var(--color-gold);
+  color: var(--color-gold);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.lang-globe,
+.lang-chevron {
+  width: 1rem;
+  height: 1rem;
+  flex: none;
+}
+
+.lang-chevron {
+  transition: transform 0.2s ease;
+}
+
+.lang-dropdown.is-open .lang-chevron {
+  transform: rotate(180deg);
+}
+
+.lang-menu {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 0.4rem);
+  z-index: 60;
+  display: none;
+  min-width: 170px;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-soft);
+}
+
+.lang-dropdown:hover .lang-menu,
+.lang-dropdown:focus-within .lang-menu,
+.lang-dropdown.is-open .lang-menu {
+  display: block;
+}
+
+.lang-menu a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.6rem 0.9rem;
+  color: var(--color-navy);
+  font-size: 0.9rem;
+  transition: background 0.15s ease;
+}
+
+.lang-menu a[aria-current="true"] {
+  background: #F1F5F9;
+}
+
+.lang-menu a .lang-code {
+  font-size: 0.7rem;
+  color: var(--color-gold);
+}
+
+.lang-menu a:hover {
+  background: #F1F5F9;
+}
+
+.btn-reserva {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.6rem 1.25rem;
+  border-radius: 999px;
+  color: var(--color-navy);
+  background: var(--color-gold);
+  font-size: 0.9rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.btn-reserva:hover {
+  background: #D4B26D;
+}
+
+/* Pie de página unificado */
+.site-footer {
+  padding: 3rem 0 1.5rem;
+  border-top: 1px solid rgba(197, 160, 89, 0.35);
+  color: #CBD5E1;
+  background: var(--color-navy);
+  font-size: 0.9rem;
+}
+
+.site-footer .footer-content {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 2rem;
+  width: min(calc(100% - 2rem), var(--container-width));
+  margin-inline: auto;
+}
+
+.site-footer .footer-col h3,
+.site-footer .footer-col h4 {
+  margin-bottom: 0.75rem;
+  color: #FFFFFF;
+  font-size: 1.1rem;
+}
+
+.site-footer .footer-col p {
+  margin-bottom: 0;
+}
+
+.site-footer .footer-hours {
+  margin-top: 0.75rem;
+  color: #CBD5E1;
+}
+
+.site-footer .footer-col ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.site-footer .footer-col a {
+  color: #CBD5E1;
+}
+
+.site-footer .footer-col a:hover {
+  color: var(--color-gold);
+}
+
+.site-footer .footer-bottom {
+  width: min(calc(100% - 2rem), var(--container-width));
+  margin: 2rem auto 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(226, 232, 240, 0.15);
+  color: #94A3B8;
+  font-size: 0.8rem;
+  text-align: center;
+}
+
+.site-footer .footer-bottom p {
+  margin-bottom: 0;
+}
+
+@media (max-width: 720px) {
+  .site-header {
+    justify-content: center;
+    text-align: center;
+  }
+
+  .main-nav ul {
+    justify-content: center;
+    gap: 0.5rem 1rem;
+  }
+
+  .site-footer .footer-content {
+    grid-template-columns: 1fr;
+  }
+}

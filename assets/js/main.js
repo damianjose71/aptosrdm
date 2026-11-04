@@ -74,6 +74,75 @@
     }
   }
 
+  // Selector de idioma: actualiza el indicador (ES/EN) y lo persiste.
+  // El cambio de contenido traducido requiere el sistema i18n del servidor.
+  const langDropdown = document.querySelector('.lang-dropdown');
+  if (langDropdown) {
+    const langButton = langDropdown.querySelector('.lang-btn');
+    const langCode = langDropdown.querySelector('[data-lang-code]');
+    const langOptions = langDropdown.querySelectorAll('[data-lang]');
+
+    const setLanguageIndicator = (lang) => {
+      const normalized = lang === 'en' ? 'en' : 'es';
+      if (langCode) {
+        langCode.textContent = normalized === 'en' ? 'EN' : 'ES';
+      }
+      document.documentElement.lang = normalized;
+      try {
+        localStorage.setItem('rdm-language', normalized);
+      } catch (error) {
+        /* localStorage puede estar bloqueado */
+      }
+      langOptions.forEach((option) => {
+        option.setAttribute(
+          'aria-current',
+          option.dataset.lang === normalized ? 'true' : 'false'
+        );
+      });
+    };
+
+    let storedLanguage = 'es';
+    try {
+      storedLanguage = localStorage.getItem('rdm-language') || 'es';
+    } catch (error) {
+      storedLanguage = 'es';
+    }
+    setLanguageIndicator(storedLanguage);
+
+    const closeLanguageMenu = () => {
+      langDropdown.classList.remove('is-open');
+      if (langButton) {
+        langButton.setAttribute('aria-expanded', 'false');
+      }
+    };
+
+    langButton?.addEventListener('click', (event) => {
+      event.stopPropagation();
+      const isOpen = langDropdown.classList.toggle('is-open');
+      langButton.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    langOptions.forEach((option) => {
+      option.addEventListener('click', (event) => {
+        event.preventDefault();
+        setLanguageIndicator(option.dataset.lang);
+        closeLanguageMenu();
+      });
+    });
+
+    document.addEventListener('click', (event) => {
+      if (!langDropdown.contains(event.target)) {
+        closeLanguageMenu();
+      }
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        closeLanguageMenu();
+      }
+    });
+  }
+
   const modal = document.getElementById('modal-apartamento');
   if (!modal) {
     return;

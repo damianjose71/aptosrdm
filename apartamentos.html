@@ -9,11 +9,11 @@
   <meta name="author" content="Apartamentos Reserva del Mar By Nestor Echeverry">
   <meta name="robots" content="index, follow">
   <link rel="preload" href="assets/fonts/roboto-condensed-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="assets/css/tailwind.css?v=20261104a">
   <link rel="preload" as="image" href="assets/images/apartamentos-hero.jpeg" type="image/jpeg" fetchpriority="high">
   <link rel="icon" href="assets/images/logo-placeholder.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="css/style.css">
-  <script src="assets/js/main.js?v=20261030a" defer></script>
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261104a">
+  <script src="assets/js/main.js?v=20261104a" defer></script>
   <script src="assets/js/filter.js?v=20261030f" defer></script>
 <!-- Open Graph y Twitter -->
     <meta property="og:type" content="website">
@@ -58,26 +58,30 @@
   <header class="site-header">
     <div class="logo-container">
         <a href="index.html">
-            <img src="img/logo.png" alt="Reserva del Mar Logo">
+            <img src="assets/images/logo-placeholder.svg" alt="Reserva del Mar Logo">
         </a>
     </div>
     <nav class="main-nav">
         <ul>
             <li><a href="index.html">Inicio</a></li>
             <li><a href="apartamentos.html">Apartamentos</a></li>
-            <li><a href="amenistas.html">Amenencias</a></li>
+            <li><a href="amenidades.html">Amenidades</a></li>
             <li><a href="contactanos.html">Contáctanos</a></li>
         </ul>
     </nav>
     <div class="header-actions">
         <div class="lang-dropdown">
-            <button class="lang-btn">ES ▼</button>
+            <button class="lang-btn" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Seleccionar idioma">
+                <svg class="lang-globe" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10Z"/></svg>
+                <span class="lang-code" data-lang-code>ES</span>
+                <svg class="lang-chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+            </button>
             <div class="lang-menu">
-                <a href="?lang=es">Español (ES)</a>
-                <a href="?lang=en">English (EN)</a>
+                <a href="?lang=es" data-lang="es" role="menuitem"><span>Español</span><span class="lang-code">ES</span></a>
+                <a href="?lang=en" data-lang="en" role="menuitem"><span>English</span><span class="lang-code">EN</span></a>
             </div>
         </div>
-        <a href="contactanos.html" class="btn-reserva">Reserva Aquí</a>
+        <a href="https://wa.me/573218839636?text=Hola%2C%20me%20gustar%C3%ADa%20obtener%20m%C3%A1s%20informaci%C3%B3n%20sobre%20las%20reservas" target="_blank" rel="noopener noreferrer" class="btn-reserva">Reserva Aquí</a>
     </div>
 </header>
 
@@ -203,13 +207,14 @@
         <div class="footer-col">
             <h3>Reserva del Mar</h3>
             <p>Santa Marta, Colombia</p>
+            <p class="footer-hours">Lunes a Viernes: 8:00 am - 8:00 pm<br>Fines de Semana: 8:00 am - 3:00 pm</p>
         </div>
         <div class="footer-col">
             <h4>Enlaces rápidos</h4>
             <ul>
                 <li><a href="index.html">Inicio</a></li>
                 <li><a href="apartamentos.html">Apartamentos</a></li>
-                <li><a href="amenistas.html">Amenencias</a></li>
+                <li><a href="amenidades.html">Amenidades</a></li>
                 <li><a href="contactanos.html">Contáctanos</a></li>
             </ul>
         </div>
