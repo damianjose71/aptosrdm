@@ -79,9 +79,12 @@
   const langMenu = document.getElementById('lang-menu');
 
   if (langDropdown && langDropdownButton && langMenu) {
+    const langDropdownIcon = langDropdownButton.querySelector('#lang-dropdown-icon');
+
     const setLangMenuOpen = (isOpen) => {
       langMenu.classList.toggle('hidden', !isOpen);
       langDropdownButton.setAttribute('aria-expanded', String(isOpen));
+      langDropdownIcon?.classList.toggle('rotate-180', !isOpen);
     };
 
     langDropdownButton.addEventListener('click', (event) => {
