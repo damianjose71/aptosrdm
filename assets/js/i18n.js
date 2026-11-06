@@ -140,8 +140,11 @@
       // Google Reviews
       google_reviews_title: 'Lo que dicen nuestros huéspedes en Google',
       google_reviews_subtitle:
-        '★ 5.0 Excelencia en Servicio • Más de 150 reseñas reales de nuestros visitantes',
-      google_reviews_cta: 'Ver todas las reseñas en Google Maps',
+        '★ 5.0 Excelencia en Servicio • Más de 150 reseñas reales en Google Maps',
+      google_reviews_cta: 'Ver las 150+ reseñas oficiales en Google Maps',
+      google_reviews_carousel_label: 'Reseñas de huéspedes en Google Maps',
+      review_stars_label: '5 de 5 estrellas',
+      review_verified_google: 'Reseña verificada en Google',
 
       // Metadatos
       page_title_home:
@@ -285,8 +288,11 @@
       // Google Reviews
       google_reviews_title: 'What our guests say on Google',
       google_reviews_subtitle:
-        '★ 5.0 Service Excellence • 150+ real reviews from our visitors',
-      google_reviews_cta: 'See all reviews on Google Maps',
+        '★ 5.0 Service Excellence • 150+ real reviews on Google Maps',
+      google_reviews_cta: 'See the 150+ official reviews on Google Maps',
+      google_reviews_carousel_label: 'Guest reviews on Google Maps',
+      review_stars_label: '5 out of 5 stars',
+      review_verified_google: 'Verified Google review',
 
       // Metadata
       page_title_home:

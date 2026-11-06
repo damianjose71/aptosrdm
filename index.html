@@ -12,8 +12,8 @@
   <link rel="stylesheet" href="assets/css/tailwind.css?v=20261104a">
   <link rel="preload" as="image" href="assets/images/portada-hero.jpeg" type="image/jpeg" fetchpriority="high">
   <link rel="icon" href="assets/images/logo-placeholder.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261106e">
-  <script src="assets/js/i18n.js?v=20261106b" defer></script>
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261106f">
+  <script src="assets/js/i18n.js?v=20261106c" defer></script>
   <script src="assets/js/auto-translate.js?v=20261104e" defer></script>
   <script src="assets/js/main.js?v=20261104e" defer></script>
   <script src="assets/js/locations.js?v=20261104e" defer></script>
@@ -310,19 +310,525 @@
       </div>
     </section>
 
-    <!-- Reseñas de Google Maps · Widget oficial de Elfsight -->
-    <section class="google-reviews-section" aria-labelledby="google-reviews-title">
-      <div class="reviews-header" style="text-align: center; margin-bottom: 30px;">
-        <h2 id="google-reviews-title" data-i18n="google_reviews_title">Lo que dicen nuestros huéspedes en Google</h2>
-        <p style="font-size: 1.1rem; color: #555;" data-i18n="google_reviews_subtitle">★ 5.0 Excelencia en Servicio • Más de 150 reseñas reales de nuestros visitantes</p>
-        <a href="https://share.google/zNO8CRGQHbuWpF9g9" target="_blank" rel="noopener noreferrer" class="btn-google-maps-link" style="display: inline-block; margin-top: 10px; padding: 10px 20px; background-color: #4285F4; color: #fff; border-radius: 6px; text-decoration: none; font-weight: bold;" data-i18n="google_reviews_cta">
-          Ver todas las reseñas en Google Maps
+    <!-- Reseñas nativas de Google Maps -->
+    <section class="native-google-reviews-section" aria-labelledby="native-google-reviews-title">
+      <div class="reviews-header">
+        <h2 id="native-google-reviews-title" data-i18n="google_reviews_title">Lo que dicen nuestros huéspedes en Google</h2>
+        <p class="reviews-subtitle" data-i18n="google_reviews_subtitle">★ 5.0 Excelencia en Servicio • Más de 150 reseñas reales en Google Maps</p>
+        <a href="https://share.google/zNO8CRGQHbuWpF9g9" target="_blank" rel="noopener noreferrer" class="btn-google-maps-official">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false" style="margin-right: 8px; vertical-align: middle;"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+          <span data-i18n="google_reviews_cta">Ver las 150+ reseñas oficiales en Google Maps</span>
         </a>
       </div>
-      <div id="google-reviews-widget-container" style="max-width: 1200px; margin: 0 auto; padding: 0 20px;" data-no-translate>
-        <!-- Widget Oficial Elfsight -->
-        <script src="https://elfsightcdn.com/platform.js" async></script>
-        <div class="elfsight-app-d6a7ce80-c5ab-444e-8b75-859beb5e36f9" data-elfsight-app-lazy></div>
+
+      <div class="carousel-track-container" role="region" aria-label="Reseñas de huéspedes en Google Maps" data-i18n-aria-label="google_reviews_carousel_label" tabindex="0">
+        <div class="carousel-track" data-no-translate>
+          <!-- Tarjeta 1 -->
+          <div class="review-card">
+            <div class="card-header">
+              <div class="avatar">YL</div>
+              <div class="user-info">
+                <h4>Yesica Alejandra Londono B.</h4>
+                <span class="stars" role="img" aria-label="5 de 5 estrellas" data-i18n-aria-label="review_stars_label">★★★★★</span>
+              </div>
+            </div>
+            <p class="review-text">"Un lugar muy agradable, la atención muy buena, el lugar muy limpio, cómodo y una gran vista. Siempre muy atentos, su ubicación al lado de la playa es genial. Un lugar perfecto para descansar."</p>
+            <span class="badge-google" data-i18n="review_verified_google">Reseña verificada en Google</span>
+          </div>
+          <!-- Tarjeta 2 -->
+          <div class="review-card">
+            <div class="card-header">
+              <div class="avatar">JI</div>
+              <div class="user-info">
+                <h4>Jairo Indaburo</h4>
+                <span class="stars" role="img" aria-label="5 de 5 estrellas" data-i18n-aria-label="review_stars_label">★★★★★</span>
+              </div>
+            </div>
+            <p class="review-text">"Es un lugar muy acogedor, bonito, el personal muy amable y las instalaciones súper. Se los recomiendo, fácil de acceder, seguro y con variedad de distracciones."</p>
+            <span class="badge-google" data-i18n="review_verified_google">Reseña verificada en Google</span>
+          </div>
+          <!-- Tarjeta 3 -->
+          <div class="review-card">
+            <div class="card-header">
+              <div class="avatar">CT</div>
+              <div class="user-info">
+                <h4>Carolina Torres</h4>
+                <span class="stars" role="img" aria-label="5 de 5 estrellas" data-i18n-aria-label="review_stars_label">★★★★★</span>
+              </div>
+            </div>
+            <p class="review-text">"Recomendado, muy acogedor, maravillosas las zonas comunes y la salida al mar. Nos volveríamos a hospedar. Excelentes anfitriones."</p>
+            <span class="badge-google" data-i18n="review_verified_google">Reseña verificada en Google</span>
+          </div>
+          <!-- Tarjeta 4 -->
+          <div class="review-card">
+            <div class="card-header">
+              <div class="avatar">JO</div>
+              <div class="user-info">
+                <h4>Jorge Olarte Florez</h4>
+                <span class="stars" role="img" aria-label="5 de 5 estrellas" data-i18n-aria-label="review_stars_label">★★★★★</span>
+              </div>
+            </div>
+            <p class="review-text">"¡Un servicio espectacular! Tenés un mar al lado de la unidad, un apartamento muy bacano con balcón grande y seguridad excelente. Podés reservar cancha de fútbol, golf, gimnasio, jacuzzi. Un lujo TOTAL."</p>
+            <span class="badge-google" data-i18n="review_verified_google">Reseña verificada en Google</span>
+          </div>
+          <!-- Tarjeta 5 -->
+          <div class="review-card">
+            <div class="card-header">
+              <div class="avatar">DA</div>
+              <div class="user-info">
+                <h4>Daniela Alvarez</h4>
+                <span class="stars" role="img" aria-label="5 de 5 estrellas" data-i18n-aria-label="review_stars_label">★★★★★</span>
+              </div>
+            </div>
+            <p class="review-text">"Excelente la estadía en este lugar, me encanta porque tiene todo ahí (playa, piscina) y además es super cómodo. Recomendado."</p>
+            <span class="badge-google" data-i18n="review_verified_google">Reseña verificada en Google</span>
+          </div>
+          <!-- Tarjeta 6 -->
+          <div class="review-card">
+            <div class="card-header">
+              <div class="avatar">IL</div>
+              <div class="user-info">
+                <h4>Inklogic</h4>
+                <span class="stars" role="img" aria-label="5 de 5 estrellas" data-i18n-aria-label="review_stars_label">★★★★★</span>
+              </div>
+            </div>
+            <p class="review-text">"Me encantó las instalaciones y el servicio, a destacarse el aseo del lugar. Nuestro apartamento fue amplio y bien equipado. Nos quedamos 10 personas y aún sobró espacio. Piscinas grandes y mar privado."</p>
+            <span class="badge-google" data-i18n="review_verified_google">Reseña verificada en Google</span>
+          </div>
+          <!-- Tarjeta 7 -->
+          <div class="review-card">
+            <div class="card-header">
+              <div class="avatar">LB</div>
+              <div class="user-info">
+                <h4>Lucia Builes</h4>
+                <span class="stars" role="img" aria-label="5 de 5 estrellas" data-i18n-aria-label="review_stars_label">★★★★★</span>
+              </div>
+            </div>
+            <p class="review-text">"Muy buen servicio, excelente todo. Néstor muy querido y atento. Recomiendo mucho la estadía en Reserva del Mar."</p>
+            <span class="badge-google" data-i18n="review_verified_google">Reseña verificada en Google</span>
+          </div>
+          <!-- Tarjeta 8 -->
+          <div class="review-card">
+            <div class="card-header">
+              <div class="avatar">MD</div>
+              <div class="user-info">
+                <h4>Martha Duran</h4>
+                <span class="stars" role="img" aria-label="5 de 5 estrellas" data-i18n-aria-label="review_stars_label">★★★★★</span>
+              </div>
+            </div>
+            <p class="review-text">"Fabuloso sitio. Muy limpio, el personal organizado y servicial, las instalaciones en perfectas condiciones. Tuve una estadía de 10 días y no hay manera de aburrirse con todo lo que ofrece el lugar."</p>
+            <span class="badge-google" data-i18n="review_verified_google">Reseña verificada en Google</span>
+          </div>
+          <!-- Tarjeta 9 -->
+          <div class="review-card">
+            <div class="card-header">
+              <div class="avatar">AS</div>
+              <div class="user-info">
+                <h4>Angy Saavedra</h4>
+                <span class="stars" role="img" aria-label="5 de 5 estrellas" data-i18n-aria-label="review_stars_label">★★★★★</span>
+              </div>
+            </div>
+            <p class="review-text">"Súper recomendado, la playa es hermosa, el apartamento tiene todo lo que necesites, acceso directo a la playa, la zona súper segura y muy familiar. Un 10/10."</p>
+            <span class="badge-google" data-i18n="review_verified_google">Reseña verificada en Google</span>
+          </div>
+          <!-- Tarjeta 10 -->
+          <div class="review-card">
+            <div class="card-header">
+              <div class="avatar">GR</div>
+              <div class="user-info">
+                <h4>Gina Liliana Ramirez</h4>
+                <span class="stars" role="img" aria-label="5 de 5 estrellas" data-i18n-aria-label="review_stars_label">★★★★★</span>
+              </div>
+            </div>
+            <p class="review-text">"Un lugar hermoso con todo lo necesario para no tener que salir. Excelente vista al mar, zonas comunes hermosas, limpio y tranquilo. Hemos venido en varias oportunidades y nos parece 20/10."</p>
+            <span class="badge-google" data-i18n="review_verified_google">Reseña verificada en Google</span>
+          </div>
+          <!-- Tarjeta 11 -->
+          <div class="review-card">
+            <div class="card-header">
+              <div class="avatar">SR</div>
+              <div class="user-info">
+                <h4>Samir Rosero</h4>
+                <span class="stars" role="img" aria-label="5 de 5 estrellas" data-i18n-aria-label="review_stars_label">★★★★★</span>
+              </div>
+            </div>
+            <p class="review-text">"Segunda visita a este espectacular lugar y no falla, por el contrario ha mejorado y agregado más servicios. Súper recomendado."</p>
+            <span class="badge-google" data-i18n="review_verified_google">Reseña verificada en Google</span>
+          </div>
+          <!-- Tarjeta 12 -->
+          <div class="review-card">
+            <div class="card-header">
+              <div class="avatar">LP</div>
+              <div class="user-info">
+                <h4>Laura Peña</h4>
+                <span class="stars" role="img" aria-label="5 de 5 estrellas" data-i18n-aria-label="review_stars_label">★★★★★</span>
+              </div>
+            </div>
+            <p class="review-text">"Me encantó el lugar, muy cómodo, la vista maravillosa, estaba muy bien aseado cuando llegamos, el internet funcionaba muy bien y el host muy atento a cualquier duda."</p>
+            <span class="badge-google" data-i18n="review_verified_google">Reseña verificada en Google</span>
+          </div>
+          <!-- Tarjeta 13 -->
+          <div class="review-card">
+            <div class="card-header">
+              <div class="avatar">FR</div>
+              <div class="user-info">
+                <h4>Faybel Rey</h4>
+                <span class="stars" role="img" aria-label="5 de 5 estrellas" data-i18n-aria-label="review_stars_label">★★★★★</span>
+              </div>
+            </div>
+            <p class="review-text">"Excelente lugar para pasar unas vacaciones, fui con mis hijos y esposa y la pasamos de maravilla, además el trato del anfitrión el sr Néstor fue la mejor."</p>
+            <span class="badge-google" data-i18n="review_verified_google">Reseña verificada en Google</span>
+          </div>
+          <!-- Tarjeta 14 -->
+          <div class="review-card">
+            <div class="card-header">
+              <div class="avatar">LL</div>
+              <div class="user-info">
+                <h4>Liliana Londoño Builes</h4>
+                <span class="stars" role="img" aria-label="5 de 5 estrellas" data-i18n-aria-label="review_stars_label">★★★★★</span>
+              </div>
+            </div>
+            <p class="review-text">"Excelente todo, el apartamento delicioso y muy cómodo. El servicio de Néstor impecable, excelente anfitrión, me sentí como en casa."</p>
+            <span class="badge-google" data-i18n="review_verified_google">Reseña verificada en Google</span>
+          </div>
+          <!-- Tarjeta 15 -->
+          <div class="review-card">
+            <div class="card-header">
+              <div class="avatar">SI</div>
+              <div class="user-info">
+                <h4>Salvador Enrique Iregui L.</h4>
+                <span class="stars" role="img" aria-label="5 de 5 estrellas" data-i18n-aria-label="review_stars_label">★★★★★</span>
+              </div>
+            </div>
+            <p class="review-text">"Extraordinario apartamento, la unidad Reserva del Mar es sencillamente espectacular, no le falta nada, buen anfitrión, limpieza y aseo, diversión y todo lo necesario para unas buenas vacaciones."</p>
+            <span class="badge-google" data-i18n="review_verified_google">Reseña verificada en Google</span>
+          </div>
+          <!-- Tarjeta 16 -->
+          <div class="review-card">
+            <div class="card-header">
+              <div class="avatar">PD</div>
+              <div class="user-info">
+                <h4>Pao Daza</h4>
+                <span class="stars" role="img" aria-label="5 de 5 estrellas" data-i18n-aria-label="review_stars_label">★★★★★</span>
+              </div>
+            </div>
+            <p class="review-text">"El lugar es espectacular, las instalaciones muy lindas, buena ubicación, todo muy tranquilo."</p>
+            <span class="badge-google" data-i18n="review_verified_google">Reseña verificada en Google</span>
+          </div>
+          <!-- Tarjeta 17 -->
+          <div class="review-card">
+            <div class="card-header">
+              <div class="avatar">JB</div>
+              <div class="user-info">
+                <h4>Jennifer Bernal Arias</h4>
+                <span class="stars" role="img" aria-label="5 de 5 estrellas" data-i18n-aria-label="review_stars_label">★★★★★</span>
+              </div>
+            </div>
+            <p class="review-text">"Nuestra estancia en Reserva del Mar fue excelente. Todo fue muy agradable, las instalaciones estuvieron impecables y disfrutamos mucho nuestra experiencia. ¡Muchas gracias!"</p>
+            <span class="badge-google" data-i18n="review_verified_google">Reseña verificada en Google</span>
+          </div>
+          <!-- Tarjeta 18 -->
+          <div class="review-card">
+            <div class="card-header">
+              <div class="avatar">TG</div>
+              <div class="user-info">
+                <h4>Tatiana Guzmán</h4>
+                <span class="stars" role="img" aria-label="5 de 5 estrellas" data-i18n-aria-label="review_stars_label">★★★★★</span>
+              </div>
+            </div>
+            <p class="review-text">"¡Una experiencia increíble! El apartamento es sumamente cómodo, impecable y mucho mejor de lo que se ve en las fotos. El señor Néstor atento desde nuestra llegada. Las zonas comunes son divinas y cuentan con restaurante, bar y minimercado."</p>
+            <span class="badge-google" data-i18n="review_verified_google">Reseña verificada en Google</span>
+          </div>
+          <!-- Tarjeta 19 -->
+          <div class="review-card">
+            <div class="card-header">
+              <div class="avatar">OR</div>
+              <div class="user-info">
+                <h4>Oscar Mauricio Reina G.</h4>
+                <span class="stars" role="img" aria-label="5 de 5 estrellas" data-i18n-aria-label="review_stars_label">★★★★★</span>
+              </div>
+            </div>
+            <p class="review-text">"El propietario fue muy amable y atento. Los horarios de ingreso y salida son flexibles. El apartamento es muy amplio y cómodo, la vista es inmejorable y está muy bien equipado."</p>
+            <span class="badge-google" data-i18n="review_verified_google">Reseña verificada en Google</span>
+          </div>
+          <!-- Tarjeta 20 -->
+          <div class="review-card">
+            <div class="card-header">
+              <div class="avatar">MU</div>
+              <div class="user-info">
+                <h4>María Urueta Arenas</h4>
+                <span class="stars" role="img" aria-label="5 de 5 estrellas" data-i18n-aria-label="review_stars_label">★★★★★</span>
+              </div>
+            </div>
+            <p class="review-text">"Todo en un solo lugar. El mejor alojamiento para vivir una experiencia única."</p>
+            <span class="badge-google" data-i18n="review_verified_google">Reseña verificada en Google</span>
+          </div>
+          <!-- Tarjeta 21 -->
+          <div class="review-card">
+            <div class="card-header">
+              <div class="avatar">GV</div>
+              <div class="user-info">
+                <h4>Gianluca Villamil Royero</h4>
+                <span class="stars" role="img" aria-label="5 de 5 estrellas" data-i18n-aria-label="review_stars_label">★★★★★</span>
+              </div>
+            </div>
+            <p class="review-text">"Excelente alojamiento, buen servicio por parte del equipo y el señor Néstor Echeverry."</p>
+            <span class="badge-google" data-i18n="review_verified_google">Reseña verificada en Google</span>
+          </div>
+          <!-- Copia de las 21 reseñas para el bucle continuo -->
+          <!-- Copia de la tarjeta 1 -->
+          <div class="review-card" aria-hidden="true">
+            <div class="card-header">
+              <div class="avatar">YL</div>
+              <div class="user-info">
+                <h4>Yesica Alejandra Londono B.</h4>
+                <span class="stars" role="img" aria-label="5 de 5 estrellas" data-i18n-aria-label="review_stars_label">★★★★★</span>
+              </div>
+            </div>
+            <p class="review-text">"Un lugar muy agradable, la atención muy buena, el lugar muy limpio, cómodo y una gran vista. Siempre muy atentos, su ubicación al lado de la playa es genial. Un lugar perfecto para descansar."</p>
+            <span class="badge-google" data-i18n="review_verified_google">Reseña verificada en Google</span>
+          </div>
+          <!-- Copia de la tarjeta 2 -->
+          <div class="review-card" aria-hidden="true">
+            <div class="card-header">
+              <div class="avatar">JI</div>
+              <div class="user-info">
+                <h4>Jairo Indaburo</h4>
+                <span class="stars" role="img" aria-label="5 de 5 estrellas" data-i18n-aria-label="review_stars_label">★★★★★</span>
+              </div>
+            </div>
+            <p class="review-text">"Es un lugar muy acogedor, bonito, el personal muy amable y las instalaciones súper. Se los recomiendo, fácil de acceder, seguro y con variedad de distracciones."</p>
+            <span class="badge-google" data-i18n="review_verified_google">Reseña verificada en Google</span>
+          </div>
+          <!-- Copia de la tarjeta 3 -->
+          <div class="review-card" aria-hidden="true">
+            <div class="card-header">
+              <div class="avatar">CT</div>
+              <div class="user-info">
+                <h4>Carolina Torres</h4>
+                <span class="stars" role="img" aria-label="5 de 5 estrellas" data-i18n-aria-label="review_stars_label">★★★★★</span>
+              </div>
+            </div>
+            <p class="review-text">"Recomendado, muy acogedor, maravillosas las zonas comunes y la salida al mar. Nos volveríamos a hospedar. Excelentes anfitriones."</p>
+            <span class="badge-google" data-i18n="review_verified_google">Reseña verificada en Google</span>
+          </div>
+          <!-- Copia de la tarjeta 4 -->
+          <div class="review-card" aria-hidden="true">
+            <div class="card-header">
+              <div class="avatar">JO</div>
+              <div class="user-info">
+                <h4>Jorge Olarte Florez</h4>
+                <span class="stars" role="img" aria-label="5 de 5 estrellas" data-i18n-aria-label="review_stars_label">★★★★★</span>
+              </div>
+            </div>
+            <p class="review-text">"¡Un servicio espectacular! Tenés un mar al lado de la unidad, un apartamento muy bacano con balcón grande y seguridad excelente. Podés reservar cancha de fútbol, golf, gimnasio, jacuzzi. Un lujo TOTAL."</p>
+            <span class="badge-google" data-i18n="review_verified_google">Reseña verificada en Google</span>
+          </div>
+          <!-- Copia de la tarjeta 5 -->
+          <div class="review-card" aria-hidden="true">
+            <div class="card-header">
+              <div class="avatar">DA</div>
+              <div class="user-info">
+                <h4>Daniela Alvarez</h4>
+                <span class="stars" role="img" aria-label="5 de 5 estrellas" data-i18n-aria-label="review_stars_label">★★★★★</span>
+              </div>
+            </div>
+            <p class="review-text">"Excelente la estadía en este lugar, me encanta porque tiene todo ahí (playa, piscina) y además es super cómodo. Recomendado."</p>
+            <span class="badge-google" data-i18n="review_verified_google">Reseña verificada en Google</span>
+          </div>
+          <!-- Copia de la tarjeta 6 -->
+          <div class="review-card" aria-hidden="true">
+            <div class="card-header">
+              <div class="avatar">IL</div>
+              <div class="user-info">
+                <h4>Inklogic</h4>
+                <span class="stars" role="img" aria-label="5 de 5 estrellas" data-i18n-aria-label="review_stars_label">★★★★★</span>
+              </div>
+            </div>
+            <p class="review-text">"Me encantó las instalaciones y el servicio, a destacarse el aseo del lugar. Nuestro apartamento fue amplio y bien equipado. Nos quedamos 10 personas y aún sobró espacio. Piscinas grandes y mar privado."</p>
+            <span class="badge-google" data-i18n="review_verified_google">Reseña verificada en Google</span>
+          </div>
+          <!-- Copia de la tarjeta 7 -->
+          <div class="review-card" aria-hidden="true">
+            <div class="card-header">
+              <div class="avatar">LB</div>
+              <div class="user-info">
+                <h4>Lucia Builes</h4>
+                <span class="stars" role="img" aria-label="5 de 5 estrellas" data-i18n-aria-label="review_stars_label">★★★★★</span>
+              </div>
+            </div>
+            <p class="review-text">"Muy buen servicio, excelente todo. Néstor muy querido y atento. Recomiendo mucho la estadía en Reserva del Mar."</p>
+            <span class="badge-google" data-i18n="review_verified_google">Reseña verificada en Google</span>
+          </div>
+          <!-- Copia de la tarjeta 8 -->
+          <div class="review-card" aria-hidden="true">
+            <div class="card-header">
+              <div class="avatar">MD</div>
+              <div class="user-info">
+                <h4>Martha Duran</h4>
+                <span class="stars" role="img" aria-label="5 de 5 estrellas" data-i18n-aria-label="review_stars_label">★★★★★</span>
+              </div>
+            </div>
+            <p class="review-text">"Fabuloso sitio. Muy limpio, el personal organizado y servicial, las instalaciones en perfectas condiciones. Tuve una estadía de 10 días y no hay manera de aburrirse con todo lo que ofrece el lugar."</p>
+            <span class="badge-google" data-i18n="review_verified_google">Reseña verificada en Google</span>
+          </div>
+          <!-- Copia de la tarjeta 9 -->
+          <div class="review-card" aria-hidden="true">
+            <div class="card-header">
+              <div class="avatar">AS</div>
+              <div class="user-info">
+                <h4>Angy Saavedra</h4>
+                <span class="stars" role="img" aria-label="5 de 5 estrellas" data-i18n-aria-label="review_stars_label">★★★★★</span>
+              </div>
+            </div>
+            <p class="review-text">"Súper recomendado, la playa es hermosa, el apartamento tiene todo lo que necesites, acceso directo a la playa, la zona súper segura y muy familiar. Un 10/10."</p>
+            <span class="badge-google" data-i18n="review_verified_google">Reseña verificada en Google</span>
+          </div>
+          <!-- Copia de la tarjeta 10 -->
+          <div class="review-card" aria-hidden="true">
+            <div class="card-header">
+              <div class="avatar">GR</div>
+              <div class="user-info">
+                <h4>Gina Liliana Ramirez</h4>
+                <span class="stars" role="img" aria-label="5 de 5 estrellas" data-i18n-aria-label="review_stars_label">★★★★★</span>
+              </div>
+            </div>
+            <p class="review-text">"Un lugar hermoso con todo lo necesario para no tener que salir. Excelente vista al mar, zonas comunes hermosas, limpio y tranquilo. Hemos venido en varias oportunidades y nos parece 20/10."</p>
+            <span class="badge-google" data-i18n="review_verified_google">Reseña verificada en Google</span>
+          </div>
+          <!-- Copia de la tarjeta 11 -->
+          <div class="review-card" aria-hidden="true">
+            <div class="card-header">
+              <div class="avatar">SR</div>
+              <div class="user-info">
+                <h4>Samir Rosero</h4>
+                <span class="stars" role="img" aria-label="5 de 5 estrellas" data-i18n-aria-label="review_stars_label">★★★★★</span>
+              </div>
+            </div>
+            <p class="review-text">"Segunda visita a este espectacular lugar y no falla, por el contrario ha mejorado y agregado más servicios. Súper recomendado."</p>
+            <span class="badge-google" data-i18n="review_verified_google">Reseña verificada en Google</span>
+          </div>
+          <!-- Copia de la tarjeta 12 -->
+          <div class="review-card" aria-hidden="true">
+            <div class="card-header">
+              <div class="avatar">LP</div>
+              <div class="user-info">
+                <h4>Laura Peña</h4>
+                <span class="stars" role="img" aria-label="5 de 5 estrellas" data-i18n-aria-label="review_stars_label">★★★★★</span>
+              </div>
+            </div>
+            <p class="review-text">"Me encantó el lugar, muy cómodo, la vista maravillosa, estaba muy bien aseado cuando llegamos, el internet funcionaba muy bien y el host muy atento a cualquier duda."</p>
+            <span class="badge-google" data-i18n="review_verified_google">Reseña verificada en Google</span>
+          </div>
+          <!-- Copia de la tarjeta 13 -->
+          <div class="review-card" aria-hidden="true">
+            <div class="card-header">
+              <div class="avatar">FR</div>
+              <div class="user-info">
+                <h4>Faybel Rey</h4>
+                <span class="stars" role="img" aria-label="5 de 5 estrellas" data-i18n-aria-label="review_stars_label">★★★★★</span>
+              </div>
+            </div>
+            <p class="review-text">"Excelente lugar para pasar unas vacaciones, fui con mis hijos y esposa y la pasamos de maravilla, además el trato del anfitrión el sr Néstor fue la mejor."</p>
+            <span class="badge-google" data-i18n="review_verified_google">Reseña verificada en Google</span>
+          </div>
+          <!-- Copia de la tarjeta 14 -->
+          <div class="review-card" aria-hidden="true">
+            <div class="card-header">
+              <div class="avatar">LL</div>
+              <div class="user-info">
+                <h4>Liliana Londoño Builes</h4>
+                <span class="stars" role="img" aria-label="5 de 5 estrellas" data-i18n-aria-label="review_stars_label">★★★★★</span>
+              </div>
+            </div>
+            <p class="review-text">"Excelente todo, el apartamento delicioso y muy cómodo. El servicio de Néstor impecable, excelente anfitrión, me sentí como en casa."</p>
+            <span class="badge-google" data-i18n="review_verified_google">Reseña verificada en Google</span>
+          </div>
+          <!-- Copia de la tarjeta 15 -->
+          <div class="review-card" aria-hidden="true">
+            <div class="card-header">
+              <div class="avatar">SI</div>
+              <div class="user-info">
+                <h4>Salvador Enrique Iregui L.</h4>
+                <span class="stars" role="img" aria-label="5 de 5 estrellas" data-i18n-aria-label="review_stars_label">★★★★★</span>
+              </div>
+            </div>
+            <p class="review-text">"Extraordinario apartamento, la unidad Reserva del Mar es sencillamente espectacular, no le falta nada, buen anfitrión, limpieza y aseo, diversión y todo lo necesario para unas buenas vacaciones."</p>
+            <span class="badge-google" data-i18n="review_verified_google">Reseña verificada en Google</span>
+          </div>
+          <!-- Copia de la tarjeta 16 -->
+          <div class="review-card" aria-hidden="true">
+            <div class="card-header">
+              <div class="avatar">PD</div>
+              <div class="user-info">
+                <h4>Pao Daza</h4>
+                <span class="stars" role="img" aria-label="5 de 5 estrellas" data-i18n-aria-label="review_stars_label">★★★★★</span>
+              </div>
+            </div>
+            <p class="review-text">"El lugar es espectacular, las instalaciones muy lindas, buena ubicación, todo muy tranquilo."</p>
+            <span class="badge-google" data-i18n="review_verified_google">Reseña verificada en Google</span>
+          </div>
+          <!-- Copia de la tarjeta 17 -->
+          <div class="review-card" aria-hidden="true">
+            <div class="card-header">
+              <div class="avatar">JB</div>
+              <div class="user-info">
+                <h4>Jennifer Bernal Arias</h4>
+                <span class="stars" role="img" aria-label="5 de 5 estrellas" data-i18n-aria-label="review_stars_label">★★★★★</span>
+              </div>
+            </div>
+            <p class="review-text">"Nuestra estancia en Reserva del Mar fue excelente. Todo fue muy agradable, las instalaciones estuvieron impecables y disfrutamos mucho nuestra experiencia. ¡Muchas gracias!"</p>
+            <span class="badge-google" data-i18n="review_verified_google">Reseña verificada en Google</span>
+          </div>
+          <!-- Copia de la tarjeta 18 -->
+          <div class="review-card" aria-hidden="true">
+            <div class="card-header">
+              <div class="avatar">TG</div>
+              <div class="user-info">
+                <h4>Tatiana Guzmán</h4>
+                <span class="stars" role="img" aria-label="5 de 5 estrellas" data-i18n-aria-label="review_stars_label">★★★★★</span>
+              </div>
+            </div>
+            <p class="review-text">"¡Una experiencia increíble! El apartamento es sumamente cómodo, impecable y mucho mejor de lo que se ve en las fotos. El señor Néstor atento desde nuestra llegada. Las zonas comunes son divinas y cuentan con restaurante, bar y minimercado."</p>
+            <span class="badge-google" data-i18n="review_verified_google">Reseña verificada en Google</span>
+          </div>
+          <!-- Copia de la tarjeta 19 -->
+          <div class="review-card" aria-hidden="true">
+            <div class="card-header">
+              <div class="avatar">OR</div>
+              <div class="user-info">
+                <h4>Oscar Mauricio Reina G.</h4>
+                <span class="stars" role="img" aria-label="5 de 5 estrellas" data-i18n-aria-label="review_stars_label">★★★★★</span>
+              </div>
+            </div>
+            <p class="review-text">"El propietario fue muy amable y atento. Los horarios de ingreso y salida son flexibles. El apartamento es muy amplio y cómodo, la vista es inmejorable y está muy bien equipado."</p>
+            <span class="badge-google" data-i18n="review_verified_google">Reseña verificada en Google</span>
+          </div>
+          <!-- Copia de la tarjeta 20 -->
+          <div class="review-card" aria-hidden="true">
+            <div class="card-header">
+              <div class="avatar">MU</div>
+              <div class="user-info">
+                <h4>María Urueta Arenas</h4>
+                <span class="stars" role="img" aria-label="5 de 5 estrellas" data-i18n-aria-label="review_stars_label">★★★★★</span>
+              </div>
+            </div>
+            <p class="review-text">"Todo en un solo lugar. El mejor alojamiento para vivir una experiencia única."</p>
+            <span class="badge-google" data-i18n="review_verified_google">Reseña verificada en Google</span>
+          </div>
+          <!-- Copia de la tarjeta 21 -->
+          <div class="review-card" aria-hidden="true">
+            <div class="card-header">
+              <div class="avatar">GV</div>
+              <div class="user-info">
+                <h4>Gianluca Villamil Royero</h4>
+                <span class="stars" role="img" aria-label="5 de 5 estrellas" data-i18n-aria-label="review_stars_label">★★★★★</span>
+              </div>
+            </div>
+            <p class="review-text">"Excelente alojamiento, buen servicio por parte del equipo y el señor Néstor Echeverry."</p>
+            <span class="badge-google" data-i18n="review_verified_google">Reseña verificada en Google</span>
+          </div>
+        </div>
       </div>
     </section>
   </main>
