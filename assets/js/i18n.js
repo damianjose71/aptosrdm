@@ -137,6 +137,26 @@
       legal_cookies: 'Política de cookies',
       legal_terms: 'Términos y condiciones',
 
+      // Testimonios
+      testimonials_eyebrow: 'Testimonios',
+      testimonials_title: 'Lo que dicen nuestros huéspedes',
+      testimonials_rating: 'Excelente • Más de 150 reseñas en Google Maps',
+      testimonials_cta: 'Ver reseñas en Google',
+      testimonials_stars_label: '5 de 5 estrellas',
+      testimonials_marquee_label: 'Reseñas de huéspedes en Google Maps',
+      testimonial_1_text:
+        'La limpieza del apartamento fue impecable y la vista al mar, simplemente espectacular. Volveremos sin dudarlo.',
+      testimonial_2_text:
+        'Ubicación privilegiada frente a la playa y una atención de primera. El equipo estuvo pendiente de cada detalle.',
+      testimonial_3_text:
+        'Un lugar perfecto para descansar en familia. El apartamento estaba impecable, muy cómodo y con todo lo necesario.',
+      testimonial_4_text:
+        'La atención fue excelente desde la reserva hasta la salida. Nos sentimos como en casa y con ganas de volver.',
+      testimonial_5_text:
+        'Despertar con el sonido del mar y encontrar todo tan limpio hizo de nuestras vacaciones algo inolvidable.',
+      testimonial_6_text:
+        'Muy buena ubicación, cerca de todo y con acceso directo a la playa. La atención del equipo fue de 10.',
+
       // Metadatos
       page_title_home:
         'Apartamentos Reserva del Mar | Alquiler Vacacional en Santa Marta',
@@ -275,6 +295,26 @@
       legal_privacy: 'Privacy policy',
       legal_cookies: 'Cookie policy',
       legal_terms: 'Terms and conditions',
+
+      // Testimonials
+      testimonials_eyebrow: 'Testimonials',
+      testimonials_title: 'What our guests say',
+      testimonials_rating: 'Excellent • 150+ reviews on Google Maps',
+      testimonials_cta: 'See reviews on Google',
+      testimonials_stars_label: '5 out of 5 stars',
+      testimonials_marquee_label: 'Guest reviews on Google Maps',
+      testimonial_1_text:
+        'The apartment was spotless and the sea view was simply spectacular. We will definitely return.',
+      testimonial_2_text:
+        'A privileged beachfront location and first-class service. The team was attentive to every detail.',
+      testimonial_3_text:
+        'A perfect place to rest with the family. The apartment was spotless, very comfortable and had everything we needed.',
+      testimonial_4_text:
+        'The service was excellent from booking to check-out. We felt at home and cannot wait to return.',
+      testimonial_5_text:
+        'Waking up to the sound of the sea and finding everything so clean made our vacation unforgettable.',
+      testimonial_6_text:
+        'A great location, close to everything and with direct beach access. The service from the team was excellent.',
 
       // Metadata
       page_title_home:
