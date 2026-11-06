@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 if (session_status() === PHP_SESSION_NONE) {
@@ -6,6 +7,9 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 if (empty($_SESSION['admin_id'])) {
-    header('Location: /admin/auth/login.php');
+    header('Location: /admin.php');
     exit;
 }
+
+header('Location: /admin.php');
+exit;

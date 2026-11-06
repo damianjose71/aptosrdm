@@ -50,6 +50,7 @@ return [
     'guests' => 'Huéspedes',
     'rooms' => 'Habitaciones',
     'baths' => 'Baños',
+    'beds' => 'Camas',
     'btn_quote' => 'Solicitar cotización',
     'see_more' => 'Ver más...',
     'see_less' => 'Ver menos',

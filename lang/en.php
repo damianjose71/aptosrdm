@@ -50,6 +50,7 @@ return [
     'guests' => 'Guests',
     'rooms' => 'Rooms',
     'baths' => 'Bathrooms',
+    'beds' => 'Beds',
     'btn_quote' => 'Request a Quote',
     'see_more' => 'See more...',
     'see_less' => 'See less',

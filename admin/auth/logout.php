@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 if (session_status() === PHP_SESSION_NONE) {
@@ -8,5 +9,5 @@ if (session_status() === PHP_SESSION_NONE) {
 $_SESSION = [];
 session_destroy();
 
-header('Location: /admin/auth/login.php');
+header('Location: /admin.php');
 exit;

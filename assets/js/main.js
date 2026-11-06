@@ -239,7 +239,8 @@
 
   const getWhatsAppUrl = (apartment) => {
     const title = apartment.titulo || 'el apartamento seleccionado';
-    return `https://wa.me/${WHATSAPP_NUMBER}?text=Hola,%20deseo%20cotizar%20el%20apartamento%20${encodeURIComponent(title)}`;
+    const message = `Hola, me interesa cotizar el apartamento ${title}`;
+    return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
   };
 
   const iconGuests = `
@@ -271,6 +272,14 @@
     </svg>
   `;
 
+  const iconBeds = `
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 text-[#C5A059]" aria-hidden="true">
+      <path d="M7 8V6a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v2" />
+      <path d="M7 8v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-4" />
+      <path d="M9 12h6" />
+    </svg>
+  `;
+
   const metricBox = (icon, value, labelKey) => `
     <div class="flex flex-col items-center justify-center gap-1 rounded-2xl bg-slate-50 px-2 py-3 text-center ring-1 ring-slate-900/5">
       ${icon}
@@ -296,6 +305,7 @@
     const guests = getGuestCount(apartment);
     const rooms = getNumber(apartment.habitaciones);
     const baths = getNumber(apartment.banos);
+    const beds = getNumber(apartment.camas);
     const whatsappUrl = escapeHtml(getWhatsAppUrl(apartment));
 
     const thumbnails =
@@ -399,10 +409,11 @@
             <span data-no-translate><strong class="font-semibold text-[#0F172A]">${building}</strong><span class="text-slate-400"> · </span>${location}</span>
           </p>
 
-          <div class="mt-5 grid grid-cols-3 gap-1 sm:gap-2">
+          <div class="mt-5 grid grid-cols-2 gap-1 sm:grid-cols-4">
             ${metricBox(iconGuests, guests, 'guests')}
             ${metricBox(iconRooms, rooms, 'rooms')}
             ${metricBox(iconBaths, baths, 'baths')}
+            ${metricBox(iconBeds, beds, 'beds')}
           </div>
 
           <div class="mt-6 border-t border-slate-100 pt-5">
