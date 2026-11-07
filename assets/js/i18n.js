@@ -137,11 +137,7 @@
       legal_cookies: 'Política de cookies',
       legal_terms: 'Términos y condiciones',
 
-      // Amenidades del complejo
-      amenities_complex_eyebrow: 'Amenidades oficiales',
-      amenities_complex_title: 'Amenidades del Complejo',
-      amenities_complex_subtitle:
-        'Disfruta de instalaciones tipo resort sin salir de casa',
+      // Amenidades de Playa Salguero
       amenity_pool: 'Piscina',
       amenity_bar_cafe: 'Bar & Cafetería',
       amenity_sports: 'Área Deportiva',
@@ -301,11 +297,7 @@
       legal_cookies: 'Cookie policy',
       legal_terms: 'Terms and conditions',
 
-      // Complex amenities
-      amenities_complex_eyebrow: 'Official amenities',
-      amenities_complex_title: 'Complex Amenities',
-      amenities_complex_subtitle:
-        'Enjoy resort-style facilities without leaving home',
+      // Playa Salguero amenities
       amenity_pool: 'Pool',
       amenity_bar_cafe: 'Bar & Café',
       amenity_sports: 'Sports Area',
