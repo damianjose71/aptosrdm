@@ -1,0 +1,7 @@
+# Catálogo público de apartamentos.
+# En Hostinger (Apache/LiteSpeed + PHP/MySQL) se sirve la versión dinámica.
+# GitHub Pages ignora este archivo y entrega apartamentos.html estático.
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteRule ^apartamentos\.html$ apartamentos.php [L,QSA]
+</IfModule>

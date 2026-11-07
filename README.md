@@ -34,6 +34,8 @@ La base incluye el header flotante y transparente con navegación de escritorio,
 │   └── apartamentos.json
 ├── index.html
 ├── apartamentos.html
+├── apartamentos.php
+├── .htaccess
 ├── amenidades.html
 ├── contactanos.html
 └── README.md
@@ -42,7 +44,8 @@ La base incluye el header flotante y transparente con navegación de escritorio,
 ## Páginas
 
 - `index.html`: landing page.
-- `apartamentos.html`: catálogo completo.
+- `apartamentos.html`: catálogo público. En GitHub Pages se alimenta de `data/apartamentos.json`; en Hostinger se reescribe a `apartamentos.php` mediante `.htaccess`.
+- `apartamentos.php`: catálogo dinámico conectado a MySQL. Requiere PHP y la base de datos configurada.
 - `amenidades.html`: amenidades segmentadas por edificio, con navegación por anclas y tarjetas estáticas. Las imágenes se organizan en `assets/images/amenidades/{edificio}/`.
 - `contactanos.html`: canales de contacto, formulario que prepara la consulta en WhatsApp, mapa embebido de Google Maps con cambio de edificio y preguntas frecuentes.
 - `admin/index.html`: acceso al panel de Decap CMS.
@@ -52,6 +55,8 @@ El formulario de contacto no requiere backend: valida los campos y abre WhatsApp
 El mapa de contacto usa los embeds oficiales de Google Maps. Los botones de Playa Salguero, Rodadero Sur y Bello Horizonte actualizan el `src` del iframe sin recargar ni abandonar la página, y el enlace superior se sincroniza con la ubicación activa.
 
 Los llamados a la acción de amenidades enlazan a `apartamentos.html?edificio=playa-salguero`, `?edificio=rodadero-sur` o `?edificio=bello-horizonte`; el catálogo aplica ese filtro automáticamente al cargar.
+
+Los enlaces públicos usan `apartamentos.html` para que funcionen en GitHub Pages. En Hostinger, `.htaccess` reescribe esa ruta a `apartamentos.php`, que consulta MySQL y respeta la visibilidad y los filtros del panel. Si el hosting no procesa `.htaccess`, los enlaces deben cambiarse a `apartamentos.php`.
 
 ## Modelo de contenido
 
@@ -92,6 +97,7 @@ Decap CMS confirma los cambios en el repositorio de GitHub, no directamente en H
 2. Verifica que la carpeta `assets/images/uploads` tenga permisos de escritura si el flujo de publicación lo requiere.
 3. Comprueba que las rutas de imágenes y del JSON coincidan con la URL final.
 4. Habilita HTTPS y actualiza `site_url` en `admin/config.yml` si agregas esa opción.
+5. Conserva el archivo `.htaccess` y ejecuta `admin/setup.php` una vez para crear las tablas y el administrador. En Hostinger, `apartamentos.html` se sirve internamente como `apartamentos.php` con los datos de MySQL.
 
 ## Pendientes de implementación
 
