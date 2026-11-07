@@ -29,7 +29,7 @@ La base incluye el header flotante y transparente con navegación de escritorio,
 │       │   ├── /rodadero-sur
 │       │   └── /bello-horizonte
 │       ├── /uploads
-│       └── logo-placeholder.svg
+│       └── logordm.png
 ├── /data
 │   └── apartamentos.json
 ├── index.html

@@ -215,7 +215,7 @@
     }
 
     return [
-      apartment.imagen_principal || 'assets/images/logo-placeholder.svg',
+      apartment.imagen_principal || 'assets/images/logordm.png',
     ];
   };
 

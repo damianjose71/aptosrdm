@@ -168,7 +168,7 @@
     const title = escapeHtml(apartment.titulo || "Apartamento");
     const building = escapeHtml(apartment.edificio || "Reserva del Mar");
     const image = escapeHtml(
-      apartment.imagen_principal || "assets/images/logo-placeholder.svg"
+      apartment.imagen_principal || "assets/images/logordm.png"
     );
     const badge = escapeHtml(getBadge(apartment));
     const guests = getGuestCount(apartment);
