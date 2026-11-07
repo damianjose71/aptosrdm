@@ -140,7 +140,7 @@ foreach ($apartments as $apartment) {
   <link rel="stylesheet" href="assets/css/tailwind.css?v=20261104a">
   <link rel="preload" as="image" href="assets/images/apartamentos-hero.jpeg" type="image/jpeg" fetchpriority="high">
   <link rel="icon" href="assets/images/logordm.png" type="image/png">
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261107f">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261107g">
   <script src="assets/js/i18n.js?v=20261106c" defer></script>
   <script src="assets/js/auto-translate.js?v=20261104e" defer></script>
   <script src="assets/js/main.js?v=20261107d" defer></script>
