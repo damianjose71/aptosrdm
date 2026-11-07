@@ -137,6 +137,22 @@
       legal_cookies: 'Política de cookies',
       legal_terms: 'Términos y condiciones',
 
+      // Amenidades del complejo
+      amenities_complex_eyebrow: 'Amenidades oficiales',
+      amenities_complex_title: 'Amenidades del Complejo',
+      amenities_complex_subtitle:
+        'Disfruta de instalaciones tipo resort sin salir de casa',
+      amenity_pool: 'Piscina',
+      amenity_bar_cafe: 'Bar & Cafetería',
+      amenity_sports: 'Área Deportiva',
+      amenity_kids: 'Salón Infantil',
+      amenity_restaurant: 'Restaurante',
+      amenity_pools_jacuzzis: 'Piscinas & Jacuzzis',
+      amenity_bar: 'Bar',
+      amenity_bbq: 'Zona BBQ',
+      amenity_rooftop: 'Rooftop',
+      amenity_rooftop_bar: 'Bar Rooftop',
+
       // Google Reviews
       google_reviews_title: 'Lo que dicen nuestros huéspedes en Google',
       google_reviews_subtitle:
@@ -284,6 +300,22 @@
       legal_privacy: 'Privacy policy',
       legal_cookies: 'Cookie policy',
       legal_terms: 'Terms and conditions',
+
+      // Complex amenities
+      amenities_complex_eyebrow: 'Official amenities',
+      amenities_complex_title: 'Complex Amenities',
+      amenities_complex_subtitle:
+        'Enjoy resort-style facilities without leaving home',
+      amenity_pool: 'Pool',
+      amenity_bar_cafe: 'Bar & Café',
+      amenity_sports: 'Sports Area',
+      amenity_kids: 'Kids Club',
+      amenity_restaurant: 'Restaurant',
+      amenity_pools_jacuzzis: 'Pools & Jacuzzis',
+      amenity_bar: 'Bar',
+      amenity_bbq: 'BBQ Area',
+      amenity_rooftop: 'Rooftop',
+      amenity_rooftop_bar: 'Rooftop Bar',
 
       // Google Reviews
       google_reviews_title: 'What our guests say on Google',

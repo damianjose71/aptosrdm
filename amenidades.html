@@ -9,10 +9,11 @@
   <link rel="stylesheet" href="assets/css/tailwind.css?v=20261104a">
   <link rel="preload" as="image" href="assets/images/amenidades-hero.jpg" type="image/jpeg" fetchpriority="high">
   <link rel="icon" href="assets/images/logo-placeholder.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261106f">
-  <script src="assets/js/i18n.js?v=20261106c" defer></script>
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261107b">
+  <script src="assets/js/i18n.js?v=20261107b" defer></script>
   <script src="assets/js/auto-translate.js?v=20261104e" defer></script>
   <script src="assets/js/main.js?v=20261104e" defer></script>
+  <script src="assets/js/amenities-slider.js?v=20261107b" defer></script>
 <!-- Open Graph y Twitter -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://apartamentosreservadelmar.com.co/">
@@ -121,6 +122,230 @@
             <span class="text-[#C5A059]">03</span> Bello Horizonte
           </a>
         </nav>
+      </div>
+    </section>
+
+    <!-- Amenidades oficiales del complejo -->
+    <section id="amenidades-complejo" class="scroll-mt-24 border-y border-slate-200/70 bg-[#F8FAFC] py-14 md:py-20" aria-labelledby="amenidades-complejo-title">
+      <div class="container">
+        <div class="max-w-2xl">
+          <p class="eyebrow" data-i18n="amenities_complex_eyebrow">Amenidades oficiales</p>
+          <h2 id="amenidades-complejo-title" class="mt-2 text-3xl font-bold leading-tight text-[#0F172A] md:text-4xl" data-i18n="amenities_complex_title">Amenidades del Complejo</h2>
+          <p class="mt-3 text-base leading-relaxed text-slate-600" data-i18n="amenities_complex_subtitle">Disfruta de instalaciones tipo resort sin salir de casa</p>
+        </div>
+
+        <div class="mt-9 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          <!-- 1. Piscina -->
+          <article class="amenity-card group flex h-full flex-col overflow-hidden rounded-3xl border border-slate-200/80 bg-white shadow-[0_18px_45px_-28px_rgba(15,23,42,0.45)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_28px_60px_-28px_rgba(15,23,42,0.55)]">
+            <div class="amenity-slider">
+              <div class="amenity-slides">
+                <img src="assets/images/amenidades/piscina-1.jpeg" alt="Piscina" class="amenity-img active" loading="lazy" decoding="async">
+                <img src="assets/images/amenidades/piscina-2.jpeg" alt="Piscina" class="amenity-img" loading="lazy" decoding="async">
+                <img src="assets/images/amenidades/piscina-3.jpeg" alt="Piscina" class="amenity-img" loading="lazy" decoding="async">
+              </div>
+              <button type="button" class="slider-btn prev" aria-label="Foto anterior" onclick="prevSlide(this)">❮</button>
+              <button type="button" class="slider-btn next" aria-label="Foto siguiente" onclick="nextSlide(this)">❯</button>
+              <span class="amenity-counter" aria-hidden="true">1 / 3</span>
+            </div>
+            <div class="flex flex-1 flex-col p-5">
+              <h3 class="text-lg font-bold leading-snug text-[#0F172A]" data-i18n="amenity_pool">Piscina</h3>
+              <p class="mt-2 text-sm leading-relaxed text-slate-600">Piscina para adultos y niños con zonas de descanso y vista abierta al Caribe.</p>
+              <div class="mt-auto space-y-1 pt-4 text-xs font-semibold text-slate-500">
+                <p>📍 Torre 4 - Piso 1</p>
+                <p>🕒 9:00 AM - 8:00 PM</p>
+              </div>
+            </div>
+          </article>
+
+          <!-- 2. Bar & Cafetería -->
+          <article class="amenity-card group flex h-full flex-col overflow-hidden rounded-3xl border border-slate-200/80 bg-white shadow-[0_18px_45px_-28px_rgba(15,23,42,0.45)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_28px_60px_-28px_rgba(15,23,42,0.55)]">
+            <div class="amenity-slider">
+              <div class="amenity-slides">
+                <img src="assets/images/amenidades/bar-cafeteria-1.jpeg" alt="Bar &amp; Cafetería" class="amenity-img active" loading="lazy" decoding="async">
+                <img src="assets/images/amenidades/bar-cafeteria-2.jpeg" alt="Bar &amp; Cafetería" class="amenity-img" loading="lazy" decoding="async">
+              </div>
+              <button type="button" class="slider-btn prev" aria-label="Foto anterior" onclick="prevSlide(this)">❮</button>
+              <button type="button" class="slider-btn next" aria-label="Foto siguiente" onclick="nextSlide(this)">❯</button>
+              <span class="amenity-counter" aria-hidden="true">1 / 2</span>
+            </div>
+            <div class="flex flex-1 flex-col p-5">
+              <h3 class="text-lg font-bold leading-snug text-[#0F172A]" data-i18n="amenity_bar_cafe">Bar &amp; Cafetería</h3>
+              <p class="mt-2 text-sm leading-relaxed text-slate-600">Cafés, bebidas y snacks en un espacio social junto a la piscina.</p>
+              <div class="mt-auto space-y-1 pt-4 text-xs font-semibold text-slate-500">
+                <p>📍 Torre 4 - Piso 1</p>
+                <p>🕒 9:00 AM - 8:00 PM</p>
+              </div>
+            </div>
+          </article>
+
+          <!-- 3. Área Deportiva -->
+          <article class="amenity-card group flex h-full flex-col overflow-hidden rounded-3xl border border-slate-200/80 bg-white shadow-[0_18px_45px_-28px_rgba(15,23,42,0.45)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_28px_60px_-28px_rgba(15,23,42,0.55)]">
+            <div class="amenity-slider">
+              <div class="amenity-slides">
+                <img src="assets/images/amenidades/area-deportiva-1.jpeg" alt="Área Deportiva" class="amenity-img active" loading="lazy" decoding="async">
+                <img src="assets/images/amenidades/area-deportiva-2.jpeg" alt="Área Deportiva" class="amenity-img" loading="lazy" decoding="async">
+              </div>
+              <button type="button" class="slider-btn prev" aria-label="Foto anterior" onclick="prevSlide(this)">❮</button>
+              <button type="button" class="slider-btn next" aria-label="Foto siguiente" onclick="nextSlide(this)">❯</button>
+              <span class="amenity-counter" aria-hidden="true">1 / 2</span>
+            </div>
+            <div class="flex flex-1 flex-col p-5">
+              <h3 class="text-lg font-bold leading-snug text-[#0F172A]" data-i18n="amenity_sports">Área Deportiva</h3>
+              <p class="mt-2 text-sm leading-relaxed text-slate-600">Gym, Cancha de Fútbol, Golfito, Futbolito, Ping Pong</p>
+              <div class="mt-auto space-y-1 pt-4 text-xs font-semibold text-slate-500">
+                <p>📍 Torre 3 - Piso 18</p>
+                <p>🕒 Desde las 8:00 AM</p>
+              </div>
+            </div>
+          </article>
+
+          <!-- 4. Salón Infantil -->
+          <article class="amenity-card group flex h-full flex-col overflow-hidden rounded-3xl border border-slate-200/80 bg-white shadow-[0_18px_45px_-28px_rgba(15,23,42,0.45)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_28px_60px_-28px_rgba(15,23,42,0.55)]">
+            <div class="amenity-slider">
+              <div class="amenity-slides">
+                <img src="assets/images/amenidades/salon-infantil-1.jpeg" alt="Salón Infantil" class="amenity-img active" loading="lazy" decoding="async">
+                <img src="assets/images/amenidades/salon-infantil-2.jpeg" alt="Salón Infantil" class="amenity-img" loading="lazy" decoding="async">
+              </div>
+              <button type="button" class="slider-btn prev" aria-label="Foto anterior" onclick="prevSlide(this)">❮</button>
+              <button type="button" class="slider-btn next" aria-label="Foto siguiente" onclick="nextSlide(this)">❯</button>
+              <span class="amenity-counter" aria-hidden="true">1 / 2</span>
+            </div>
+            <div class="flex flex-1 flex-col p-5">
+              <h3 class="text-lg font-bold leading-snug text-[#0F172A]" data-i18n="amenity_kids">Salón Infantil</h3>
+              <p class="mt-2 text-sm leading-relaxed text-slate-600">Espacio seguro y divertido para que los más pequeños disfruten de su estadía.</p>
+              <div class="mt-auto space-y-1 pt-4 text-xs font-semibold text-slate-500">
+                <p>📍 Torre 1 - Piso 18</p>
+                <p>🕒 Desde las 8:00 AM</p>
+              </div>
+            </div>
+          </article>
+
+          <!-- 5. Restaurante -->
+          <article class="amenity-card group flex h-full flex-col overflow-hidden rounded-3xl border border-slate-200/80 bg-white shadow-[0_18px_45px_-28px_rgba(15,23,42,0.45)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_28px_60px_-28px_rgba(15,23,42,0.55)]">
+            <div class="amenity-slider">
+              <div class="amenity-slides">
+                <img src="assets/images/amenidades/restaurante-1.jpeg" alt="Restaurante" class="amenity-img active" loading="lazy" decoding="async">
+                <img src="assets/images/amenidades/restaurante-2.jpeg" alt="Restaurante" class="amenity-img" loading="lazy" decoding="async">
+              </div>
+              <button type="button" class="slider-btn prev" aria-label="Foto anterior" onclick="prevSlide(this)">❮</button>
+              <button type="button" class="slider-btn next" aria-label="Foto siguiente" onclick="nextSlide(this)">❯</button>
+              <span class="amenity-counter" aria-hidden="true">1 / 2</span>
+            </div>
+            <div class="flex flex-1 flex-col p-5">
+              <h3 class="text-lg font-bold leading-snug text-[#0F172A]" data-i18n="amenity_restaurant">Restaurante</h3>
+              <p class="mt-2 text-sm leading-relaxed text-slate-600">Cocina para todos los gustos en un ambiente familiar frente al mar.</p>
+              <div class="mt-auto space-y-1 pt-4 text-xs font-semibold text-slate-500">
+                <p>📍 Torre 1 - Piso 18</p>
+                <p>🕒 8:00 AM - 8:00 PM</p>
+              </div>
+            </div>
+          </article>
+
+          <!-- 6. Piscinas & Jacuzzis -->
+          <article class="amenity-card group flex h-full flex-col overflow-hidden rounded-3xl border border-slate-200/80 bg-white shadow-[0_18px_45px_-28px_rgba(15,23,42,0.45)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_28px_60px_-28px_rgba(15,23,42,0.55)]">
+            <div class="amenity-slider">
+              <div class="amenity-slides">
+                <img src="assets/images/amenidades/piscinas-jacuzzis-1.jpeg" alt="Piscinas &amp; Jacuzzis" class="amenity-img active" loading="lazy" decoding="async">
+                <img src="assets/images/amenidades/piscinas-jacuzzis-2.jpeg" alt="Piscinas &amp; Jacuzzis" class="amenity-img" loading="lazy" decoding="async">
+              </div>
+              <button type="button" class="slider-btn prev" aria-label="Foto anterior" onclick="prevSlide(this)">❮</button>
+              <button type="button" class="slider-btn next" aria-label="Foto siguiente" onclick="nextSlide(this)">❯</button>
+              <span class="amenity-counter" aria-hidden="true">1 / 2</span>
+            </div>
+            <div class="flex flex-1 flex-col p-5">
+              <h3 class="text-lg font-bold leading-snug text-[#0F172A]" data-i18n="amenity_pools_jacuzzis">Piscinas &amp; Jacuzzis</h3>
+              <p class="mt-2 text-sm leading-relaxed text-slate-600">Piscina de Adultos, Piscina de Niños, Jacuzzis</p>
+              <div class="mt-auto space-y-1 pt-4 text-xs font-semibold text-slate-500">
+                <p>📍 Torre 2 y 3</p>
+                <p>🕒 9:00 AM - 8:00 PM</p>
+              </div>
+            </div>
+          </article>
+
+          <!-- 7. Bar -->
+          <article class="amenity-card group flex h-full flex-col overflow-hidden rounded-3xl border border-slate-200/80 bg-white shadow-[0_18px_45px_-28px_rgba(15,23,42,0.45)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_28px_60px_-28px_rgba(15,23,42,0.55)]">
+            <div class="amenity-slider">
+              <div class="amenity-slides">
+                <img src="assets/images/amenidades/bar-t2-1.jpeg" alt="Bar Torre 2" class="amenity-img active" loading="lazy" decoding="async">
+                <img src="assets/images/amenidades/bar-t2-2.jpeg" alt="Bar Torre 2" class="amenity-img" loading="lazy" decoding="async">
+              </div>
+              <button type="button" class="slider-btn prev" aria-label="Foto anterior" onclick="prevSlide(this)">❮</button>
+              <button type="button" class="slider-btn next" aria-label="Foto siguiente" onclick="nextSlide(this)">❯</button>
+              <span class="amenity-counter" aria-hidden="true">1 / 2</span>
+            </div>
+            <div class="flex flex-1 flex-col p-5">
+              <h3 class="text-lg font-bold leading-snug text-[#0F172A]" data-i18n="amenity_bar">Bar</h3>
+              <p class="mt-2 text-sm leading-relaxed text-slate-600">Bebidas y cócteles con vista panorámica en la Torre 2.</p>
+              <div class="mt-auto space-y-1 pt-4 text-xs font-semibold text-slate-500">
+                <p>📍 Piso 19 - Torre 2</p>
+                <p>🕒 9:00 AM - 8:00 PM</p>
+              </div>
+            </div>
+          </article>
+
+          <!-- 8. Zona BBQ -->
+          <article class="amenity-card group flex h-full flex-col overflow-hidden rounded-3xl border border-slate-200/80 bg-white shadow-[0_18px_45px_-28px_rgba(15,23,42,0.45)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_28px_60px_-28px_rgba(15,23,42,0.55)]">
+            <div class="amenity-slider">
+              <div class="amenity-slides">
+                <img src="assets/images/amenidades/zona-bbq-1.jpeg" alt="Zona BBQ" class="amenity-img active" loading="lazy" decoding="async">
+                <img src="assets/images/amenidades/zona-bbq-2.jpeg" alt="Zona BBQ" class="amenity-img" loading="lazy" decoding="async">
+              </div>
+              <button type="button" class="slider-btn prev" aria-label="Foto anterior" onclick="prevSlide(this)">❮</button>
+              <button type="button" class="slider-btn next" aria-label="Foto siguiente" onclick="nextSlide(this)">❯</button>
+              <span class="amenity-counter" aria-hidden="true">1 / 2</span>
+            </div>
+            <div class="flex flex-1 flex-col p-5">
+              <h3 class="text-lg font-bold leading-snug text-[#0F172A]" data-i18n="amenity_bbq">Zona BBQ</h3>
+              <p class="mt-2 text-sm leading-relaxed text-slate-600">Alquiler por 3 horas • Valor: $37.700</p>
+              <div class="mt-auto space-y-1 pt-4 text-xs font-semibold text-slate-500">
+                <p>📍 Torre 2 - Piso 19</p>
+                <p>🕒 9:00 AM - 8:00 PM</p>
+              </div>
+            </div>
+          </article>
+
+          <!-- 9. Rooftop -->
+          <article class="amenity-card group flex h-full flex-col overflow-hidden rounded-3xl border border-slate-200/80 bg-white shadow-[0_18px_45px_-28px_rgba(15,23,42,0.45)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_28px_60px_-28px_rgba(15,23,42,0.55)]">
+            <div class="amenity-slider">
+              <div class="amenity-slides">
+                <img src="assets/images/amenidades/rooftop-1.jpeg" alt="Rooftop" class="amenity-img active" loading="lazy" decoding="async">
+                <img src="assets/images/amenidades/rooftop-2.jpeg" alt="Rooftop" class="amenity-img" loading="lazy" decoding="async">
+              </div>
+              <button type="button" class="slider-btn prev" aria-label="Foto anterior" onclick="prevSlide(this)">❮</button>
+              <button type="button" class="slider-btn next" aria-label="Foto siguiente" onclick="nextSlide(this)">❯</button>
+              <span class="amenity-counter" aria-hidden="true">1 / 2</span>
+            </div>
+            <div class="flex flex-1 flex-col p-5">
+              <h3 class="text-lg font-bold leading-snug text-[#0F172A]" data-i18n="amenity_rooftop">Rooftop</h3>
+              <p class="mt-2 text-sm leading-relaxed text-slate-600">Terraza panorámica para atardeceres y encuentros especiales.</p>
+              <div class="mt-auto space-y-1 pt-4 text-xs font-semibold text-slate-500">
+                <p>📍 Piso 20 - Torre 4</p>
+                <p>🕒 10:00 AM - 11:00 PM</p>
+              </div>
+            </div>
+          </article>
+
+          <!-- 10. Bar Rooftop -->
+          <article class="amenity-card group flex h-full flex-col overflow-hidden rounded-3xl border border-slate-200/80 bg-white shadow-[0_18px_45px_-28px_rgba(15,23,42,0.45)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_28px_60px_-28px_rgba(15,23,42,0.55)]">
+            <div class="amenity-slider">
+              <div class="amenity-slides">
+                <img src="assets/images/amenidades/bar-rooftop-1.jpeg" alt="Bar Rooftop" class="amenity-img active" loading="lazy" decoding="async">
+                <img src="assets/images/amenidades/bar-rooftop-2.jpeg" alt="Bar Rooftop" class="amenity-img" loading="lazy" decoding="async">
+              </div>
+              <button type="button" class="slider-btn prev" aria-label="Foto anterior" onclick="prevSlide(this)">❮</button>
+              <button type="button" class="slider-btn next" aria-label="Foto siguiente" onclick="nextSlide(this)">❯</button>
+              <span class="amenity-counter" aria-hidden="true">1 / 2</span>
+            </div>
+            <div class="flex flex-1 flex-col p-5">
+              <h3 class="text-lg font-bold leading-snug text-[#0F172A]" data-i18n="amenity_rooftop_bar">Bar Rooftop</h3>
+              <p class="mt-2 text-sm leading-relaxed text-slate-600">Cócteles y música en el punto más alto de la Torre 4.</p>
+              <div class="mt-auto space-y-1 pt-4 text-xs font-semibold text-slate-500">
+                <p>📍 Piso 20 - Torre 4</p>
+                <p>🕒 4:00 PM - 11:00 PM</p>
+              </div>
+            </div>
+          </article>
+        </div>
       </div>
     </section>
 
