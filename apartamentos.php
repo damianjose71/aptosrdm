@@ -62,7 +62,7 @@ if ($maxGuests < 1) {
     $maxGuests = 1;
 }
 
-$sql = 'SELECT a.id, a.codigo_apartamento, a.titulo, a.ubicacion, a.huespedes, a.habitaciones, a.banos, a.camas, a.imagen_principal, a.galeria, a.estado, a.fecha_creacion, u.nombre AS actualizado_por_nombre
+$sql = 'SELECT a.id, a.codigo_apartamento, a.titulo, a.ubicacion, a.huespedes, a.habitaciones, a.banos, a.camas, a.imagen_principal, a.galeria, a.descripcion, a.estado, a.fecha_creacion, u.nombre AS actualizado_por_nombre
         FROM apartamentos a
         LEFT JOIN usuarios u ON u.id = a.actualizado_por
         WHERE a.estado = 1';
@@ -493,7 +493,7 @@ foreach ($apartments as $apartment) {
               ?>
               <article class="group flex h-full flex-col overflow-hidden rounded-3xl bg-white rdm-shadow-card rdm-card-hover ring-1 ring-slate-900/5 transition duration-300">
                 <div class="relative aspect-[4/3] overflow-hidden bg-slate-100">
-                  <img src="<?= htmlspecialchars($image) ?>" alt="<?= htmlspecialchars((string) $apartment['titulo']) ?> - Apartamento amoblado en <?= htmlspecialchars($building) ?>, Santa Marta" loading="lazy" decoding="async" class="h-full w-full object-cover object-[center_30%] transition duration-500 group-hover:scale-[1.04]">
+                  <img src="<?= htmlspecialchars($image) ?>" data-card-image="<?= (int) $apartment['id'] ?>" alt="<?= htmlspecialchars((string) $apartment['titulo']) ?> - Apartamento amoblado en <?= htmlspecialchars($building) ?>, Santa Marta" loading="lazy" decoding="async" class="h-full w-full object-cover object-[center_30%] transition duration-500 group-hover:scale-[1.04]">
                   <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#0F172A]/35 via-transparent to-transparent"></div>
                   <span data-no-translate class="absolute left-4 top-4 inline-flex items-center gap-1.5 rounded-full bg-[#0F172A]/90 px-3 py-1.5 text-xs font-bold text-white shadow-sm backdrop-blur">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="h-3.5 w-3.5 text-[#C5A059]" aria-hidden="true">
@@ -502,6 +502,15 @@ foreach ($apartments as $apartment) {
                     </svg>
                     <?= htmlspecialchars($building) ?>
                   </span>
+                  <?php if (count($gallery) > 1): ?>
+                    <div class="absolute bottom-3 left-1/2 flex -translate-x-1/2 gap-2">
+                      <?php foreach ($gallery as $galleryIndex => $galleryImage): ?>
+                        <button type="button" class="h-12 w-12 overflow-hidden rounded-full bg-white/95 ring-2 ring-[#C5A059] shadow-lg transition duration-300 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-[#C5A059]/30" data-card-gallery-apartment="<?= (int) $apartment['id'] ?>" data-card-gallery-index="<?= (int) $galleryIndex ?>" aria-label="Ver imagen <?= (int) ($galleryIndex + 1) ?> de <?= (int) count($gallery) ?> del apartamento <?= htmlspecialchars((string) $apartment['titulo']) ?>">
+                          <img src="<?= htmlspecialchars((string) $galleryImage) ?>" alt="" class="h-full w-full object-cover" loading="lazy" decoding="async">
+                        </button>
+                      <?php endforeach; ?>
+                    </div>
+                  <?php endif; ?>
                 </div>
 
                 <div class="flex flex-1 flex-col p-6">
@@ -559,14 +568,12 @@ foreach ($apartments as $apartment) {
                   </div>
 
                   <div class="mt-auto pt-6">
-                    <button type="button" data-detalle-id="<?= (int) $apartment['id'] ?>"
-                            class="inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#0F172A] px-5 py-3 text-sm font-bold text-white transition duration-300 hover:bg-[#1E293B] focus:outline-none focus:ring-2 focus:ring-[#C5A059] focus:ring-offset-2">
-                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 text-[#C5A059]" aria-hidden="true">
-                        <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z" />
-                        <circle cx="12" cy="12" r="3" />
+                    <a href="https://wa.me/573218839636?text=<?= urlencode('Hola, me interesa cotizar el apartamento ' . $apartment['titulo']) ?>" class="inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#C5A059] px-5 py-3 text-sm font-bold text-[#0F172A] rdm-shadow-button transition duration-300 hover:bg-[#D4B26D] focus:outline-none focus:ring-2 focus:ring-[#C5A059] focus:ring-offset-2" target="_blank" rel="noopener noreferrer">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 text-[#0F172A]" aria-hidden="true">
+                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92Z" />
                       </svg>
-                      <span data-i18n="btn_details"><?= t('btn_details', 'Ver Detalles') ?></span>
-                    </button>
+                      <span data-i18n="quote_whatsapp"><?= t('quote_whatsapp', 'Cotizar por WhatsApp') ?></span>
+                    </a>
                   </div>
                 </div>
               </article>
@@ -589,6 +596,40 @@ foreach ($apartments as $apartment) {
         <script>
           window.RDM_APARTAMENTOS = <?= json_encode($dataApartments, JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_APOS) ?>;
           document.addEventListener('click', (event) => {
+            const galleryTrigger = event.target.closest('[data-card-gallery-apartment]');
+            if (galleryTrigger) {
+              const apartments = window.RDM_APARTAMENTOS || [];
+              const apartment = apartments.find(
+                (item) => String(item.id) === galleryTrigger.dataset.cardGalleryApartment
+              );
+              if (!apartment) return;
+
+              const gallery = Array.isArray(apartment.galeria)
+                ? apartment.galeria.map((item) => (typeof item === 'string' ? item : item?.url)).filter(Boolean)
+                : [];
+              const images = gallery.length > 0 ? gallery : [apartment.imagen_principal || 'assets/images/logordm.png'];
+              const index = Number(galleryTrigger.dataset.cardGalleryIndex);
+              const image = images[index];
+              const cardImage = document.querySelector(`[data-card-image="${apartment.id}"]`);
+              if (cardImage) {
+                cardImage.src = image;
+                cardImage.alt = `${apartment.titulo || 'Apartamento'} - imagen ${index + 1}`;
+              }
+
+              document.querySelectorAll('[data-card-gallery-apartment]').forEach((item) => {
+                const isActive = item === galleryTrigger && Number(item.dataset.cardGalleryIndex) === index;
+                item.setAttribute('aria-pressed', String(isActive));
+                item.classList.toggle('ring-2', isActive);
+                item.classList.toggle('ring-[#C5A059]', isActive);
+                item.classList.toggle('ring-1', !isActive);
+                item.classList.toggle('ring-slate-900/10', !isActive);
+                item.classList.toggle('opacity-70', !isActive);
+                item.classList.toggle('opacity-100', isActive);
+              });
+
+              return;
+            }
+
             const trigger = event.target.closest('[data-detalle-id]');
             if (!trigger) return;
             const apartments = window.RDM_APARTAMENTOS || [];
