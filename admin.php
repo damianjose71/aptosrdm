@@ -6,6 +6,7 @@ session_start([
     'cookie_httponly' => true,
     'use_strict_mode' => true,
     'cookie_samesite' => 'Lax',
+    'secure' => true,
 ]);
 
 require_once __DIR__ . '/admin/config/db.php';
@@ -44,7 +45,7 @@ function admin_validate_csrf(): bool
 
 function admin_is_logged_in(): bool
 {
-    return !empty($_SESSION['admin_id']);
+    return !empty($_SESSION['admin_logged']);
 }
 
 function admin_require_login(): void
@@ -177,6 +178,11 @@ $old = $_SESSION['admin_old'] ?? [];
 $oldEditingId = (int) ($_SESSION['admin_old_edit'] ?? 0);
 
 if ($action === 'logout') {
+    if (!admin_validate_csrf()) {
+        admin_set_flash('error', 'La sesión o el token de seguridad no son válidos.');
+        admin_redirigir('/admin.php');
+    }
+
     $_SESSION = [];
     session_destroy();
 
@@ -205,6 +211,7 @@ if ($action === 'login_submit') {
 
     if ($user && (int) $user['estado'] === 1 && password_verify($password, (string) $user['password_hash'])) {
         session_regenerate_id(true);
+        $_SESSION['admin_logged'] = true;
         $_SESSION['admin_id'] = (int) $user['id'];
         $_SESSION['admin_email'] = (string) $user['email'];
         $_SESSION['admin_rol'] = (string) $user['rol'];
@@ -217,7 +224,7 @@ if ($action === 'login_submit') {
 }
 
 $adminId = (int) ($_SESSION['admin_id'] ?? 0);
-$isAdmin = $adminId > 0;
+$isAdmin = admin_is_logged_in();
 
 if (!$isAdmin) {
     ?>
@@ -303,19 +310,35 @@ if (isset($_GET['nuevo'])) {
 }
 
 if ($panelView === 'edit' && $editingId > 0) {
-    $statement = $pdo->prepare('SELECT * FROM apartamentos WHERE id = ? LIMIT 1');
+    $statement = $pdo->prepare(
+        'SELECT id, codigo_apartamento, titulo, ubicacion, huespedes, habitaciones, banos, camas, imagen_principal, galeria, descripcion, estado, fecha_creacion, actualizado_por, actualizado_en
+         FROM apartamentos
+         WHERE id = ?
+         LIMIT 1'
+    );
     $statement->execute([$editingId]);
     $editing = $statement->fetch();
 }
 
 if ($panelView === 'list') {
-    $statement = $pdo->query(
+    $adminPanelPage = max(1, (int) ($_GET['page'] ?? 1));
+    $adminPanelLimit = 20;
+    $adminPanelOffset = ($adminPanelPage - 1) * $adminPanelLimit;
+
+    $statement = $pdo->prepare(
         'SELECT a.id, a.codigo_apartamento, a.titulo, a.ubicacion, a.huespedes, a.habitaciones, a.banos, a.camas, a.imagen_principal, a.galeria, a.estado, a.fecha_creacion, u.nombre AS actualizado_por_nombre
          FROM apartamentos a
          LEFT JOIN usuarios u ON u.id = a.actualizado_por
-         ORDER BY a.fecha_creacion DESC, a.id DESC'
+         ORDER BY a.fecha_creacion DESC, a.id DESC
+         LIMIT ? OFFSET ?'
     );
+    $statement->execute([$adminPanelLimit, $adminPanelOffset]);
     $apartments = $statement->fetchAll();
+
+    $totalStatement = $pdo->prepare('SELECT COUNT(*) FROM apartamentos');
+    $totalStatement->execute();
+    $totalApartments = (int) $totalStatement->fetchColumn();
+    $totalPages = max(1, (int) ceil($totalApartments / $adminPanelLimit));
 
     $apartmentIds = array_map(static function ($apartment) {
         return (int) $apartment['id'];
@@ -714,6 +737,14 @@ if ($action === 'eliminar_amenidad') {
                     </table>
                 </div>
             </div>
+
+            <?php if ($adminPanelPage < $totalPages): ?>
+                <div class="mt-4 flex items-center justify-between">
+                    <a href="/admin.php?page="<?= max(1, $adminPanelPage - 1) ?>" class="rounded-lg border border-[#C5A059] px-4 py-2 text-sm font-bold text-[#C5A059] transition hover:bg-[#C5A059] hover:text-[#0F172A]">Anterior</a>
+                    <span class="text-sm text-slate-300">Página <?= $adminPanelPage ?> de <?= $totalPages ?></span>
+                    <a href="/admin.php?page="<?= min($totalPages, $adminPanelPage + 1) ?>" class="rounded-lg border border-[#C5A059] px-4 py-2 text-sm font-bold text-[#C5A059] transition hover:bg-[#C5A059] hover:text-[#0F172A]">Siguiente</a>
+                </div>
+            <?php endif; ?>
         <?php elseif ($panelView === 'new' || $panelView === 'edit'): ?>
             <div class="rounded-2xl border border-[#C5A059]/30 bg-[#0F172A] p-8">
                 <h1 class="mb-6 text-2xl font-bold text-white"><?= $panelView === 'new' ? 'Registrar Nuevo Apartamento' : 'Editar Apartamento' ?></h1>
