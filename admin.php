@@ -232,7 +232,7 @@ if (!$isAdmin) {
     <body class="min-h-screen bg-[#0F172A] text-slate-200">
         <main class="flex min-h-screen items-center justify-center px-4 py-10">
             <div class="w-full max-w-md">
-                <div class="rounded-2xl border border-[#C5A059]/40 bg-[#0F172A] p-8 shadow-2xl">
+                <div class="rounded-2xl border border-[#C5A059]/40 bg-[#0F172A] p-8 shadow-sm">
                     <div class="mb-8 flex flex-col items-center text-center">
                         <div class="mb-4 flex h-28 w-28 items-center justify-center rounded-full border-2 border-[#C5A059] bg-[#C5A059]/10">
                             <span class="text-3xl font-bold tracking-widest text-[#C5A059]">RDM</span>

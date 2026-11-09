@@ -176,7 +176,7 @@
     const baths = getNumber(apartment.banos);
 
     return `
-      <article class="group flex h-full flex-col overflow-hidden rounded-3xl bg-white shadow-[0_18px_45px_-22px_rgba(15,23,42,0.35)] ring-1 ring-slate-900/5 transition duration-300 hover:-translate-y-1.5 hover:shadow-[0_28px_60px_-22px_rgba(15,23,42,0.45)]">
+      <article class="group flex h-full flex-col overflow-hidden rounded-3xl bg-white rdm-shadow-card rdm-card-hover ring-1 ring-slate-900/5 transition duration-300">
         <div class="relative aspect-[4/3] overflow-hidden bg-slate-100">
           <img
             src="${image}"

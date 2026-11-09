@@ -140,10 +140,10 @@ foreach ($apartments as $apartment) {
   <link rel="stylesheet" href="assets/css/tailwind.css?v=20261107h">
   <link rel="preload" as="image" href="assets/images/apartamentos-hero.jpeg" type="image/jpeg" fetchpriority="high">
   <link rel="icon" href="assets/images/logordm.png" type="image/png">
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261107g">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261109a">
   <script src="assets/js/i18n.js?v=20261107i" defer></script>
   <script src="assets/js/auto-translate.js?v=20261104e" defer></script>
-  <script src="assets/js/main.js?v=20261107d" defer></script>
+  <script src="assets/js/main.js?v=20261109a" defer></script>
 <!-- Open Graph y Twitter -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://apartamentosreservadelmar.com.co/">
@@ -226,7 +226,7 @@ foreach ($apartments as $apartment) {
 
     <section class="relative pb-16 font-corporate md:pb-20" aria-labelledby="catalogo-title">
       <div class="mx-auto w-[min(calc(100%-2rem),1120px)]">
-        <div class="relative z-10 -mt-8 rounded-[1.75rem] border border-slate-900/5 bg-white p-5 shadow-[0_30px_80px_-30px_rgba(15,23,42,0.5)] sm:p-6 md:-mt-14 md:p-8">
+        <div class="relative z-10 -mt-8 rounded-[1.75rem] border border-slate-900/5 bg-white p-5 rdm-shadow-float sm:p-6 md:-mt-14 md:p-8">
           <div class="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
             <div class="max-w-2xl">
               <p data-i18n="catalog_eyebrow" class="text-xs font-bold uppercase tracking-[0.18em] text-[#C5A059]">Disponibilidad</p>
@@ -286,7 +286,7 @@ foreach ($apartments as $apartment) {
             </label>
 
             <button type="submit" data-i18n="filter_search"
-                    class="inline-flex min-h-[64px] items-center justify-center gap-2 rounded-2xl bg-[#C5A059] px-6 text-sm font-bold text-[#0F172A] shadow-[0_16px_35px_-14px_rgba(197,160,89,0.9)] transition duration-300 hover:bg-[#D4B26D] focus:outline-none focus:ring-2 focus:ring-[#C5A059] focus:ring-offset-2 md:px-8">
+                    class="inline-flex min-h-[64px] items-center justify-center gap-2 rounded-2xl bg-[#C5A059] px-6 text-sm font-bold text-[#0F172A] rdm-shadow-button transition duration-300 hover:bg-[#D4B26D] focus:outline-none focus:ring-2 focus:ring-[#C5A059] focus:ring-offset-2 md:px-8">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5" aria-hidden="true">
                 <circle cx="11" cy="11" r="8" />
                 <path d="m21 21-4.3-4.3" />
@@ -317,7 +317,7 @@ foreach ($apartments as $apartment) {
                     $gallery = [(string) $image];
                 }
               ?>
-              <article class="group flex h-full flex-col overflow-hidden rounded-3xl bg-white shadow-[0_18px_45px_-22px_rgba(15,23,42,0.35)] ring-1 ring-slate-900/5 transition duration-300 hover:-translate-y-1.5 hover:shadow-[0_28px_60px_-22px_rgba(15,23,42,0.45)]">
+              <article class="group flex h-full flex-col overflow-hidden rounded-3xl bg-white rdm-shadow-card rdm-card-hover ring-1 ring-slate-900/5 transition duration-300">
                 <div class="relative aspect-[4/3] overflow-hidden bg-slate-100">
                   <img src="<?= htmlspecialchars($image) ?>" alt="<?= htmlspecialchars((string) $apartment['titulo']) ?> en <?= htmlspecialchars($building) ?>" loading="lazy" decoding="async" class="h-full w-full object-cover object-[center_30%] transition duration-500 group-hover:scale-[1.04]">
                   <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#0F172A]/35 via-transparent to-transparent"></div>
@@ -489,11 +489,11 @@ foreach ($apartments as $apartment) {
     aria-hidden="true"
   >
     <div id="modal-apartamento-backdrop" class="absolute inset-0 bg-[#0F172A]/75 backdrop-blur-sm"></div>
-    <div class="relative z-10 flex max-h-[92vh] w-full max-w-5xl flex-col overflow-hidden rounded-[1.75rem] bg-white shadow-[0_40px_120px_-20px_rgba(15,23,42,0.8)] ring-1 ring-white/10">
+    <div class="relative z-10 flex max-h-[92vh] w-full max-w-5xl flex-col overflow-hidden rounded-[1.75rem] bg-white rdm-shadow-modal ring-1 ring-white/10">
       <button
         id="modal-apartamento-cerrar"
         type="button"
-        class="absolute right-4 top-4 z-30 inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/95 text-[#0F172A] shadow-lg ring-1 ring-slate-900/5 transition hover:bg-white hover:text-[#C5A059] focus:outline-none focus:ring-2 focus:ring-[#C5A059] focus:ring-offset-2"
+        class="absolute right-4 top-4 z-30 inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/95 text-[#0F172A] shadow-sm ring-1 ring-slate-900/5 transition hover:bg-white hover:text-[#C5A059] focus:outline-none focus:ring-2 focus:ring-[#C5A059] focus:ring-offset-2"
         data-i18n-aria-label="modal_close" aria-label="Cerrar detalles del apartamento"
       >
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5" aria-hidden="true">
@@ -505,7 +505,7 @@ foreach ($apartments as $apartment) {
     </div>
   </div>
 <!-- Cookie Consent Banner -->
-<div id="cookie-banner" class="fixed bottom-4 right-4 z-50 bg-[#0F172A] border-t border-[#C5A059] rounded-lg p-5 flex items-center gap-3 max-w-sm shadow-lg translate-y-2 opacity-0 transition-transform transition-opacity duration-300">
+<div id="cookie-banner" class="fixed bottom-4 right-4 z-50 bg-[#0F172A] border-t border-[#C5A059] rounded-lg p-5 flex items-center gap-3 max-w-sm rdm-shadow-float translate-y-2 opacity-0 transition-transform transition-opacity duration-300">
   <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-300" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12s-4 9-8 9-8-9-8-9 4-9 8-9 8 9 8 9Z"/><circle cx="12" cy="12" r="3" /></svg>
   <div>
     <h3 class="font-medium text-slate-100">Uso de Cookies</h3>

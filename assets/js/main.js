@@ -439,7 +439,7 @@
               data-i18n="quote_whatsapp"
               target="_blank"
               rel="noopener noreferrer"
-              class="inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#C5A059] px-6 py-3 text-sm font-bold text-[#0F172A] shadow-[0_16px_35px_-14px_rgba(197,160,89,0.9)] transition duration-300 hover:bg-[#D4B26D] focus:outline-none focus:ring-2 focus:ring-[#C5A059] focus:ring-offset-2"
+              class="inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#C5A059] px-6 py-3 text-sm font-bold text-[#0F172A] rdm-shadow-button transition duration-300 hover:bg-[#D4B26D] focus:outline-none focus:ring-2 focus:ring-[#C5A059] focus:ring-offset-2"
             >
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4" aria-hidden="true">
                 <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92Z" />
