@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://apartamentosreservadelmar.com.co/</loc>
+    <lastmod>2026-11-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://apartamentosreservadelmar.com.co/assets/images/portada-hero.jpeg</image:loc>
+      <image:title>Apartamentos frente al mar en Santa Marta - Reserva del Mar</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://apartamentosreservadelmar.com.co/apartamentos.html</loc>
+    <lastmod>2026-11-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://apartamentosreservadelmar.com.co/assets/images/apartamentos-hero.jpeg</image:loc>
+      <image:title>Apartamentos amoblados frente al mar en Santa Marta</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://apartamentosreservadelmar.com.co/amenidades.html</loc>
+    <lastmod>2026-11-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://apartamentosreservadelmar.com.co/assets/images/amenidades-hero.jpg</image:loc>
+      <image:title>Amenidades frente al mar en Santa Marta - Reserva del Mar</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://apartamentosreservadelmar.com.co/contactanos.html</loc>
+    <lastmod>2026-11-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://apartamentosreservadelmar.com.co/assets/images/contactanos-hero-1920.jpg</image:loc>
+      <image:title>Contacto y reservas de alojamiento en Santa Marta</image:title>
+    </image:image>
+  </url>
+</urlset>

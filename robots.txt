@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+
+# Panel administrativo y archivos internos
+Disallow: /admin.php
+Disallow: /admin/
+Disallow: /admin/config/
+Disallow: /data/
+Disallow: /lang/
+
+Sitemap: https://apartamentosreservadelmar.com.co/sitemap.xml

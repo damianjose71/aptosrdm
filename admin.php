@@ -226,6 +226,7 @@ if (!$isAdmin) {
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex, nofollow">
         <title>Panel Administrativo | Apartamentos Reserva del Mar</title>
         <script src="https://cdn.tailwindcss.com"></script>
     </head>
@@ -601,6 +602,7 @@ if ($action === 'eliminar_amenidad') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex, nofollow">
     <title>Panel de Administración | Apartamentos Reserva del Mar</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>

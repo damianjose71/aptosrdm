@@ -180,7 +180,7 @@
         <div class="relative aspect-[4/3] overflow-hidden bg-slate-100">
           <img
             src="${image}"
-            alt="${title} en ${building}"
+            alt="${title} - Apartamento amoblado en ${building}, Santa Marta"
             loading="lazy"
             decoding="async"
             class="h-full w-full object-cover object-[center_30%] transition duration-500 group-hover:scale-[1.04]"

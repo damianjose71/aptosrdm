@@ -381,7 +381,7 @@
             <img
               id="modal-imagen-principal"
               src="${mainImage}"
-              alt="${title} en ${building}"
+              alt="${title} - Apartamento amoblado en ${building}, Santa Marta"
               class="h-60 w-full object-cover sm:h-72 md:h-[420px]"
               decoding="async"
             >
