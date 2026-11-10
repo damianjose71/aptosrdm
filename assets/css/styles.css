@@ -922,6 +922,31 @@ h6 {
   touch-action: pan-y;
 }
 
+.amenity-icon-media {
+  background: linear-gradient(135deg, #1E293B, #0F172A);
+}
+
+.amenity-icon-media-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at top right, rgba(197, 160, 89, 0.18), transparent 60%);
+}
+
+.amenity-schedule {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.amenity-schedule > * + * {
+  padding-top: 0.75rem;
+  border-top: 1px solid #F1F5F9;
+}
+
+.amenity-schedule-note {
+  padding-left: 1.5rem;
+}
+
 .amenity-slides {
   position: relative;
   width: 100%;
