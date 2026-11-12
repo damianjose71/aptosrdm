@@ -111,13 +111,13 @@ if (!$apartamentosTableExists) {
     );
 
     $pdo->exec(
-        'INSERT INTO apartamentos (
+        "INSERT INTO apartamentos (
             codigo_apartamento, titulo, ubicacion, huespedes, habitaciones, banos, camas,
             imagen_principal, galeria, descripcion, estado, actualizado_por, actualizado_en, fecha_creacion
         ) SELECT
             l.codigo_apartamento, l.titulo, l.torre, COALESCE(l.capacidad_huespedes, 2), COALESCE(l.num_habitaciones, 1), COALESCE(l.num_banos, 1), COALESCE(l.num_habitaciones, 1),
             COALESCE(l.imagen_principal, NULL), COALESCE(l.galeria_imagenes, '[]'), COALESCE(l.descripcion, NULL), COALESCE(l.visible, 1), l.actualizado_por, COALESCE(l.actualizado_en, NOW()), COALESCE(l.actualizado_en, NOW())
-        FROM apartamentos_legacy l'
+        FROM apartamentos_legacy l"
     );
 }
 

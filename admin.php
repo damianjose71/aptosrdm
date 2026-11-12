@@ -2,11 +2,15 @@
 
 declare(strict_types=1);
 
+$isHttps = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
+    || (($_SERVER['HTTP_X_FORWARDED_PROTO'] ?? '') === 'https')
+    || (($_SERVER['SERVER_PORT'] ?? '') === '443');
+
 session_start([
     'cookie_httponly' => true,
     'use_strict_mode' => true,
     'cookie_samesite' => 'Lax',
-    'secure' => true,
+    'secure' => $isHttps,
 ]);
 
 require_once __DIR__ . '/admin/config/db.php';
