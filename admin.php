@@ -10,10 +10,12 @@ session_start([
     'cookie_httponly' => true,
     'use_strict_mode' => true,
     'cookie_samesite' => 'Lax',
-    'secure' => $isHttps,
+    'cookie_secure' => $isHttps,
 ]);
 
 require_once __DIR__ . '/admin/config/db.php';
+
+$pdo = getPDO();
 
 function admin_flash(): array
 {
@@ -207,14 +209,49 @@ if ($action === 'login_submit') {
         admin_redirigir('/admin.php');
     }
 
-    $statement = $pdo->prepare(
-        'SELECT id, usuario, password_hash FROM usuarios WHERE usuario = ? LIMIT 1'
-    );
-    $statement->execute([$usuario]);
-    $user = $statement->fetch();
+    try {
+        $statement = $pdo->prepare(
+            'SELECT id, usuario, email, password_hash
+             FROM usuarios
+             WHERE (usuario = ? OR email = ?) AND estado = 1
+             LIMIT 1'
+        );
+        $statement->execute([$usuario, $usuario]);
+    } catch (PDOException $exception) {
+        if ((int) ($exception->errorInfo[1] ?? 0) !== 1054) {
+            throw $exception;
+        }
 
-    // Validamos la contraseña directamente (o con password_verify si prefieres encriptarla después)
-    if ($user && $password === (string) $user['password_hash']) {
+        // Compatibilidad con esquemas anteriores sin columna "usuario".
+        $statement = $pdo->prepare(
+            'SELECT id, email AS usuario, email, password_hash
+             FROM usuarios
+             WHERE email = ? AND estado = 1
+             LIMIT 1'
+        );
+        $statement->execute([$usuario]);
+    }
+
+    $user = $statement->fetch();
+    $passwordOk = false;
+
+    if ($user) {
+        $hash = (string) $user['password_hash'];
+        $passwordOk = password_verify($password, $hash);
+
+        if (!$passwordOk && password_get_info($hash)['algoName'] === 'unknown' && hash_equals($hash, $password)) {
+            // Migra contraseñas antiguas en texto plano al primer inicio de sesión válido.
+            $hash = password_hash($password, PASSWORD_BCRYPT);
+            $pdo->prepare('UPDATE usuarios SET password_hash = ? WHERE id = ?')
+                ->execute([$hash, (int) $user['id']]);
+            $passwordOk = true;
+        } elseif ($passwordOk && password_needs_rehash($hash, PASSWORD_BCRYPT)) {
+            $pdo->prepare('UPDATE usuarios SET password_hash = ? WHERE id = ?')
+                ->execute([password_hash($password, PASSWORD_BCRYPT), (int) $user['id']]);
+        }
+    }
+
+    if ($passwordOk) {
         session_regenerate_id(true);
         $_SESSION['admin_logged'] = true;
         $_SESSION['admin_id'] = (int) $user['id'];
@@ -641,7 +678,7 @@ if ($action === 'eliminar_amenidad') {
                 <p class="text-sm text-[#C5A059]">Apartamentos Reserva del Mar</p>
             </div>
             <div class="flex items-center gap-4">
-                <span class="text-sm text-slate-300"><?= admin_escape((string) ($_SESSION['admin_email'] ?? '')) ?></span>
+                <span class="text-sm text-slate-300"><?= admin_escape((string) ($_SESSION['admin_user'] ?? $_SESSION['admin_email'] ?? '')) ?></span>
                 <form method="POST" action="">
                     <input type="hidden" name="action" value="logout">
                     <input type="hidden" name="csrf_token" value="<?= admin_csrf_token() ?>">

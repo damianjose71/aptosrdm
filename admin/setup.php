@@ -10,14 +10,79 @@ $pdo->exec(
     "CREATE TABLE IF NOT EXISTS usuarios (
         id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
         nombre VARCHAR(255) NOT NULL,
+        usuario VARCHAR(255) NOT NULL,
         email VARCHAR(255) NOT NULL,
         password_hash VARCHAR(255) NOT NULL,
         rol ENUM('superadmin', 'empleado') NOT NULL DEFAULT 'superadmin',
         estado TINYINT(1) NOT NULL DEFAULT 1,
         creado_en DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        UNIQUE KEY uq_usuarios_usuario (usuario),
         UNIQUE KEY uq_usuarios_email (email)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
 );
+
+$usuarioColumn = $pdo->query("SHOW COLUMNS FROM usuarios LIKE 'usuario'")->fetch();
+$usuarioColumnCreada = false;
+
+if (!$usuarioColumn) {
+    $pdo->exec('ALTER TABLE usuarios ADD COLUMN usuario VARCHAR(255) NULL AFTER nombre');
+    $usuarioColumn = $pdo->query("SHOW COLUMNS FROM usuarios LIKE 'usuario'")->fetch();
+    $usuarioColumnCreada = true;
+}
+
+$usuarios = $pdo->query('SELECT id, email, usuario FROM usuarios ORDER BY id')->fetchAll();
+$actualizarUsuario = $pdo->prepare('UPDATE usuarios SET usuario = ? WHERE id = ?');
+$existeUsuario = $pdo->prepare('SELECT COUNT(*) FROM usuarios WHERE usuario = ? AND id <> ?');
+
+foreach ($usuarios as $usuario) {
+    $usuarioActual = trim((string) ($usuario['usuario'] ?? ''));
+    $base = $usuarioActual;
+
+    if ($base === '') {
+        $email = trim((string) ($usuario['email'] ?? ''));
+        $base = $email !== '' ? (string) strstr($email, '@', true) : 'usuario';
+        $base = preg_replace('/[^a-zA-Z0-9._-]/', '', $base) ?: 'usuario';
+
+        if ($email === 'admin@reservadelmar.com') {
+            $base = 'adminrdm';
+        }
+    }
+
+    $candidato = $base;
+    $sufijo = 2;
+
+    do {
+        $existeUsuario->execute([$candidato, (int) $usuario['id']]);
+        if ((int) $existeUsuario->fetchColumn() === 0) {
+            break;
+        }
+        $candidato = $base . $sufijo;
+        $sufijo++;
+    } while (true);
+
+    if ($candidato !== $usuarioActual) {
+        $actualizarUsuario->execute([$candidato, (int) $usuario['id']]);
+    }
+}
+
+if ($usuarioColumnCreada || (is_array($usuarioColumn) && ($usuarioColumn['Null'] ?? 'NO') === 'YES')) {
+    $pdo->exec('ALTER TABLE usuarios MODIFY usuario VARCHAR(255) NOT NULL');
+}
+
+$indiceUsuario = $pdo->query(
+    "SHOW INDEX FROM usuarios WHERE Column_name = 'usuario' AND Non_unique = 0"
+)->fetch();
+if (!$indiceUsuario) {
+    $pdo->exec('ALTER TABLE usuarios ADD UNIQUE KEY uq_usuarios_usuario (usuario)');
+}
+
+$actualizarHash = $pdo->prepare('UPDATE usuarios SET password_hash = ? WHERE id = ?');
+foreach ($pdo->query('SELECT id, password_hash FROM usuarios')->fetchAll() as $usuario) {
+    $hash = (string) ($usuario['password_hash'] ?? '');
+    if ($hash !== '' && password_get_info($hash)['algoName'] === 'unknown') {
+        $actualizarHash->execute([password_hash($hash, PASSWORD_BCRYPT), (int) $usuario['id']]);
+    }
+}
 
 $pdo->exec(
     "CREATE TABLE IF NOT EXISTS historial_auditoria (
@@ -146,14 +211,15 @@ foreach ($amenidadesSeed as $nombre) {
     $amenidadStatement->execute([$nombre]);
 }
 
-$usuarioStatement = $pdo->prepare('SELECT COUNT(*) FROM usuarios WHERE email = ?');
-$usuarioStatement->execute(['admin@reservadelmar.com']);
+$usuarioStatement = $pdo->prepare('SELECT COUNT(*) FROM usuarios WHERE email = ? OR usuario = ?');
+$usuarioStatement->execute(['admin@reservadelmar.com', 'adminrdm']);
 $usuarioExiste = (int) $usuarioStatement->fetchColumn();
 if ($usuarioExiste === 0) {
     $hash = password_hash('Admin2026*', PASSWORD_BCRYPT);
     $pdo->prepare(
-        'INSERT INTO usuarios (nombre, email, password_hash, rol, estado, creado_en) VALUES (?, ?, ?, ?, 1, NOW())'
-    )->execute(['Administrador', 'admin@reservadelmar.com', $hash]);
+        'INSERT INTO usuarios (nombre, usuario, email, password_hash, rol, estado, creado_en)
+         VALUES (?, ?, ?, ?, ?, 1, NOW())'
+    )->execute(['Administrador', 'adminrdm', 'admin@reservadelmar.com', $hash, 'superadmin']);
 }
 
 header('Content-Type: application/json');
