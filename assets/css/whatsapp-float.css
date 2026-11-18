@@ -12,24 +12,24 @@
   box-sizing: border-box;
   border: 1px solid rgba(15, 23, 42, 0.08);
   border-radius: 9999px;
-  background-color: #c5a059;
-  color: #0f172a;
+  background-color: #25d366;
+  color: #ffffff;
   box-shadow: 0 12px 28px -8px rgba(15, 23, 42, 0.35),
-    0 6px 16px -6px rgba(197, 160, 89, 0.55);
+    0 6px 16px -6px rgba(37, 211, 102, 0.55);
   text-decoration: none;
   transition: transform 0.2s ease, background-color 0.2s ease,
     box-shadow 0.2s ease;
 }
 
 .whatsapp-float:hover {
-  background-color: #d4b26d;
+  background-color: #1ebe5d;
   transform: translateY(-2px) scale(1.03);
   box-shadow: 0 16px 32px -10px rgba(15, 23, 42, 0.45),
-    0 8px 18px -6px rgba(197, 160, 89, 0.65);
+    0 8px 18px -6px rgba(37, 211, 102, 0.65);
 }
 
 .whatsapp-float:focus-visible {
-  outline: 3px solid rgba(197, 160, 89, 0.45);
+  outline: 3px solid rgba(37, 211, 102, 0.45);
   outline-offset: 3px;
 }
 
