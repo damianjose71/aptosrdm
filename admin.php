@@ -199,26 +199,26 @@ if ($action === 'login_submit') {
         admin_redirigir('/admin.php');
     }
 
-    $email = trim((string) ($_POST['email'] ?? ''));
+    $usuario = trim((string) ($_POST['usuario'] ?? ''));
     $password = (string) ($_POST['password'] ?? '');
 
-    if ($email === '' || $password === '') {
-        admin_set_flash('error', 'Ingrese su correo electrónico y contraseña.');
+    if ($usuario === '' || $password === '') {
+        admin_set_flash('error', 'Ingrese su usuario y contraseña.');
         admin_redirigir('/admin.php');
     }
 
     $statement = $pdo->prepare(
-        'SELECT id, nombre, email, password_hash, rol, estado FROM usuarios WHERE email = ? LIMIT 1'
+        'SELECT id, usuario, password_hash FROM usuarios WHERE usuario = ? LIMIT 1'
     );
-    $statement->execute([$email]);
+    $statement->execute([$usuario]);
     $user = $statement->fetch();
 
-    if ($user && (int) $user['estado'] === 1 && password_verify($password, (string) $user['password_hash'])) {
+    // Validamos la contraseña directamente (o con password_verify si prefieres encriptarla después)
+    if ($user && $password === (string) $user['password_hash']) {
         session_regenerate_id(true);
         $_SESSION['admin_logged'] = true;
         $_SESSION['admin_id'] = (int) $user['id'];
-        $_SESSION['admin_email'] = (string) $user['email'];
-        $_SESSION['admin_rol'] = (string) $user['rol'];
+        $_SESSION['admin_user'] = (string) $user['usuario'];
         admin_set_flash('success', 'Sesión iniciada correctamente.');
         admin_redirigir('/admin.php');
     }
@@ -264,11 +264,11 @@ if (!$isAdmin) {
                         <input type="hidden" name="csrf_token" value="<?= admin_csrf_token() ?>">
 
                         <div>
-                            <label for="email" class="mb-2 block text-sm font-medium text-slate-300">Correo electrónico</label>
-                            <input id="email" name="email" type="email" required
-                                   value="<?= admin_escape((string) ($_POST['email'] ?? '')) ?>"
+                            <label for="usuario" class="mb-2 block text-sm font-medium text-slate-300">Usuario</label>
+                            <input id="usuario" name="usuario" type="text" required
+                                   value="<?= admin_escape((string) ($_POST['usuario'] ?? '')) ?>"
                                    class="w-full rounded-lg border border-slate-600/60 bg-[#0F172A] px-4 py-3 text-white outline-none focus:border-[#C5A059] focus:ring-2 focus:ring-[#C5A059]/40"
-                                   placeholder="admin@reservadelmar.com">
+                                   placeholder="adminrdm">
                         </div>
 
                         <div>
