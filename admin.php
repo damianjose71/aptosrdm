@@ -51,7 +51,32 @@ function admin_validate_csrf(): bool
 
 function admin_is_logged_in(): bool
 {
-    return !empty($_SESSION['admin_logged']);
+    return !empty($_SESSION['admin_logged']) && !empty($_SESSION['admin_id']);
+}
+
+function admin_clear_auth(): void
+{
+    unset($_SESSION['admin_logged'], $_SESSION['admin_id'], $_SESSION['admin_user'], $_SESSION['admin_email']);
+}
+
+function admin_destroy_session(): void
+{
+    $_SESSION = [];
+
+    if (ini_get('session.use_cookies')) {
+        $params = session_get_cookie_params();
+        setcookie(
+            session_name(),
+            '',
+            time() - 42000,
+            $params['path'],
+            $params['domain'],
+            $params['secure'],
+            $params['httponly']
+        );
+    }
+
+    session_destroy();
 }
 
 function admin_require_login(): void
@@ -189,9 +214,7 @@ if ($action === 'logout') {
         admin_redirigir('/admin.php');
     }
 
-    $_SESSION = [];
-    session_destroy();
-
+    admin_destroy_session();
     admin_redirigir('/admin.php');
 }
 
@@ -218,8 +241,13 @@ if ($action === 'login_submit') {
         );
         $statement->execute([$usuario, $usuario]);
     } catch (PDOException $exception) {
-        if ((int) ($exception->errorInfo[1] ?? 0) !== 1054) {
-            throw $exception;
+        $errorCode = (int) ($exception->errorInfo[1] ?? 0);
+
+        if ($errorCode !== 1054) {
+            error_log('admin.php login: ' . $exception->getMessage());
+            admin_clear_auth();
+            admin_set_flash('error', 'No se pudo consultar la base de datos. Verifica que ejecutaste admin/setup.php.');
+            admin_redirigir('/admin.php');
         }
 
         // Compatibilidad con esquemas anteriores sin columna "usuario".
@@ -260,6 +288,7 @@ if ($action === 'login_submit') {
         admin_redirigir('/admin.php');
     }
 
+    admin_clear_auth();
     admin_set_flash('error', 'Credenciales inválidas o cuenta inactiva.');
     admin_redirigir('/admin.php');
 }
@@ -333,6 +362,26 @@ if (!$isAdmin) {
     return;
 }
 
+if ($isAdmin) {
+    try {
+        $currentAdminStatement = $pdo->prepare('SELECT estado FROM usuarios WHERE id = ? LIMIT 1');
+        $currentAdminStatement->execute([$adminId]);
+        $currentAdmin = $currentAdminStatement->fetch();
+
+        if (!$currentAdmin || (int) $currentAdmin['estado'] !== 1) {
+            admin_clear_auth();
+            admin_set_flash('error', 'Tu cuenta ya no está activa.');
+            admin_redirigir('/admin.php');
+        }
+    } catch (PDOException $exception) {
+        error_log('admin.php: ' . $exception->getMessage());
+        admin_clear_auth();
+        admin_set_flash('error', 'No se pudo validar la sesión. Verifica que ejecutaste admin/setup.php.');
+        admin_redirigir('/admin.php');
+    }
+}
+
+try {
 $panelView = 'list';
 $editing = null;
 $editingId = 0;
@@ -416,6 +465,60 @@ if ($panelView === 'edit' && $editing !== null) {
     foreach ($statement->fetchAll() as $row) {
         $selectedAmenidadIds[] = (int) $row['amenidad_id'];
     }
+}
+} catch (Throwable $exception) {
+    error_log('admin.php: ' . $exception->getMessage());
+
+    if (!headers_sent()) {
+        http_response_code(500);
+    }
+    ?>
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noindex, nofollow">
+        <title>Error del Panel | Apartamentos Reserva del Mar</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+    </head>
+    <body class="min-h-screen bg-[#0F172A] text-slate-200">
+        <main class="flex min-h-screen items-center justify-center px-4 py-10">
+            <div class="w-full max-w-xl rounded-2xl border border-[#C5A059]/40 bg-[#0F172A] p-8 shadow-sm">
+                <p class="text-sm font-bold uppercase tracking-widest text-[#C5A059]">Panel Administrativo</p>
+                <h1 class="mt-2 text-2xl font-bold text-white">No se pudo cargar el panel</h1>
+                <p class="mt-4 text-sm text-slate-300">
+                    La base de datos no está inicializada o le faltan tablas o columnas necesarias.
+                </p>
+                <p class="mt-2 text-sm text-slate-300">
+                    Ejecuta una vez el instalador y vuelve a intentarlo. El detalle técnico quedó registrado en el log del servidor.
+                </p>
+                <div class="mt-4 text-xs text-slate-500">
+                    <?php if (isset($_GET['debug']) && $_GET['debug'] === '1'): ?>
+                        <pre class="mt-2 overflow-x-auto rounded-lg bg-black/30 p-3 text-left text-red-300"><?= admin_escape($exception->getMessage()) ?></pre>
+                    <?php else: ?>
+                        <a href="/admin.php?debug=1" class="text-[#C5A059] underline">Ver detalle técnico</a>
+                    <?php endif; ?>
+                </div>
+                <div class="mt-6 flex flex-wrap items-center gap-3">
+                    <a href="/admin/setup.php" target="_blank" rel="noopener noreferrer"
+                       class="rounded-lg bg-[#C5A059] px-5 py-2.5 text-sm font-bold text-[#0F172A] transition hover:bg-[#D4B26D]">
+                        Ejecutar instalación
+                    </a>
+                    <form method="POST" action="/admin.php">
+                        <input type="hidden" name="action" value="logout">
+                        <input type="hidden" name="csrf_token" value="<?= admin_csrf_token() ?>">
+                        <button type="submit" class="rounded-lg border border-[#C5A059] px-5 py-2.5 text-sm font-bold text-[#C5A059] transition hover:bg-[#C5A059] hover:text-[#0F172A]">
+                            Cerrar sesión
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </body>
+    </html>
+    <?php
+    return;
 }
 
 $form = [
@@ -781,9 +884,9 @@ if ($action === 'eliminar_amenidad') {
 
             <?php if ($adminPanelPage < $totalPages): ?>
                 <div class="mt-4 flex items-center justify-between">
-                    <a href="/admin.php?page="<?= max(1, $adminPanelPage - 1) ?>" class="rounded-lg border border-[#C5A059] px-4 py-2 text-sm font-bold text-[#C5A059] transition hover:bg-[#C5A059] hover:text-[#0F172A]">Anterior</a>
+                    <a href="/admin.php?page=<?= max(1, $adminPanelPage - 1) ?>" class="rounded-lg border border-[#C5A059] px-4 py-2 text-sm font-bold text-[#C5A059] transition hover:bg-[#C5A059] hover:text-[#0F172A]">Anterior</a>
                     <span class="text-sm text-slate-300">Página <?= $adminPanelPage ?> de <?= $totalPages ?></span>
-                    <a href="/admin.php?page="<?= min($totalPages, $adminPanelPage + 1) ?>" class="rounded-lg border border-[#C5A059] px-4 py-2 text-sm font-bold text-[#C5A059] transition hover:bg-[#C5A059] hover:text-[#0F172A]">Siguiente</a>
+                    <a href="/admin.php?page=<?= min($totalPages, $adminPanelPage + 1) ?>" class="rounded-lg border border-[#C5A059] px-4 py-2 text-sm font-bold text-[#C5A059] transition hover:bg-[#C5A059] hover:text-[#0F172A]">Siguiente</a>
                 </div>
             <?php endif; ?>
         <?php elseif ($panelView === 'new' || $panelView === 'edit'): ?>
