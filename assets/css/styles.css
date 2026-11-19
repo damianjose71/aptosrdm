@@ -449,10 +449,8 @@ h6 {
 .logo-container img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   object-position: center;
-  transform: scale(1.7);
-  transform-origin: center;
 }
 
 .main-nav {
@@ -623,10 +621,8 @@ h6 {
 .site-footer .footer-logo img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: center 47%;
-  transform: scale(1.7);
-  transform-origin: center;
+  object-fit: contain;
+  object-position: center;
 }
 
 @media (min-width: 768px) {
