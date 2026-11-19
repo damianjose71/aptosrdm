@@ -107,6 +107,8 @@ foreach ($apartments as $apartment) {
         $gallery = [(string) ($apartment['imagen_principal'] ?: 'assets/images/logordm.png')];
     }
 
+    $amenidadesApartamento = array_map('strval', $amenidadesPorApartamento[(int) $apartment['id']] ?? []);
+
     $dataApartments[] = [
         'id' => (int) $apartment['id'],
         'titulo' => (string) $apartment['titulo'],
@@ -120,9 +122,24 @@ foreach ($apartments as $apartment) {
         'imagen_principal' => (string) ($apartment['imagen_principal'] ?: $gallery[0]),
         'galeria' => array_map('strval', $gallery),
         'descripcion' => (string) ($apartment['descripcion'] ?? ''),
-        'amenidades' => array_map('strval', $amenidadesPorApartamento[(int) $apartment['id']] ?? []),
-        'amenidades_edificio' => array_map('strval', $amenidadesPorApartamento[(int) $apartment['id']] ?? []),
+        'amenidades' => $amenidadesApartamento,
+        'amenidades_edificio' => $amenidadesApartamento,
+        'caracteristicas' => $amenidadesApartamento,
+        'disponible' => true,
     ];
+}
+
+if (isset($_GET['format']) && (string) $_GET['format'] === 'json') {
+    header('Content-Type: application/json; charset=utf-8');
+    header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
+    echo json_encode(
+        [
+            'edificios' => [],
+            'apartamentos' => $dataApartments,
+        ],
+        JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES
+    );
+    exit;
 }
 
 ?>
@@ -148,7 +165,7 @@ foreach ($apartments as $apartment) {
   <link rel="icon" href="assets/images/logordm.png" type="image/png">
   <link rel="stylesheet" href="assets/css/styles.css?v=20261109a">
   <link rel="stylesheet" href="assets/css/whatsapp-float.css?v=20261118c">
-  <script src="assets/js/i18n.js?v=20261109b" defer></script>
+  <script src="assets/js/i18n.js?v=20261119a" defer></script>
   <script src="assets/js/auto-translate.js?v=20261104e" defer></script>
   <script src="assets/js/main.js?v=20261109b" defer></script>
 <!-- Open Graph y Twitter -->

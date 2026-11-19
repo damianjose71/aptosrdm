@@ -6,7 +6,8 @@
 (() => {
   "use strict";
 
-  const CATALOG_URL = "data/apartamentos.json";
+  const CATALOG_URL = "apartamentos.php?format=json";
+  const FALLBACK_CATALOG_URL = "data/apartamentos.json";
 
   const catalog = document.getElementById("catalogo-apartamentos");
   const filterForm = document.getElementById("filtro-catalogo");
@@ -339,29 +340,42 @@
   };
 
   const loadCatalog = async () => {
-    try {
-      const response = await fetch(CATALOG_URL, {
-        cache: "no-store",
-        headers: { Accept: "application/json" },
-      });
+    const sources = [CATALOG_URL, FALLBACK_CATALOG_URL];
+    let lastError = null;
 
-      if (!response.ok) {
-        throw new Error(`No se pudo cargar el catálogo (${response.status}).`);
+    for (const source of sources) {
+      try {
+        const response = await fetch(source, {
+          cache: "no-store",
+          headers: { Accept: "application/json" },
+        });
+
+        if (!response.ok) {
+          throw new Error(`No se pudo cargar el catálogo (${response.status}).`);
+        }
+
+        const contentType = response.headers.get("content-type") || "";
+        if (!contentType.includes("application/json")) {
+          throw new Error(`El catálogo no devolvió JSON (${contentType}).`);
+        }
+
+        const data = await response.json();
+        apartments = Array.isArray(data.apartamentos)
+          ? data.apartamentos.filter((apartment) => apartment.disponible !== false)
+          : [];
+        buildings = Array.isArray(data.edificios) ? data.edificios : [];
+
+        populateFilter();
+        applyUrlFilters();
+        applyFilters();
+        return;
+      } catch (error) {
+        lastError = error;
       }
-
-      const data = await response.json();
-      apartments = Array.isArray(data.apartamentos)
-        ? data.apartamentos.filter((apartment) => apartment.disponible !== false)
-        : [];
-      buildings = Array.isArray(data.edificios) ? data.edificios : [];
-
-      populateFilter();
-      applyUrlFilters();
-      applyFilters();
-    } catch (error) {
-      console.error(error);
-      showError();
     }
+
+    console.error(lastError);
+    showError();
   };
 
   catalog.addEventListener("click", (event) => {
@@ -395,9 +409,12 @@
         detail: {
           apartment: {
             ...apartment,
-            amenidades_edificio: Array.isArray(building?.amenidades)
-              ? building.amenidades
-              : [],
+            amenidades_edificio:
+              Array.isArray(building?.amenidades) && building.amenidades.length
+                ? building.amenidades
+                : Array.isArray(apartment.amenidades_edificio)
+                  ? apartment.amenidades_edificio
+                  : [],
           },
         },
       })

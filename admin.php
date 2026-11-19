@@ -668,7 +668,7 @@ if ($action === 'guardar_apartamento') {
     if ($editingIdFromPost <= 0 && $codigo === '') {
         $codigo = 'APT-' . strtoupper(substr(md5($titulo . '|' . microtime()), 0, 6));
     }
-    $execute = static function () use ($pdo, $editingIdFromPost, $codigo, $titulo, $ubicacion, $huespedes, $habitaciones, $banos, $camas, $imagenPrincipal, $galleryPaths, $descripcion, $visible, $amenidadIds, $adminId): void {
+    $execute = static function () use ($pdo, $editingIdFromPost, $codigo, $titulo, $ubicacion, $huespedes, $habitaciones, $banos, $camas, &$imagenPrincipal, &$galleryPaths, $descripcion, $visible, $amenidadIds, $adminId): void {
         if ($editingIdFromPost > 0) {
             $statement = $pdo->prepare(
                 'UPDATE apartamentos
@@ -703,13 +703,31 @@ if ($action === 'guardar_apartamento') {
             $imagenPrincipal = admin_guardar_imagen($_FILES['imagen_principal_file']);
         }
 
-        if (isset($_FILES['galeria_files']) && is_array($_FILES['galeria_files']) && isset($_FILES['galeria_files'][0]['tmp_name'])) {
-            $galleryFiles = $_FILES['galeria_files'];
-            for ($galleryIndex = 0; $galleryIndex < count($galleryFiles); $galleryIndex++) {
-                if (!isset($galleryFiles[$galleryIndex]['tmp_name']) || !is_uploaded_file((string) $galleryFiles[$galleryIndex]['tmp_name'])) {
+        if (
+            isset($_FILES['galeria_files'], $_FILES['galeria_files']['tmp_name'])
+            && is_array($_FILES['galeria_files']['tmp_name'])
+        ) {
+            $galleryNames = $_FILES['galeria_files']['name'] ?? [];
+            $galleryTypes = $_FILES['galeria_files']['type'] ?? [];
+            $galleryTmpNames = $_FILES['galeria_files']['tmp_name'];
+            $galleryErrors = $_FILES['galeria_files']['error'] ?? [];
+            $gallerySizes = $_FILES['galeria_files']['size'] ?? [];
+
+            for ($galleryIndex = 0; $galleryIndex < count($galleryTmpNames); $galleryIndex++) {
+                if ((int) ($galleryErrors[$galleryIndex] ?? UPLOAD_ERR_NO_FILE) !== UPLOAD_ERR_OK) {
                     continue;
                 }
-                $uploadedGalleryPath = admin_guardar_imagen($galleryFiles[$galleryIndex]);
+                $singleFile = [
+                    'name' => $galleryNames[$galleryIndex] ?? '',
+                    'type' => $galleryTypes[$galleryIndex] ?? '',
+                    'tmp_name' => $galleryTmpNames[$galleryIndex] ?? '',
+                    'error' => $galleryErrors[$galleryIndex] ?? UPLOAD_ERR_NO_FILE,
+                    'size' => $gallerySizes[$galleryIndex] ?? 0,
+                ];
+                if (!is_uploaded_file((string) $singleFile['tmp_name'])) {
+                    continue;
+                }
+                $uploadedGalleryPath = admin_guardar_imagen($singleFile);
                 if ($uploadedGalleryPath !== '') {
                     $galleryPaths[] = $uploadedGalleryPath;
                 }
@@ -723,6 +741,7 @@ if ($action === 'guardar_apartamento') {
         admin_set_flash('success', 'Apartamento guardado correctamente.');
         admin_redirigir($editingIdFromPost > 0 ? '/admin.php?panel=edit&id=' . $executeId : '/admin.php');
     } catch (Throwable $exception) {
+        error_log('admin.php guardar_apartamento: ' . $exception->getMessage());
         $_SESSION['admin_errors'] = ['error' => 'No fue posible guardar el apartamento. Verifique las imágenes y los datos.'];
         $oldForm = [
             'id' => $editingIdFromPost,
