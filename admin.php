@@ -432,12 +432,16 @@ $amenidades = [];
 $apartments = [];
 $amenidadesPorApartamento = [];
 
-if (isset($_GET['nuevo'])) {
+$panelParam = (string) ($_GET['panel'] ?? '');
+
+if ($panelParam === 'nuevo' || isset($_GET['nuevo'])) {
     $panelView = 'new';
-} elseif (isset($_GET['edit'])) {
-    $panelView = 'edit';
-    $editingId = (int) $_GET['id'];
-} elseif (isset($_GET['panel']) && (string) $_GET['panel'] === 'amenidades') {
+} elseif ($panelParam === 'edit' || isset($_GET['edit'])) {
+    $editingId = (int) ($_GET['id'] ?? 0);
+    if ($editingId > 0) {
+        $panelView = 'edit';
+    }
+} elseif ($panelParam === 'amenidades') {
     $panelView = 'amenidades';
 }
 
