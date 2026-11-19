@@ -159,8 +159,8 @@ h6 {
 /* Heroes con imagen de portada */
 .page-hero--image {
   --hero-overlay:
-    linear-gradient(90deg, rgba(15, 23, 42, 0.94) 0%, rgba(15, 23, 42, 0.78) 42%, rgba(15, 23, 42, 0.32) 72%, rgba(15, 23, 42, 0.12) 100%),
-    linear-gradient(0deg, rgba(15, 23, 42, 0.45) 0%, rgba(15, 23, 42, 0) 45%);
+    linear-gradient(90deg, rgba(15, 23, 42, 0.8) 0%, rgba(15, 23, 42, 0.66) 42%, rgba(15, 23, 42, 0.27) 72%, rgba(15, 23, 42, 0.1) 100%),
+    linear-gradient(0deg, rgba(15, 23, 42, 0.38) 0%, rgba(15, 23, 42, 0) 45%);
   position: relative;
   isolation: isolate;
   display: flex;
@@ -396,8 +396,8 @@ h6 {
 
   .page-hero--image {
     --hero-overlay:
-      linear-gradient(90deg, rgba(15, 23, 42, 0.9) 0%, rgba(15, 23, 42, 0.7) 65%, rgba(15, 23, 42, 0.35) 100%),
-      linear-gradient(0deg, rgba(15, 23, 42, 0.5) 0%, rgba(15, 23, 42, 0) 45%);
+      linear-gradient(90deg, rgba(15, 23, 42, 0.77) 0%, rgba(15, 23, 42, 0.6) 65%, rgba(15, 23, 42, 0.3) 100%),
+      linear-gradient(0deg, rgba(15, 23, 42, 0.43) 0%, rgba(15, 23, 42, 0) 45%);
     --hero-position: 60% center;
     min-height: 620px;
   }
