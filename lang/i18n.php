@@ -21,3 +21,10 @@ function __($key) {
     global $strings;
     return $strings[$key] ?? $key;
 }
+
+if (!function_exists('t')) {
+    function t($key, $default = '') {
+        $value = __($key);
+        return $value === $key ? $default : $value;
+    }
+}
