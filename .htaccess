@@ -1,7 +1,23 @@
-# Catálogo público de apartamentos.
-# En Hostinger (Apache/LiteSpeed + PHP/MySQL) se sirve la versión dinámica.
-# GitHub Pages ignora este archivo y entrega apartamentos.html estático.
 <IfModule mod_rewrite.c>
   RewriteEngine On
-  RewriteRule ^apartamentos\.html$ apartamentos.php [L,QSA]
+
+  # 1. Si piden /apartamentos.html en la URL, redirigir limpiamente a /apartamentos
+  RewriteCond %{THE_REQUEST} \s/+apartamentos\.html[\s?] [NC]
+  RewriteRule ^apartamentos\.html$ /apartamentos [R=301,L,QSA]
+
+  # 2. Cuando piden /apartamentos (sin extensión), servir apartamentos.php internamente
+  RewriteRule ^apartamentos/?$ apartamentos.php [L,QSA]
+
+  # 3. Redirigir index.html a la raíz /
+  RewriteCond %{THE_REQUEST} \s/+index\.html[\s?] [NC]
+  RewriteRule ^index\.html$ / [R=301,L]
+
+  # 4. Redirigir otras URLs *.html a su versión sin extensión
+  RewriteCond %{THE_REQUEST} \s/+(.+?)\.html[\s?] [NC]
+  RewriteRule ^ /%1 [R=301,L]
+
+  # 5. Servir internamente el archivo .html correspondiente si existe
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_FILENAME}\.html -f
+  RewriteRule ^(.+)$ $1.html [L]
 </IfModule>
