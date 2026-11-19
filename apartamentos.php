@@ -254,7 +254,7 @@ foreach ($apartments as $apartment) {
         }
       ],
       "checkinTime": "15:00",
-      "checkoutTime": "12:00",
+      "checkoutTime": "11:00",
       "amenityFeature": [
         {
           "@type": "LocationFeatureSpecification",

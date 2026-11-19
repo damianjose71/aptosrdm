@@ -12,7 +12,7 @@ return [
     'hero_title' => 'Reserva del Mar',
     'hero_subtitle' => 'Experiencias vacacionales excepcionales en Santa Marta',
     'home_eyebrow' => 'Santa Marta · Colombia',
-    'home_title' => 'EL ESPACIO PERFECTO PARA TUS MEJORES VACACIONES.',
+    'home_title' => 'EL ESPACIO PERFECTO PARA TUS MEJORES EXPERIENCIAS.',
     'home_lead' => 'Con más de 6 años brindando experiencias excepcionales, cuidamos cada detalle de tu visita para que solo te preocupes por disfrutar y relajarte.',
     'home_cta' => 'Explorar apartamentos',
     'apartments_eyebrow' => 'Catálogo completo',
