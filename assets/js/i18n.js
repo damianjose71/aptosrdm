@@ -160,10 +160,10 @@
       review_verified_google: 'Reseña verificada en Google',
 
       // Metadatos
-      page_title_home: 'Apartamentos Reserva del Mar | Alojamiento en Santa Marta',
-      page_title_apartments: 'Apartamentos amoblados en Santa Marta | Reserva del Mar',
-      page_title_amenities: 'Amenidades frente al mar | Reserva del Mar Santa Marta',
-      page_title_contact: 'Contacto y reservas | Reserva del Mar en Santa Marta',
+      page_title_home: 'Apartamentos Reserva del Mar by Nestor Echeverry | Alojamiento en Santa Marta',
+      page_title_apartments: 'Apartamentos Reserva del Mar by Nestor Echeverry | Apartamentos amoblados en Santa Marta',
+      page_title_amenities: 'Apartamentos Reserva del Mar by Nestor Echeverry | Amenidades frente al mar',
+      page_title_contact: 'Apartamentos Reserva del Mar by Nestor Echeverry | Contacto y reservas',
       meta_description_home:
         'Disfruta tus vacaciones en Santa Marta con apartamentos frente al mar en Playa Salguero, Bello Horizonte y Rodadero Sur. Reserva con Néstor Echeverry.',
       meta_description_apartments:
@@ -172,10 +172,10 @@
         'Descubre las amenidades de Reserva del Mar en Santa Marta: piscinas, jacuzzis, rooftop, zona BBQ y playa privada en Playa Salguero y Bello Horizonte.',
       meta_contact_description:
         'Contacta a Néstor Echeverry y reserva tu apartamento frente al mar. Atención directa por WhatsApp para Playa Salguero, Rodadero Sur y Bello Horizonte.',
-      og_title: 'Apartamentos Reserva del Mar | Alojamiento en Santa Marta',
+      og_title: 'Apartamentos Reserva del Mar by Nestor Echeverry | Alojamiento en Santa Marta',
       og_description:
         'Disfruta tus vacaciones en Santa Marta con apartamentos frente al mar en Playa Salguero, Bello Horizonte y Rodadero Sur. Reserva con Néstor Echeverry.',
-      twitter_title: 'Apartamentos Reserva del Mar | Alojamiento en Santa Marta',
+      twitter_title: 'Apartamentos Reserva del Mar by Nestor Echeverry | Alojamiento en Santa Marta',
       twitter_description:
         'Disfruta tus vacaciones en Santa Marta con apartamentos frente al mar en Playa Salguero, Bello Horizonte y Rodadero Sur. Reserva con Néstor Echeverry.'
     },
@@ -323,10 +323,10 @@
       review_verified_google: 'Verified Google review',
 
       // Metadata
-      page_title_home: 'Apartamentos Reserva del Mar | Lodging in Santa Marta',
-      page_title_apartments: 'Furnished Apartments in Santa Marta | Reserva del Mar',
-      page_title_amenities: 'Beachfront Amenities | Reserva del Mar Santa Marta',
-      page_title_contact: 'Contact & Bookings | Reserva del Mar in Santa Marta',
+      page_title_home: 'Apartamentos Reserva del Mar by Nestor Echeverry | Lodging in Santa Marta',
+      page_title_apartments: 'Apartamentos Reserva del Mar by Nestor Echeverry | Furnished Apartments in Santa Marta',
+      page_title_amenities: 'Apartamentos Reserva del Mar by Nestor Echeverry | Beachfront Amenities',
+      page_title_contact: 'Apartamentos Reserva del Mar by Nestor Echeverry | Contact & Bookings',
       meta_description_home:
         'Enjoy your vacation in Santa Marta with beachfront apartments in Playa Salguero, Bello Horizonte and Rodadero Sur. Book with Néstor Echeverry.',
       meta_description_apartments:
@@ -335,10 +335,10 @@
         'Discover the amenities at Reserva del Mar in Santa Marta: pools, jacuzzis, rooftop, BBQ area and private beach in Playa Salguero and Bello Horizonte.',
       meta_contact_description:
         'Contact Néstor Echeverry and book your beachfront apartment. Direct WhatsApp assistance for Playa Salguero, Rodadero Sur and Bello Horizonte.',
-      og_title: 'Apartamentos Reserva del Mar | Lodging in Santa Marta',
+      og_title: 'Apartamentos Reserva del Mar by Nestor Echeverry | Lodging in Santa Marta',
       og_description:
         'Enjoy your vacation in Santa Marta with beachfront apartments in Playa Salguero, Bello Horizonte and Rodadero Sur. Book with Néstor Echeverry.',
-      twitter_title: 'Apartamentos Reserva del Mar | Lodging in Santa Marta',
+      twitter_title: 'Apartamentos Reserva del Mar by Nestor Echeverry | Lodging in Santa Marta',
       twitter_description:
         'Enjoy your vacation in Santa Marta with beachfront apartments in Playa Salguero, Bello Horizonte and Rodadero Sur. Book with Néstor Echeverry.'
     }
