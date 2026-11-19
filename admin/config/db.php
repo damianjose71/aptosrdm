@@ -7,8 +7,8 @@ declare(strict_types=1);
  */
 
 define('DB_HOST', 'localhost');
-define('DB_NAME', 'u936479215_adminrdm');
-define('DB_USER', 'u936479215_admin_rdm');
+define('DB_NAME', 'u936479215_5DMrC');
+define('DB_USER', 'u936479215_dYRr2');
 define('DB_PASS', 'Nies3347*');
 define('DB_CHARSET', 'utf8mb4');
 

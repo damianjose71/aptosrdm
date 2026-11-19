@@ -15,7 +15,49 @@ session_start([
 
 require_once __DIR__ . '/admin/config/db.php';
 
-$pdo = getPDO();
+try {
+    $pdo = getPDO();
+} catch (Throwable $exception) {
+    error_log('admin.php: ' . $exception->getMessage());
+
+    if (!headers_sent()) {
+        http_response_code(500);
+    }
+    ?>
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noindex, nofollow">
+        <title>Error de conexión | Apartamentos Reserva del Mar</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+    </head>
+    <body class="min-h-screen bg-[#0F172A] text-slate-200">
+        <main class="flex min-h-screen items-center justify-center px-4 py-10">
+            <div class="w-full max-w-xl rounded-2xl border border-[#C5A059]/40 bg-[#0F172A] p-8 shadow-sm">
+                <p class="text-sm font-bold uppercase tracking-widest text-[#C5A059]">Panel Administrativo</p>
+                <h1 class="mt-2 text-2xl font-bold text-white">No se pudo conectar con la base de datos</h1>
+                <p class="mt-4 text-sm text-slate-300">
+                    Revisa el nombre de la base de datos, el usuario y la contraseña en <code class="text-[#C5A059]">admin/config/db.php</code>.
+                </p>
+                <p class="mt-2 text-sm text-slate-300">
+                    Si los datos son correctos, verifica que el usuario tenga permisos sobre la base de datos en Hostinger.
+                </p>
+                <div class="mt-4 text-xs text-slate-500">
+                    <?php if (isset($_GET['debug']) && $_GET['debug'] === '1'): ?>
+                        <pre class="mt-2 overflow-x-auto rounded-lg bg-black/30 p-3 text-left text-red-300"><?= htmlspecialchars($exception->getMessage(), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?></pre>
+                    <?php else: ?>
+                        <a href="/admin.php?debug=1" class="text-[#C5A059] underline">Ver detalle técnico</a>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </main>
+    </body>
+    </html>
+    <?php
+    exit;
+}
 
 function admin_flash(): array
 {
