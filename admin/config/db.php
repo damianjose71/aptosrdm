@@ -9,7 +9,7 @@ declare(strict_types=1);
 define('DB_HOST', 'localhost');
 define('DB_NAME', 'u936479215_5DMrC');
 define('DB_USER', 'u936479215_dYRr2');
-define('DB_PASS', 'Nies3347*');
+define('DB_PASS', 'QS14&U6|;029?|js');
 define('DB_CHARSET', 'utf8mb4');
 
 function getPDO(): PDO
