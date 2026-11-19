@@ -6,7 +6,7 @@
     return;
   }
 
-  const WHATSAPP_NUMBER = "573218839636";
+  const WHATSAPP_NUMBER = "573113838528";
 
   const t = (key, fallback = "") =>
     typeof window.rdmT === "function" ? window.rdmT(key, fallback) : fallback;
