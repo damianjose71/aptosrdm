@@ -451,6 +451,8 @@ h6 {
   height: 100%;
   object-fit: contain;
   object-position: center;
+  transform: scale(1.12);
+  transform-origin: center;
 }
 
 .main-nav {
@@ -623,6 +625,8 @@ h6 {
   height: 100%;
   object-fit: contain;
   object-position: center;
+  transform: scale(1.12);
+  transform-origin: center;
 }
 
 @media (min-width: 768px) {

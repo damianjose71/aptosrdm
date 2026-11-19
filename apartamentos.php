@@ -163,7 +163,7 @@ if (isset($_GET['format']) && (string) $_GET['format'] === 'json') {
   <link rel="stylesheet" href="assets/css/tailwind.css?v=20261107h">
   <link rel="preload" as="image" href="assets/images/apartamentos-hero.jpeg" type="image/jpeg" fetchpriority="high">
   <link rel="icon" href="assets/images/logordm.png" type="image/png">
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261119d">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261119e">
   <link rel="stylesheet" href="assets/css/whatsapp-float.css?v=20261118c">
   <script src="assets/js/i18n.js?v=20261119a" defer></script>
   <script src="assets/js/auto-translate.js?v=20261104e" defer></script>
