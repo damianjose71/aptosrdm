@@ -1,0 +1,22 @@
+/* Utilidades adicionales usadas por el panel administrativo. */
+.bg-black\/30 {
+  background-color: rgb(0 0 0 / 0.3);
+}
+
+.border-red-500\/50 {
+  border-color: rgb(239 68 68 / 0.5);
+}
+
+.items-end {
+  align-items: flex-end;
+}
+
+.hover\:bg-red-500\/10:hover {
+  background-color: rgb(239 68 68 / 0.1);
+}
+
+@media (min-width: 768px) {
+  .md\:grid-cols-\[1fr_auto\] {
+    grid-template-columns: 1fr auto;
+  }
+}

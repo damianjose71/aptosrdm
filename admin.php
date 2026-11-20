@@ -31,7 +31,8 @@ try {
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noindex, nofollow">
         <title>Error de conexión | Apartamentos Reserva del Mar</title>
-        <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="stylesheet" href="/assets/css/tailwind.css?v=20261107h">
+        <link rel="stylesheet" href="/assets/css/admin.css?v=20261120a">
     </head>
     <body class="min-h-screen bg-[#0F172A] text-slate-200">
         <main class="flex min-h-screen items-center justify-center px-4 py-10">
@@ -347,7 +348,8 @@ if (!$isAdmin) {
         <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, nofollow">
         <title>Panel Administrativo | Apartamentos Reserva del Mar</title>
-        <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="stylesheet" href="/assets/css/tailwind.css?v=20261107h">
+        <link rel="stylesheet" href="/assets/css/admin.css?v=20261120a">
     </head>
     <body class="min-h-screen bg-[#0F172A] text-slate-200">
         <main class="flex min-h-screen items-center justify-center px-4 py-10">
@@ -526,7 +528,8 @@ if ($panelView === 'edit' && $editing !== null) {
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noindex, nofollow">
         <title>Error del Panel | Apartamentos Reserva del Mar</title>
-        <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="stylesheet" href="/assets/css/tailwind.css?v=20261107h">
+        <link rel="stylesheet" href="/assets/css/admin.css?v=20261120a">
     </head>
     <body class="min-h-screen bg-[#0F172A] text-slate-200">
         <main class="flex min-h-screen items-center justify-center px-4 py-10">
@@ -836,7 +839,8 @@ if ($action === 'eliminar_amenidad') {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, nofollow">
     <title>Panel de Administración | Apartamentos Reserva del Mar</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/assets/css/tailwind.css?v=20261107h">
+    <link rel="stylesheet" href="/assets/css/admin.css?v=20261120a">
 </head>
 <body class="min-h-screen bg-[#0F172A] text-slate-200">
     <header class="border-b border-[#C5A059]/30 bg-[#0F172A]">
