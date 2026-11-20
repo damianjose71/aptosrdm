@@ -129,7 +129,7 @@
     return;
   }
 
-  const WHATSAPP_NUMBER = '573218839636';
+  const WHATSAPP_NUMBER = '573113838528';
   const pageRegions = [
     document.querySelector('header'),
     document.querySelector('main'),
