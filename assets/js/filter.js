@@ -54,11 +54,6 @@
     "reserva del mar bello horizonte": "Bello Horizonte",
   };
 
-  const getRangeStart = (value) => {
-    const match = String(value).match(/\d+/);
-    return match ? Number(match[0]) : Number.POSITIVE_INFINITY;
-  };
-
   const getNumber = (value) => {
     if (value === null || value === undefined || String(value).trim() === "") {
       return null;
@@ -81,28 +76,6 @@
     ).match(/\d+/g);
 
     return matches ? Math.max(...matches.map(Number)) : null;
-  };
-
-  const getGuestRange = (apartment) => {
-    const guests = getGuestCount(apartment);
-
-    if (guests === null) {
-      return null;
-    }
-
-    if (guests <= 2) {
-      return "range_1_2";
-    }
-
-    if (guests <= 4) {
-      return "range_3_4";
-    }
-
-    if (guests <= 6) {
-      return "range_5_6";
-    }
-
-    return "range_7";
   };
 
   const metricValue = (value) => (value === null ? "—" : String(value));
@@ -238,7 +211,7 @@
       if (emptyState) {
         emptyState.textContent = t(
           "catalog_empty",
-          "No hay apartamentos disponibles para la ubicación y el rango de huéspedes seleccionados."
+          "No hay apartamentos disponibles para la ubicación y el número de huéspedes seleccionados."
         );
         emptyState.classList.remove("hidden");
       }
@@ -254,72 +227,121 @@
   };
 
   const populateFilter = () => {
-    const previousRange = rangeFilter.value;
-    const ranges = [
-      ...new Set(apartments.map(getGuestRange).filter(Boolean)),
-    ].sort((first, second) => getRangeStart(first) - getRangeStart(second));
+    const previousGuests = rangeFilter.value;
+    const capacities = apartments
+      .map(getGuestCount)
+      .filter((value) => value !== null && value > 0);
+    const maxCapacity = capacities.length
+      ? Math.min(100, Math.max(...capacities))
+      : 0;
 
     rangeFilter.innerHTML = [
       `<option value="">${escapeHtml(
-        t("filter_all_ranges", "Todos los rangos")
+        t("filter_any_guests", "Cualquier cantidad")
       )}</option>`,
-      ...ranges.map(
-        (range) =>
-          `<option value="${escapeHtml(range)}">${escapeHtml(
-            t(range, range)
-          )}</option>`
+      ...Array.from({ length: maxCapacity }, (_, index) => index + 1).map(
+        (guests) => `<option value="${guests}">${guests}</option>`
       ),
     ].join("");
 
-    if (
-      previousRange &&
-      [...rangeFilter.options].some(
-        (option) => option.value === previousRange
-      )
-    ) {
-      rangeFilter.value = previousRange;
+    if (previousGuests) {
+      if (
+        [...rangeFilter.options].some(
+          (option) => option.value === previousGuests
+        )
+      ) {
+        rangeFilter.value = previousGuests;
+      } else {
+        const guests = Number.parseInt(previousGuests, 10);
+        if (Number.isFinite(guests) && guests > 0) {
+          rangeFilter.value = ensureGuestOption(guests);
+        }
+      }
+
+      rangeFilter.dispatchEvent(new CustomEvent("rdm:select-sync"));
     }
+  };
+
+  const ensureGuestOption = (guests) => {
+    const value = String(guests);
+
+    if (
+      [...rangeFilter.options].some((option) => option.value === value) ||
+      guests < 1
+    ) {
+      return value;
+    }
+
+    const option = document.createElement("option");
+    option.value = value;
+    option.textContent = value;
+    rangeFilter.append(option);
+    return value;
   };
 
   const applyUrlFilters = () => {
     const params = new URLSearchParams(window.location.search);
     const requested = params.get("edificio") || params.get("ubicacion");
 
-    if (!requested) {
-      return;
+    if (requested) {
+      const normalized = normalizeText(requested);
+      const location = locationAliases[normalized] || requested;
+      const matchingOption = [...locationFilter.options].find(
+        (option) =>
+          normalizeText(option.value) === normalizeText(location) ||
+          normalizeText(option.textContent) === normalizeText(location)
+      );
+
+      if (matchingOption) {
+        locationFilter.value = matchingOption.value;
+        locationFilter.dispatchEvent(new CustomEvent("rdm:select-sync"));
+      }
     }
 
-    const normalized = normalizeText(requested);
-    const location = locationAliases[normalized] || requested;
-    const matchingOption = [...locationFilter.options].find(
-      (option) =>
-        normalizeText(option.value) === normalizeText(location) ||
-        normalizeText(option.textContent) === normalizeText(location)
+    const requestedGuests = Math.min(
+      100,
+      Number.parseInt(params.get("huespedes"), 10)
     );
-
-    if (matchingOption) {
-      locationFilter.value = matchingOption.value;
+    if (Number.isFinite(requestedGuests) && requestedGuests > 0) {
+      rangeFilter.value = ensureGuestOption(requestedGuests);
+      rangeFilter.dispatchEvent(new CustomEvent("rdm:select-sync"));
     }
   };
 
   const applyFilters = () => {
     const selectedLocation = normalizeText(locationFilter.value);
-    const selectedRange = rangeFilter.value;
+    const selectedGuests = Number.parseInt(rangeFilter.value, 10) || 0;
 
-    const filtered = apartments.filter((apartment) => {
+    const eligible = apartments.filter((apartment) => {
       const locationMatches =
         !selectedLocation ||
         [apartment.edificio, apartment.zona]
           .filter(Boolean)
           .some((value) => normalizeText(value).includes(selectedLocation));
 
-      const rangeMatches =
-        !selectedRange || getGuestRange(apartment) === selectedRange;
+      if (!locationMatches) {
+        return false;
+      }
 
-      return locationMatches && rangeMatches;
+      if (!selectedGuests) {
+        return true;
+      }
+
+      const guests = getGuestCount(apartment);
+      return guests !== null && guests >= selectedGuests;
     });
 
-    renderCards(filtered);
+    if (!selectedGuests || !eligible.length) {
+      renderCards(eligible);
+      return;
+    }
+
+    const bestCapacity = Math.min(
+      ...eligible.map(getGuestCount).filter((value) => value !== null)
+    );
+    renderCards(
+      eligible.filter((apartment) => getGuestCount(apartment) === bestCapacity)
+    );
   };
 
   const showError = () => {
@@ -419,6 +441,12 @@
         },
       })
     );
+  });
+
+  filterForm.addEventListener("change", (event) => {
+    if (event.target === locationFilter || event.target === rangeFilter) {
+      applyFilters();
+    }
   });
 
   filterForm.addEventListener("submit", (event) => {

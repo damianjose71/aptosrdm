@@ -18,12 +18,13 @@
   <link rel="stylesheet" href="assets/css/tailwind.css?v=20261107h">
   <link rel="preload" as="image" href="assets/images/apartamentos-hero.jpeg" type="image/jpeg" fetchpriority="high">
   <link rel="icon" href="assets/images/logordm.png" type="image/png">
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261119f">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261120a">
   <link rel="stylesheet" href="assets/css/whatsapp-float.css?v=20261118c">
-  <script src="assets/js/i18n.js?v=20261119a" defer></script>
+  <script src="assets/js/i18n.js?v=20261120a" defer></script>
   <script src="assets/js/auto-translate.js?v=20261104e" defer></script>
+  <script src="assets/js/filter-select.js?v=20261120a" defer></script>
   <script src="assets/js/main.js?v=20261109b" defer></script>
-  <script src="assets/js/filter.js?v=20261119a" defer></script>
+  <script src="assets/js/filter.js?v=20261120a" defer></script>
 <!-- Open Graph y Twitter -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://apartamentosreservadelmar.com.co/apartamentos.html">
@@ -292,57 +293,71 @@
 
           <form
             id="filtro-catalogo"
+            method="GET"
+            action=""
             class="mt-6 grid gap-3 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_auto] md:items-stretch"
             data-i18n-aria-label="filter_aria" aria-label="Filtrar apartamentos por ubicación y huéspedes"
           >
-            <label for="filtro-ubicacion" class="group flex min-h-[64px] cursor-pointer items-center gap-3 rounded-2xl border border-slate-200 bg-slate-50/70 px-4 py-3 transition duration-200 hover:border-slate-300 focus-within:border-[#C5A059] focus-within:bg-white focus-within:ring-4 focus-within:ring-[#C5A059]/10">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 shrink-0 text-[#C5A059]" aria-hidden="true">
-                <path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z" />
-                <circle cx="12" cy="10" r="3" />
-              </svg>
-              <span class="min-w-0 flex-1">
-                <span data-i18n="filter_location" class="block text-[10px] font-bold uppercase tracking-[0.16em] text-slate-500">Ubicación</span>
-                <select
-                  id="filtro-ubicacion"
-                  data-no-translate
-                  data-i18n-aria-label="filter_location_aria" aria-label="Ubicación o edificio"
-                  aria-controls="catalogo-apartamentos"
-                  class="mt-0.5 w-full cursor-pointer appearance-none bg-transparent pr-2 text-sm font-semibold text-[#0F172A] focus:outline-none"
-                >
-                  <option value="" data-i18n="filter_all_locations">Todas las ubicaciones</option>
-                  <option value="Playa Salguero">Playa Salguero</option>
-                  <option value="Rodadero Sur">Rodadero Sur</option>
-                  <option value="Bello Horizonte">Bello Horizonte</option>
-                </select>
-              </span>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="pointer-events-none h-4 w-4 shrink-0 text-[#C5A059]" aria-hidden="true">
-                <path d="m19 9-7 7-7-7" />
-              </svg>
-            </label>
+            <div class="rdm-select relative" data-rdm-select>
+              <label for="filtro-ubicacion" class="group flex min-h-[64px] cursor-pointer items-center gap-3 rounded-2xl border border-slate-200 bg-slate-50/70 px-4 py-3 transition duration-200 hover:border-slate-300 focus-within:border-[#C5A059] focus-within:bg-white focus-within:ring-4 focus-within:ring-[#C5A059]/10">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 shrink-0 text-[#C5A059]" aria-hidden="true">
+                  <path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z" />
+                  <circle cx="12" cy="10" r="3" />
+                </svg>
+                <span class="min-w-0 flex-1">
+                  <span id="filtro-ubicacion-label" data-i18n="filter_location" class="block text-[10px] font-bold uppercase tracking-[0.16em] text-slate-500">Ubicación</span>
+                  <select
+                    id="filtro-ubicacion"
+                    name="ubicacion"
+                    data-no-translate
+                    data-i18n-aria-label="filter_location_aria" aria-label="Ubicación o edificio"
+                    aria-controls="catalogo-apartamentos"
+                    class="rdm-select__native mt-0.5 w-full cursor-pointer appearance-none bg-transparent pr-2 text-sm font-semibold text-[#0F172A] focus:outline-none"
+                  >
+                    <option value="" data-i18n="filter_all_locations">Todas las ubicaciones</option>
+                    <option value="Playa Salguero">Playa Salguero</option>
+                    <option value="Rodadero Sur">Rodadero Sur</option>
+                    <option value="Bello Horizonte">Bello Horizonte</option>
+                  </select>
+                  <span id="filtro-ubicacion-value" data-rdm-select-value data-no-translate class="rdm-select__value" hidden></span>
+                </span>
+                <svg data-rdm-select-chevron xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="pointer-events-none h-4 w-4 shrink-0 text-[#C5A059] transition-transform duration-200" aria-hidden="true">
+                  <path d="m19 9-7 7-7-7" />
+                </svg>
+              </label>
+              <button type="button" data-rdm-select-trigger class="rdm-select__trigger" hidden aria-haspopup="listbox" aria-expanded="false" aria-controls="filtro-ubicacion-panel" aria-labelledby="filtro-ubicacion-label filtro-ubicacion-value"></button>
+              <div id="filtro-ubicacion-panel" data-rdm-select-panel data-no-translate class="rdm-select__panel" role="listbox" aria-labelledby="filtro-ubicacion-label" hidden></div>
+            </div>
 
-            <label for="filtro-huespedes" class="group flex min-h-[64px] cursor-pointer items-center gap-3 rounded-2xl border border-slate-200 bg-slate-50/70 px-4 py-3 transition duration-200 hover:border-slate-300 focus-within:border-[#C5A059] focus-within:bg-white focus-within:ring-4 focus-within:ring-[#C5A059]/10">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 shrink-0 text-[#C5A059]" aria-hidden="true">
-                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-                <circle cx="9" cy="7" r="4" />
-                <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
-                <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-              </svg>
-              <span class="min-w-0 flex-1">
-                <span data-i18n="filter_guests" class="block text-[10px] font-bold uppercase tracking-[0.16em] text-slate-500">Huéspedes</span>
-                <select
-                  id="filtro-huespedes"
-                  data-no-translate
-                  data-i18n-aria-label="filter_guests_aria" aria-label="Rango de huéspedes"
-                  aria-controls="catalogo-apartamentos"
-                  class="mt-0.5 w-full cursor-pointer appearance-none bg-transparent pr-2 text-sm font-semibold text-[#0F172A] focus:outline-none"
-                >
-                  <option value="" data-i18n="filter_all_ranges">Todos los rangos</option>
-                </select>
-              </span>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="pointer-events-none h-4 w-4 shrink-0 text-[#C5A059]" aria-hidden="true">
-                <path d="m19 9-7 7-7-7" />
-              </svg>
-            </label>
+            <div class="rdm-select relative" data-rdm-select>
+              <label for="filtro-huespedes" class="group flex min-h-[64px] cursor-pointer items-center gap-3 rounded-2xl border border-slate-200 bg-slate-50/70 px-4 py-3 transition duration-200 hover:border-slate-300 focus-within:border-[#C5A059] focus-within:bg-white focus-within:ring-4 focus-within:ring-[#C5A059]/10">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 shrink-0 text-[#C5A059]" aria-hidden="true">
+                  <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                  <circle cx="9" cy="7" r="4" />
+                  <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                </svg>
+                <span class="min-w-0 flex-1">
+                  <span id="filtro-huespedes-label" data-i18n="filter_guests" class="block text-[10px] font-bold uppercase tracking-[0.16em] text-slate-500">Huéspedes</span>
+                  <select
+                    id="filtro-huespedes"
+                    name="huespedes"
+                    data-no-translate
+                    data-i18n-aria-label="filter_guests_aria" aria-label="Número de huéspedes"
+                    aria-controls="catalogo-apartamentos"
+                    class="rdm-select__native mt-0.5 w-full cursor-pointer appearance-none bg-transparent pr-2 text-sm font-semibold text-[#0F172A] focus:outline-none"
+                  >
+                    <option value="" data-i18n="filter_any_guests">Cualquier cantidad</option>
+                  </select>
+                  <span id="filtro-huespedes-value" data-rdm-select-value data-no-translate class="rdm-select__value" hidden></span>
+                </span>
+                <svg data-rdm-select-chevron xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="pointer-events-none h-4 w-4 shrink-0 text-[#C5A059] transition-transform duration-200" aria-hidden="true">
+                  <path d="m19 9-7 7-7-7" />
+                </svg>
+              </label>
+              <button type="button" data-rdm-select-trigger class="rdm-select__trigger" hidden aria-haspopup="listbox" aria-expanded="false" aria-controls="filtro-huespedes-panel" aria-labelledby="filtro-huespedes-label filtro-huespedes-value"></button>
+              <div id="filtro-huespedes-panel" data-rdm-select-panel data-no-translate class="rdm-select__panel" role="listbox" aria-labelledby="filtro-huespedes-label" hidden></div>
+            </div>
 
             <button
               type="submit"

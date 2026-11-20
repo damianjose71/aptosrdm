@@ -47,20 +47,17 @@ $locations = ['Playa Salguero', 'Bello Horizonte', 'Rodadero Sur'];
 $selectedLocation = '';
 $selectedGuests = '';
 
-if (isset($_GET['ubicacion']) && in_array((string) $_GET['ubicacion'], $locations, true)) {
+if (isset($_GET['ubicacion']) && is_string($_GET['ubicacion']) && in_array($_GET['ubicacion'], $locations, true)) {
     $selectedLocation = (string) $_GET['ubicacion'];
 }
 
-if (isset($_GET['huespedes']) && ctype_digit((string) $_GET['huespedes']) && (int) $_GET['huespedes'] > 0) {
-    $selectedGuests = (string) $_GET['huespedes'];
+if (isset($_GET['huespedes']) && is_string($_GET['huespedes']) && ctype_digit($_GET['huespedes']) && (int) $_GET['huespedes'] > 0) {
+    $selectedGuests = (string) min(100, (int) $_GET['huespedes']);
 }
 
 $maxGuests = 0;
 $statement = $pdo->query('SELECT MAX(huespedes) AS max_huespedes FROM apartamentos WHERE estado = 1');
-$maxGuests = (int) ($statement->fetch()['max_huespedes'] ?? 0);
-if ($maxGuests < 1) {
-    $maxGuests = 1;
-}
+$maxGuests = min(100, max(1, (int) ($statement->fetch()['max_huespedes'] ?? 0)));
 
 $sql = 'SELECT a.id, a.codigo_apartamento, a.titulo, a.ubicacion, a.huespedes, a.habitaciones, a.banos, a.camas, a.imagen_principal, a.galeria, a.descripcion, a.estado, a.fecha_creacion, u.nombre AS actualizado_por_nombre
         FROM apartamentos a
@@ -79,6 +76,29 @@ $sql .= ' ORDER BY a.fecha_creacion DESC, a.id DESC';
 $statement = $pdo->prepare($sql);
 $statement->execute($params);
 $apartments = $statement->fetchAll();
+
+// La capacidad de cada apartamento es su máximo de huéspedes. Cuando se busca
+// una cantidad, se muestra la capacidad más pequeña disponible que alcance
+// para esa cantidad (por ejemplo, 2 huéspedes -> apartamentos de 4), no todas
+// las capacidades mayores.
+if ((int) $selectedGuests > 0 && $apartments !== []) {
+    $matchedCapacity = null;
+    foreach ($apartments as $apartment) {
+        $capacity = (int) $apartment['huespedes'];
+        if ($capacity > 0 && ($matchedCapacity === null || $capacity < $matchedCapacity)) {
+            $matchedCapacity = $capacity;
+        }
+    }
+
+    if ($matchedCapacity !== null) {
+        $apartments = array_values(array_filter(
+            $apartments,
+            static function (array $apartment) use ($matchedCapacity): bool {
+                return (int) $apartment['huespedes'] === $matchedCapacity;
+            }
+        ));
+    }
+}
 
 $amenidadesPorApartamento = [];
 $apartmentIds = array_map(static function ($apartment) {
@@ -163,10 +183,11 @@ if (isset($_GET['format']) && (string) $_GET['format'] === 'json') {
   <link rel="stylesheet" href="assets/css/tailwind.css?v=20261107h">
   <link rel="preload" as="image" href="assets/images/apartamentos-hero.jpeg" type="image/jpeg" fetchpriority="high">
   <link rel="icon" href="assets/images/logordm.png" type="image/png">
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261119f">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261120a">
   <link rel="stylesheet" href="assets/css/whatsapp-float.css?v=20261118c">
-  <script src="assets/js/i18n.js?v=20261119a" defer></script>
+  <script src="assets/js/i18n.js?v=20261120a" defer></script>
   <script src="assets/js/auto-translate.js?v=20261104e" defer></script>
+  <script src="assets/js/filter-select.js?v=20261120a" defer></script>
   <script src="assets/js/main.js?v=20261109b" defer></script>
 <!-- Open Graph y Twitter -->
     <meta property="og:type" content="website">
@@ -435,47 +456,60 @@ if (isset($_GET['format']) && (string) $_GET['format'] === 'json') {
           </div>
 
           <form id="filtro-catalogo" method="GET" action="" class="mt-6 grid gap-3 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_auto] md:items-stretch" data-i18n-aria-label="filter_aria" aria-label="Filtrar apartamentos por ubicación y huéspedes">
-            <label for="filtro-ubicacion" class="group flex min-h-[64px] cursor-pointer items-center gap-3 rounded-2xl border border-slate-200 bg-slate-50/70 px-4 py-3 transition duration-200 hover:border-slate-300 focus-within:border-[#C5A059] focus-within:bg-white focus-within:ring-4 focus-within:ring-[#C5A059]/10">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 shrink-0 text-[#C5A059]" aria-hidden="true">
-                <path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z" />
-                <circle cx="12" cy="10" r="3" />
-              </svg>
-              <span class="min-w-0 flex-1">
-                <span data-i18n="filter_location" class="block text-[10px] font-bold uppercase tracking-[0.16em] text-slate-500">Ubicación</span>
-                <select id="filtro-ubicacion" name="ubicacion" data-no-translate data-i18n-aria-label="filter_location_aria" aria-label="Ubicación o edificio" aria-controls="catalogo-apartamentos"
-                        class="mt-0.5 w-full cursor-pointer appearance-none bg-transparent pr-2 text-sm font-semibold text-[#0F172A] focus:outline-none">
-                  <option value="" data-i18n="filter_all_locations">Todas las ubicaciones</option>
-                  <?php foreach ($locations as $location): ?>
-                    <option value="<?= htmlspecialchars($location) ?>" <?= $selectedLocation === $location ? 'selected' : '' ?>><?= htmlspecialchars($location) ?></option>
-                  <?php endforeach; ?>
-                </select>
-              </span>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="pointer-events-none h-4 w-4 shrink-0 text-[#C5A059]" aria-hidden="true">
-                <path d="m19 9-7 7-7-7" />
-              </svg>
-            </label>
+            <div class="rdm-select relative" data-rdm-select>
+              <label for="filtro-ubicacion" class="group flex min-h-[64px] cursor-pointer items-center gap-3 rounded-2xl border border-slate-200 bg-slate-50/70 px-4 py-3 transition duration-200 hover:border-slate-300 focus-within:border-[#C5A059] focus-within:bg-white focus-within:ring-4 focus-within:ring-[#C5A059]/10">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 shrink-0 text-[#C5A059]" aria-hidden="true">
+                  <path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z" />
+                  <circle cx="12" cy="10" r="3" />
+                </svg>
+                <span class="min-w-0 flex-1">
+                  <span id="filtro-ubicacion-label" data-i18n="filter_location" class="block text-[10px] font-bold uppercase tracking-[0.16em] text-slate-500">Ubicación</span>
+                  <select id="filtro-ubicacion" name="ubicacion" data-no-translate data-i18n-aria-label="filter_location_aria" aria-label="Ubicación o edificio" aria-controls="catalogo-apartamentos"
+                          class="rdm-select__native mt-0.5 w-full cursor-pointer appearance-none bg-transparent pr-2 text-sm font-semibold text-[#0F172A] focus:outline-none">
+                    <option value="" data-i18n="filter_all_locations">Todas las ubicaciones</option>
+                    <?php foreach ($locations as $location): ?>
+                      <option value="<?= htmlspecialchars($location) ?>" <?= $selectedLocation === $location ? 'selected' : '' ?>><?= htmlspecialchars($location) ?></option>
+                    <?php endforeach; ?>
+                  </select>
+                  <span id="filtro-ubicacion-value" data-rdm-select-value data-no-translate class="rdm-select__value" hidden></span>
+                </span>
+                <svg data-rdm-select-chevron xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="pointer-events-none h-4 w-4 shrink-0 text-[#C5A059] transition-transform duration-200" aria-hidden="true">
+                  <path d="m19 9-7 7-7-7" />
+                </svg>
+              </label>
+              <button type="button" data-rdm-select-trigger class="rdm-select__trigger" hidden aria-haspopup="listbox" aria-expanded="false" aria-controls="filtro-ubicacion-panel" aria-labelledby="filtro-ubicacion-label filtro-ubicacion-value"></button>
+              <div id="filtro-ubicacion-panel" data-rdm-select-panel data-no-translate class="rdm-select__panel" role="listbox" aria-labelledby="filtro-ubicacion-label" hidden></div>
+            </div>
 
-            <label for="filtro-huespedes" class="group flex min-h-[64px] cursor-pointer items-center gap-3 rounded-2xl border border-slate-200 bg-slate-50/70 px-4 py-3 transition duration-200 hover:border-slate-300 focus-within:border-[#C5A059] focus-within:bg-white focus-within:ring-4 focus-within:ring-[#C5A059]/10">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 shrink-0 text-[#C5A059]" aria-hidden="true">
-                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-                <circle cx="9" cy="7" r="4" />
-                <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
-                <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-              </svg>
-              <span class="min-w-0 flex-1">
-                <span data-i18n="filter_guests" class="block text-[10px] font-bold uppercase tracking-[0.16em] text-slate-500">Huéspedes</span>
-                <select id="filtro-huespedes" name="huespedes" data-no-translate data-i18n-aria-label="filter_guests_aria" aria-label="Rango de huéspedes" aria-controls="catalogo-apartamentos"
-                        class="mt-0.5 w-full cursor-pointer appearance-none bg-transparent pr-2 text-sm font-semibold text-[#0F172A] focus:outline-none">
-                  <option value="" data-i18n="filter_all_ranges">Todos los rangos</option>
-                  <?php for ($guestOption = 1; $guestOption <= $maxGuests; $guestOption++): ?>
-                    <option value="<?= $guestOption ?>" <?= (int) $selectedGuests === $guestOption ? 'selected' : '' ?>><?= $guestOption ?></option>
-                  <?php endfor; ?>
-                </select>
-              </span>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="pointer-events-none h-4 w-4 shrink-0 text-[#C5A059]" aria-hidden="true">
-                <path d="m19 9-7 7-7-7" />
-              </svg>
-            </label>
+            <div class="rdm-select relative" data-rdm-select>
+              <label for="filtro-huespedes" class="group flex min-h-[64px] cursor-pointer items-center gap-3 rounded-2xl border border-slate-200 bg-slate-50/70 px-4 py-3 transition duration-200 hover:border-slate-300 focus-within:border-[#C5A059] focus-within:bg-white focus-within:ring-4 focus-within:ring-[#C5A059]/10">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 shrink-0 text-[#C5A059]" aria-hidden="true">
+                  <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                  <circle cx="9" cy="7" r="4" />
+                  <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                </svg>
+                <span class="min-w-0 flex-1">
+                  <span id="filtro-huespedes-label" data-i18n="filter_guests" class="block text-[10px] font-bold uppercase tracking-[0.16em] text-slate-500">Huéspedes</span>
+                  <select id="filtro-huespedes" name="huespedes" data-no-translate data-i18n-aria-label="filter_guests_aria" aria-label="Número de huéspedes" aria-controls="catalogo-apartamentos"
+                          class="rdm-select__native mt-0.5 w-full cursor-pointer appearance-none bg-transparent pr-2 text-sm font-semibold text-[#0F172A] focus:outline-none">
+                    <option value="" data-i18n="filter_any_guests"><?= htmlspecialchars(t('filter_any_guests', 'Cualquier cantidad')) ?></option>
+                    <?php for ($guestOption = 1; $guestOption <= $maxGuests; $guestOption++): ?>
+                      <option value="<?= $guestOption ?>" <?= (int) $selectedGuests === $guestOption ? 'selected' : '' ?>><?= $guestOption ?></option>
+                    <?php endfor; ?>
+                    <?php if ((int) $selectedGuests > $maxGuests): ?>
+                      <option value="<?= (int) $selectedGuests ?>" selected><?= (int) $selectedGuests ?></option>
+                    <?php endif; ?>
+                  </select>
+                  <span id="filtro-huespedes-value" data-rdm-select-value data-no-translate class="rdm-select__value" hidden></span>
+                </span>
+                <svg data-rdm-select-chevron xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="pointer-events-none h-4 w-4 shrink-0 text-[#C5A059] transition-transform duration-200" aria-hidden="true">
+                  <path d="m19 9-7 7-7-7" />
+                </svg>
+              </label>
+              <button type="button" data-rdm-select-trigger class="rdm-select__trigger" hidden aria-haspopup="listbox" aria-expanded="false" aria-controls="filtro-huespedes-panel" aria-labelledby="filtro-huespedes-label filtro-huespedes-value"></button>
+              <div id="filtro-huespedes-panel" data-rdm-select-panel data-no-translate class="rdm-select__panel" role="listbox" aria-labelledby="filtro-huespedes-label" hidden></div>
+            </div>
 
             <button type="submit" data-i18n="filter_search"
                     class="inline-flex min-h-[64px] items-center justify-center gap-2 rounded-2xl bg-[#C5A059] px-6 text-sm font-bold text-[#0F172A] rdm-shadow-button transition duration-300 hover:bg-[#D4B26D] focus:outline-none focus:ring-2 focus:ring-[#C5A059] focus:ring-offset-2 md:px-8">

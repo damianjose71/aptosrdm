@@ -81,6 +81,127 @@ textarea {
   font-family: inherit;
 }
 
+/* Selects personalizados del catálogo. El select nativo se conserva para
+   el envío del formulario y como respaldo cuando JavaScript no está activo. */
+.rdm-select {
+  position: relative;
+}
+
+.rdm-select__value {
+  display: block;
+  margin-top: 0.125rem;
+  overflow: hidden;
+  color: var(--color-navy);
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.25rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.rdm-select__trigger {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  border-radius: var(--radius-md);
+  background: transparent;
+  cursor: pointer;
+}
+
+/* El anillo de foco lo dibuja la etiqueta mediante :focus-within para no
+   duplicar el contorno cuando el foco está en el botón o en una opción. */
+.rdm-select__trigger:focus-visible {
+  outline: none;
+}
+
+.rdm-select--enhanced .rdm-select__native {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.rdm-select:hover > label {
+  border-color: #CBD5E1;
+}
+
+.rdm-select:focus-within > label {
+  border-color: var(--color-gold);
+  background: var(--color-surface);
+  box-shadow: 0 0 0 4px rgba(197, 160, 89, 0.1);
+}
+
+.rdm-select.is-open [data-rdm-select-chevron] {
+  transform: rotate(180deg);
+}
+
+.rdm-select__panel {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  left: 0;
+  z-index: 80;
+  max-height: min(18rem, 55vh);
+  overflow-y: auto;
+  padding: 0.35rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-float);
+}
+
+.rdm-select__panel[hidden] {
+  display: none;
+}
+
+.rdm-select__option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.65rem 0.8rem;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--color-navy);
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.rdm-select__option:hover,
+.rdm-select__option:focus-visible {
+  background: #F1F5F9;
+  outline: none;
+}
+
+.rdm-select__option[aria-selected="true"] {
+  background: rgba(197, 160, 89, 0.12);
+  color: var(--color-navy);
+  font-weight: 700;
+}
+
+.rdm-select__option[aria-selected="true"]::after {
+  content: "✓";
+  color: var(--color-gold);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
 body.modal-open {
   overflow: hidden;
 }

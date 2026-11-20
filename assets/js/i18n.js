@@ -55,7 +55,7 @@
       catalog_loading: 'Cargando apartamentos...',
       catalog_unavailable: 'Catálogo no disponible',
       catalog_empty:
-        'No hay apartamentos disponibles para la ubicación y el rango de huéspedes seleccionados.',
+        'No hay apartamentos disponibles para la ubicación y el número de huéspedes seleccionados.',
       catalog_error:
         'No fue posible cargar los apartamentos. Intenta nuevamente más tarde.',
       catalog_count_one: '1 apartamento disponible',
@@ -67,7 +67,8 @@
       filter_location_aria: 'Ubicación o edificio',
       filter_all_locations: 'Todas las ubicaciones',
       filter_guests: 'Huéspedes',
-      filter_guests_aria: 'Rango de huéspedes',
+      filter_guests_aria: 'Número de huéspedes',
+      filter_any_guests: 'Cualquier cantidad',
       filter_all_ranges: 'Todos los rangos',
       filter_search: 'Buscar',
       range_1_2: '1 a 2 huéspedes',
@@ -219,7 +220,7 @@
       catalog_loading: 'Loading apartments...',
       catalog_unavailable: 'Catalog unavailable',
       catalog_empty:
-        'No apartments available for the selected location and guest range.',
+        'No apartments available for the selected location and number of guests.',
       catalog_error:
         'We could not load the apartments. Please try again later.',
       catalog_count_one: '1 apartment available',
@@ -230,7 +231,8 @@
       filter_location_aria: 'Location or building',
       filter_all_locations: 'All locations',
       filter_guests: 'Guests',
-      filter_guests_aria: 'Guest range',
+      filter_guests_aria: 'Number of guests',
+      filter_any_guests: 'Any number of guests',
       filter_all_ranges: 'All ranges',
       filter_search: 'Search',
       range_1_2: '1 to 2 guests',
