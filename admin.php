@@ -152,35 +152,156 @@ function admin_int_nonnegative(?string $value, int $default = 0): int
     return $int >= 0 ? $int : $default;
 }
 
+function admin_upload_error_message(int $error): string
+{
+    switch ($error) {
+        case UPLOAD_ERR_INI_SIZE:
+        case UPLOAD_ERR_FORM_SIZE:
+            return 'La imagen supera el tamaño máximo permitido por el servidor (' . (string) ini_get('upload_max_filesize') . ').';
+        case UPLOAD_ERR_PARTIAL:
+            return 'La imagen se subió de forma incompleta. Inténtalo de nuevo.';
+        case UPLOAD_ERR_NO_TMP_DIR:
+            return 'El servidor no tiene una carpeta temporal disponible para las imágenes.';
+        case UPLOAD_ERR_CANT_WRITE:
+            return 'El servidor no pudo escribir la imagen en disco.';
+        case UPLOAD_ERR_EXTENSION:
+            return 'Una extensión de PHP bloqueó la subida de la imagen.';
+        default:
+            return 'No se pudo subir la imagen.';
+    }
+}
+
+function admin_convertir_imagen(string $source, string $target): bool
+{
+    if (class_exists('Imagick')) {
+        try {
+            $imagick = new Imagick($source);
+            if (method_exists($imagick, 'autoOrientImage')) {
+                try {
+                    $imagick->autoOrientImage();
+                } catch (Throwable $orientationException) {
+                    error_log('admin.php autoOrientImage: ' . $orientationException->getMessage());
+                }
+            }
+            $imagick->setImageBackgroundColor('white');
+            if (defined('Imagick::ALPHACHANNEL_REMOVE')) {
+                $imagick->setImageAlphaChannel(Imagick::ALPHACHANNEL_REMOVE);
+            }
+            $imagick->setImageFormat('jpeg');
+            $imagick->setImageCompressionQuality(88);
+            $imagick->writeImage($target);
+            $imagick->clear();
+            $imagick->destroy();
+
+            return true;
+        } catch (Throwable $exception) {
+            error_log('admin.php conversion Imagick: ' . $exception->getMessage());
+        }
+    }
+
+    $contents = @file_get_contents($source);
+    if ($contents !== false && function_exists('imagecreatefromstring')) {
+        $image = @imagecreatefromstring($contents);
+        if ($image !== false) {
+            $width = imagesx($image);
+            $height = imagesy($image);
+            $canvas = imagecreatetruecolor($width, $height);
+            if ($canvas === false) {
+                imagedestroy($image);
+                @unlink($target);
+                return false;
+            }
+            $white = imagecolorallocate($canvas, 255, 255, 255);
+            imagefilledrectangle($canvas, 0, 0, $width, $height, $white);
+            imagecopy($canvas, $image, 0, 0, 0, 0, $width, $height);
+            $saved = imagejpeg($canvas, $target, 88);
+            imagedestroy($canvas);
+            imagedestroy($image);
+
+            if ($saved) {
+                return true;
+            }
+        }
+    }
+
+    @unlink($target);
+    return false;
+}
+
 function admin_guardar_imagen(?array $file, string $prefix = 'apt-'): string
 {
-    if ($file === null || !isset($file['tmp_name']) || !is_uploaded_file((string) $file['tmp_name'])) {
+    if ($file === null || !isset($file['tmp_name'])) {
         return '';
     }
 
-    if ((int) ($file['size'] ?? 0) > 8388608) {
-        throw new RuntimeException('La imagen supera el tamaño permitido.');
+    $error = (int) ($file['error'] ?? UPLOAD_ERR_NO_FILE);
+    if ($error === UPLOAD_ERR_NO_FILE) {
+        return '';
+    }
+
+    if ($error !== UPLOAD_ERR_OK) {
+        throw new RuntimeException(admin_upload_error_message($error));
+    }
+
+    if (!is_uploaded_file((string) $file['tmp_name'])) {
+        throw new RuntimeException('No se pudo validar la imagen subida.');
+    }
+
+    $size = (int) ($file['size'] ?? 0);
+    if ($size <= 0) {
+        throw new RuntimeException('La imagen está vacía o dañada.');
+    }
+
+    if ($size > 20971520) {
+        throw new RuntimeException('La imagen supera el límite de 20 MB.');
     }
 
     $finfo = new finfo(FILEINFO_MIME_TYPE);
     $mime = (string) $finfo->file((string) $file['tmp_name']);
-    $extensionMap = [
+    $directExtensions = [
         'image/jpeg' => 'jpg',
         'image/png' => 'png',
         'image/webp' => 'webp',
         'image/avif' => 'avif',
+        'image/gif' => 'gif',
+    ];
+    $convertExtensions = [
+        'image/bmp' => 'jpg',
+        'image/x-bmp' => 'jpg',
+        'image/x-ms-bmp' => 'jpg',
+        'image/tiff' => 'jpg',
+        'image/x-tiff' => 'jpg',
+        'image/heic' => 'jpg',
+        'image/heif' => 'jpg',
+        'image/heic-sequence' => 'jpg',
+        'image/heif-sequence' => 'jpg',
     ];
 
-    if (!isset($extensionMap[$mime])) {
-        throw new RuntimeException('Tipo de imagen no permitido.');
+    if (isset($directExtensions[$mime])) {
+        $extension = $directExtensions[$mime];
+        $needsConversion = false;
+    } elseif (isset($convertExtensions[$mime])) {
+        $extension = $convertExtensions[$mime];
+        $needsConversion = true;
+    } else {
+        error_log('admin.php formato no permitido: ' . $mime);
+        throw new RuntimeException('Formato de imagen no permitido. Usa JPG, PNG, WebP, AVIF, GIF, BMP, TIFF o HEIC.');
     }
 
-    $filename = $prefix . bin2hex(random_bytes(8)) . '.' . $extensionMap[$mime];
+    $filename = $prefix . bin2hex(random_bytes(8)) . '.' . $extension;
     $directory = __DIR__ . '/assets/images/uploads';
     if (!is_dir($directory)) {
         mkdir($directory, 0775, true);
     }
     $target = $directory . '/' . $filename;
+
+    if ($needsConversion) {
+        if (!admin_convertir_imagen((string) $file['tmp_name'], $target)) {
+            throw new RuntimeException('No se pudo convertir la imagen. Guarda la foto en JPG, PNG o WebP e inténtalo de nuevo.');
+        }
+
+        return 'assets/images/uploads/' . $filename;
+    }
 
     if (!move_uploaded_file((string) $file['tmp_name'], $target)) {
         throw new RuntimeException('No se pudo guardar la imagen.');
@@ -246,6 +367,18 @@ function admin_normalizar_url(?string $value): string
 }
 
 $action = (string) ($_POST['action'] ?? '');
+
+if (
+    ($_SERVER['REQUEST_METHOD'] ?? '') === 'POST'
+    && $action === ''
+    && (int) ($_SERVER['CONTENT_LENGTH'] ?? 0) > 0
+    && $_POST === []
+    && $_FILES === []
+) {
+    admin_set_flash('error', 'El formulario supera el tamaño máximo permitido por el servidor (post_max_size: ' . (string) ini_get('post_max_size') . '). Sube menos imágenes o reduce su tamaño.');
+    admin_redirigir('/admin.php');
+}
+
 $flash = admin_flash();
 $errors = $_SESSION['admin_errors'] ?? [];
 $old = $_SESSION['admin_old'] ?? [];
@@ -700,8 +833,7 @@ if ($action === 'guardar_apartamento') {
         if (
             isset($_FILES['imagen_principal_file'])
             && is_array($_FILES['imagen_principal_file'])
-            && isset($_FILES['imagen_principal_file']['tmp_name'])
-            && is_uploaded_file((string) $_FILES['imagen_principal_file']['tmp_name'])
+            && (int) ($_FILES['imagen_principal_file']['error'] ?? UPLOAD_ERR_NO_FILE) !== UPLOAD_ERR_NO_FILE
         ) {
             $imagenPrincipal = admin_guardar_imagen($_FILES['imagen_principal_file']);
         }
@@ -717,8 +849,12 @@ if ($action === 'guardar_apartamento') {
             $gallerySizes = $_FILES['galeria_files']['size'] ?? [];
 
             for ($galleryIndex = 0; $galleryIndex < count($galleryTmpNames); $galleryIndex++) {
-                if ((int) ($galleryErrors[$galleryIndex] ?? UPLOAD_ERR_NO_FILE) !== UPLOAD_ERR_OK) {
+                $galleryError = (int) ($galleryErrors[$galleryIndex] ?? UPLOAD_ERR_NO_FILE);
+                if ($galleryError === UPLOAD_ERR_NO_FILE) {
                     continue;
+                }
+                if ($galleryError !== UPLOAD_ERR_OK) {
+                    throw new RuntimeException(admin_upload_error_message($galleryError));
                 }
                 $singleFile = [
                     'name' => $galleryNames[$galleryIndex] ?? '',
@@ -728,7 +864,7 @@ if ($action === 'guardar_apartamento') {
                     'size' => $gallerySizes[$galleryIndex] ?? 0,
                 ];
                 if (!is_uploaded_file((string) $singleFile['tmp_name'])) {
-                    continue;
+                    throw new RuntimeException('No se pudo validar una imagen de la galería.');
                 }
                 $uploadedGalleryPath = admin_guardar_imagen($singleFile);
                 if ($uploadedGalleryPath !== '') {
@@ -745,7 +881,14 @@ if ($action === 'guardar_apartamento') {
         admin_redirigir($editingIdFromPost > 0 ? '/admin.php?panel=edit&id=' . $executeId : '/admin.php');
     } catch (Throwable $exception) {
         error_log('admin.php guardar_apartamento: ' . $exception->getMessage());
-        $_SESSION['admin_errors'] = ['error' => 'No fue posible guardar el apartamento. Verifique las imágenes y los datos.'];
+        if ($exception instanceof PDOException) {
+            $saveErrorMessage = 'No fue posible guardar el apartamento. Verifique los datos e inténtalo de nuevo.';
+        } elseif ($exception instanceof RuntimeException && $exception->getMessage() !== '') {
+            $saveErrorMessage = $exception->getMessage();
+        } else {
+            $saveErrorMessage = 'No fue posible guardar el apartamento. Verifique las imágenes y los datos.';
+        }
+        $_SESSION['admin_errors'] = ['error' => $saveErrorMessage];
         $oldForm = [
             'id' => $editingIdFromPost,
             'titulo' => $titulo,
@@ -1027,6 +1170,7 @@ if ($action === 'eliminar_amenidad') {
                     <div>
                         <label class="mb-2 block text-sm font-medium text-slate-300">Subir imagen principal</label>
                         <input type="file" name="imagen_principal_file" accept="image/*" class="w-full rounded-lg border border-slate-600/60 bg-[#0F172A] px-4 py-3 text-white">
+                        <p class="mt-1 text-xs text-slate-500">JPG, PNG, WebP, AVIF, GIF, BMP, TIFF o HEIC. Máximo 20 MB (servidor: <?= admin_escape((string) ini_get('upload_max_filesize')) ?>).</p>
                     </div>
 
                     <div class="md:col-span-2">
@@ -1037,6 +1181,7 @@ if ($action === 'eliminar_amenidad') {
                     <div class="md:col-span-2">
                         <label class="mb-2 block text-sm font-medium text-slate-300">Subir galería secundaria</label>
                         <input type="file" name="galeria_files[]" accept="image/*" multiple class="w-full rounded-lg border border-slate-600/60 bg-[#0F172A] px-4 py-3 text-white">
+                        <p class="mt-1 text-xs text-slate-500">Puedes seleccionar varias imágenes (máximo <?= admin_escape((string) ini_get('max_file_uploads')) ?> por subida). Formatos: JPG, PNG, WebP, AVIF, GIF, BMP, TIFF o HEIC.</p>
                     </div>
 
                     <div class="md:col-span-2">
@@ -1052,7 +1197,13 @@ if ($action === 'eliminar_amenidad') {
                     </div>
 
                     <div class="md:col-span-2">
-                        <label class="mb-2 block text-sm font-medium text-slate-300">Amenidades</label>
+                        <div class="mb-2 flex flex-wrap items-center justify-between gap-3">
+                            <span class="block text-sm font-medium text-slate-300">Amenidades</span>
+                            <label class="flex cursor-pointer items-center gap-2 text-xs font-bold text-[#C5A059]">
+                                <input type="checkbox" id="amenidades-todas" class="h-4 w-4 accent-[#C5A059]" <?= $amenidades === [] ? 'disabled' : '' ?>>
+                                <span>Seleccionar todas</span>
+                            </label>
+                        </div>
                         <div class="grid grid-cols-2 gap-2 md:grid-cols-3">
                             <?php foreach ($amenidades as $amenidad): ?>
                                 <label class="flex items-center gap-2 rounded-lg border border-slate-600/60 bg-[#0F172A] px-3 py-2">
@@ -1061,6 +1212,28 @@ if ($action === 'eliminar_amenidad') {
                                 </label>
                             <?php endforeach; ?>
                         </div>
+                        <script>
+                            (() => {
+                                const master = document.getElementById('amenidades-todas');
+                                if (!master) {
+                                    return;
+                                }
+                                const boxes = Array.from(document.querySelectorAll('input[name="amenidades[]"]'));
+                                const sync = () => {
+                                    const selected = boxes.filter((box) => box.checked).length;
+                                    master.checked = boxes.length > 0 && selected === boxes.length;
+                                    master.indeterminate = selected > 0 && selected < boxes.length;
+                                };
+                                master.addEventListener('change', () => {
+                                    boxes.forEach((box) => {
+                                        box.checked = master.checked;
+                                    });
+                                    sync();
+                                });
+                                boxes.forEach((box) => box.addEventListener('change', sync));
+                                sync();
+                            })();
+                        </script>
                     </div>
 
                     <div class="flex items-center gap-3 md:col-span-2">
